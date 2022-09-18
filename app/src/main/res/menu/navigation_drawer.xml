@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  Account  -->
+    <group
+        android:id="@+id/account_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/profile"
+            android:icon="@drawable/ic_baseline_account_circle_24"
+            android:title="Account Profile"
+            android:checked="true" />
+    </group>
+
+
+    <!--  Donor  -->
+    <group
+        android:id="@+id/donor_module_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/donor_module"
+            android:title="Donee Module" >
+
+            <menu>
+                <item
+                    android:id="@+id/donation_form_list"
+                    android:icon="@drawable/ic_baseline_list_alt_24"
+                    android:title="Donation Form List"
+                    android:checked="true" />
+            </menu>
+        </item>
+    </group>
+
+
+    <!--  Donee  -->
+    <group
+        android:id="@+id/donee_module_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/donee_module"
+            android:title="Donee Module" >
+
+            <menu>
+                <item
+                    android:id="@+id/request_form_list"
+                    android:icon="@drawable/ic_baseline_list_alt_24"
+                    android:title="Request Form List"
+                    android:checked="true" />
+            </menu>
+        </item>
+    </group>
+
+
+    <!--  Admin  -->
+    <group
+        android:id="@+id/admin_module_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/admin_module"
+            android:title="Donee Module" >
+
+            <menu>
+                <item
+                    android:id="@+id/category_list"
+                    android:icon="@drawable/ic_baseline_list_alt_24"
+                    android:title="Category List"
+                    android:checked="true" />
+
+                <item
+                    android:id="@+id/report_list"
+                    android:icon="@drawable/ic_baseline_list_alt_24"
+                    android:title="Report List"
+                    android:checked="true" />
+
+                <item
+                    android:id="@+id/news_list"
+                    android:icon="@drawable/ic_baseline_list_alt_24"
+                    android:title="News List"
+                    android:checked="true" />
+
+                <item
+                    android:id="@+id/admin_donation_form_list"
+                    android:icon="@drawable/ic_baseline_list_alt_24"
+                    android:title="Donation Form List"
+                    android:checked="true" />
+
+                <item
+                    android:id="@+id/admin_request_form_list"
+                    android:icon="@drawable/ic_baseline_list_alt_24"
+                    android:title="Request Form List"
+                    android:checked="true" />
+            </menu>
+        </item>
+    </group>
+
+    <group
+        android:id="@+id/logout_group"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_baseline_logout_24"
+            android:title="Log out"
+            android:checked="true" />
+    </group>
+
+</menu>
