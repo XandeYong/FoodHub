@@ -5,17 +5,10 @@ import android.util.Log
 import android.view.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.foodhub.databinding.ActivityMainBinding
 import com.example.foodhub.databinding.ActivityMainLoggedBinding
-import com.example.foodhub.databinding.FragmentLoginBinding
-import com.example.foodhub.ui.login.LoginFragment
-import com.example.foodhub.ui.login.LoginViewModel
-import com.example.foodhub.ui.main.MainFragmentDirections
 import com.example.foodhub.ui.news.NewsFragment
 import com.google.android.material.navigation.NavigationView
 
@@ -66,13 +59,14 @@ class MainActivityLogged: Fragment() {
             }
         }
 
-
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.profile -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToAccountFragment())
+                R.id.report_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToReportFragment())
             }
             true
         }
+
 
         return binding.root
     }

@@ -1,4 +1,4 @@
-package com.example.foodhub.Logged.All.Account
+package com.example.foodhub.Logged.Donee.Detail
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,31 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.foodhub.R
-import com.example.foodhub.databinding.FragmentAccountBinding
 
-class AccountFragment : Fragment() {
+class RequestFormDetailFragment : Fragment() {
 
     companion object {
-        fun newInstance() = AccountFragment()
+        fun newInstance() = RequestFormDetailFragment()
     }
 
-    private lateinit var binding: FragmentAccountBinding
-
-    private lateinit var viewModel: AccountViewModel
+    private lateinit var viewModel: RequestFormDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAccountBinding.inflate(inflater)
-
-
-        return binding.root
+        return inflater.inflate(R.layout.fragment_request_form_detail, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AccountViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(RequestFormDetailViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

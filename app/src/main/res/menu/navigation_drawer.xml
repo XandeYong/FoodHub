@@ -21,7 +21,7 @@
 
         <item
             android:id="@+id/donor_module"
-            android:title="Donee Module" >
+            android:title="Donor Module" >
 
             <menu>
                 <item
@@ -61,7 +61,7 @@
 
         <item
             android:id="@+id/admin_module"
-            android:title="Donee Module" >
+            android:title="Admin Module" >
 
             <menu>
                 <item
@@ -78,7 +78,7 @@
 
                 <item
                     android:id="@+id/news_list"
-                    android:icon="@drawable/ic_baseline_list_alt_24"
+                    android:icon="@drawable/ic_baseline_newspaper_24"
                     android:title="News List"
                     android:checked="true" />
 
