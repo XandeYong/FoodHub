@@ -8,4 +8,8 @@
     <!--  Drawer String  -->
     <string name="open_nav_drawer">Navigation Drawer Open</string>
     <string name="close_nav_drawer">Navigation Drawer Close</string>
+    <string name="text_profile_image">Profile image</string>
+    <string name="text_username">Username</string>
+    <string name="text_account_type">Account type</string>
+
 </resources>

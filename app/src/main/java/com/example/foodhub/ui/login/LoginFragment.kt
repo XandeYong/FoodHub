@@ -26,7 +26,11 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater)
 
         binding.button1.setOnClickListener {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToMainActivityLogged())
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentSelf())
+        }
+
+        binding.button2.setOnClickListener {
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToRegisterFragment())
         }
 
         return binding.root

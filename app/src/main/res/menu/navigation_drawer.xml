@@ -7,7 +7,7 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/profile"
+            android:id="@+id/accountFragment"
             android:icon="@drawable/ic_baseline_account_circle_24"
             android:title="Account Profile"
             android:checked="true" />
@@ -25,7 +25,7 @@
 
             <menu>
                 <item
-                    android:id="@+id/donation_form_list"
+                    android:id="@+id/donationFormListFragment"
                     android:icon="@drawable/ic_baseline_list_alt_24"
                     android:title="Donation Form List"
                     android:checked="true" />
@@ -45,7 +45,7 @@
 
             <menu>
                 <item
-                    android:id="@+id/request_form_list"
+                    android:id="@+id/requestFormListFragment"
                     android:icon="@drawable/ic_baseline_list_alt_24"
                     android:title="Request Form List"
                     android:checked="true" />
@@ -65,31 +65,31 @@
 
             <menu>
                 <item
-                    android:id="@+id/category_list"
+                    android:id="@+id/categoryListFragment"
                     android:icon="@drawable/ic_baseline_list_alt_24"
                     android:title="Category List"
                     android:checked="true" />
 
                 <item
-                    android:id="@+id/report_list"
+                    android:id="@+id/reportListFragment"
                     android:icon="@drawable/ic_baseline_list_alt_24"
                     android:title="Report List"
                     android:checked="true" />
 
                 <item
-                    android:id="@+id/news_list"
+                    android:id="@+id/newsListFragment"
                     android:icon="@drawable/ic_baseline_newspaper_24"
                     android:title="News List"
                     android:checked="true" />
 
                 <item
-                    android:id="@+id/admin_donation_form_list"
+                    android:id="@+id/adminDonationFormListFragment"
                     android:icon="@drawable/ic_baseline_list_alt_24"
                     android:title="Donation Form List"
                     android:checked="true" />
 
                 <item
-                    android:id="@+id/admin_request_form_list"
+                    android:id="@+id/adminRequestFormListFragment"
                     android:icon="@drawable/ic_baseline_list_alt_24"
                     android:title="Request Form List"
                     android:checked="true" />

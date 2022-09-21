@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.example.foodhub.R
 import com.example.foodhub.databinding.FragmentMainBinding
 import com.example.foodhub.ui.login.LoginFragment
 import com.example.foodhub.ui.news.NewsFragment
 import com.example.foodhub.ui.register.RegisterFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
 
@@ -22,7 +25,6 @@ class MainFragment : Fragment() {
 
     private val newsFragment = NewsFragment()
     private val loginFragment = LoginFragment()
-    private val registerFragment = RegisterFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,17 +32,27 @@ class MainFragment : Fragment() {
     ): View? {
         binding = FragmentMainBinding.inflate(inflater)
 
-        replaceFragment(newsFragment)
+        replaceFragment(NewsFragment())
         binding.bottomNavigation.setOnNavigationItemSelectedListener() {
             when(it.itemId) {
                 R.id.home_page -> replaceFragment(newsFragment)
                 R.id.login_page -> replaceFragment(loginFragment)
-                R.id.register_page -> replaceFragment(registerFragment)
             }
             true
         }
 
+        var login = false
+        if (login) {
+            binding.bottomNavigation.visibility = BottomNavigationView.GONE
+        }
+
+
         return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        replaceFragment(newsFragment)
     }
 
     private fun replaceFragment(fragment: Fragment) {
