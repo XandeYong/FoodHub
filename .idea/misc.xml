@@ -4,9 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2265" />
+        <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/drawable/ic_banner_foreground.xml" value="0.2265" />
+        <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.2265" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.2265" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/drawable/ic_favorite_24dp.xml" value="0.2265" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
+        <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/drawable/ic_profile_image.xml" value="0.123" />
+        <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/drawable/ic_profile_image_background.xml" value="0.1" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/activity_main_after_login.xml" value="0.264" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/activity_main_logged.xml" value="0.152" />
@@ -21,7 +25,7 @@
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/fragment_register.xml" value="0.2223731884057971" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/fragment_report.xml" value="0.1" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/fragment_request_form_detail.xml" value="0.1" />
-        <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/header_navigation_drawer.xml" value="0.6" />
+        <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/header_navigation_drawer.xml" value="0.4170940170940171" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/main_bottom_navigation.xml" value="0.11197916666666667" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/nav_header.xml" value="0.2223731884057971" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/layout/navigation_drawer.xml" value="0.1" />
@@ -31,6 +35,7 @@
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/menu/navigation_drawer.xml" value="0.264" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/menu/top_app_bar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2265" />
+        <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/mipmap-anydpi-v26/ic_profile_image.xml" value="0.1" />
       </map>
     </option>
   </component>

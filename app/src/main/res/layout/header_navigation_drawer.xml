@@ -29,16 +29,17 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="60dp">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="90dp">
 
                 <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/profile_image_header_navigation_drawer"
+                    android:layout_width="130dp"
+                    android:layout_height="130dp"
                     android:contentDescription="@string/text_profile_image"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:src="@drawable/default_profile_image"
+                    tools:srcCompat="@drawable/default_profile_image" />
 
             </androidx.cardview.widget.CardView>
 

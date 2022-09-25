@@ -1,29 +1,33 @@
 package com.example.foodhub
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.media.Image
 import android.os.Bundle
+import android.text.Layout
 import android.util.Log
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.navigateUp
-import com.example.foodhub.ui.login.LoginFragment
-import com.example.foodhub.ui.main.MainFragmentDirections
-import com.example.foodhub.ui.news.NewsFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import coil.ImageLoader
+import coil.load
+import coil.request.ImageRequest
+import coil.request.SuccessResult
+import com.example.foodhub.database.FoodHubDatabase
+import com.example.foodhub.databinding.HeaderNavigationDrawerBinding
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,9 +37,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
+    private lateinit var profileImage: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        lifecycleScope.launch { FoodHubDatabase.getInstance(applicationContext).syncData() }
         navSetup()
 
         var login = true
@@ -72,7 +79,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.
