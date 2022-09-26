@@ -1,13 +1,13 @@
 package com.example.foodhub
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
-import android.media.Image
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -18,16 +18,20 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import coil.ImageLoader
-import coil.load
 import coil.request.ImageRequest
 import coil.request.SuccessResult
-import com.example.foodhub.database.FoodHubDatabase
-import com.example.foodhub.databinding.HeaderNavigationDrawerBinding
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
+import com.example.foodhub.database.*
+import com.example.foodhub.util.Util
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import org.json.JSONArray
+import java.io.IOException
+import kotlin.reflect.KClass
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,12 +41,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
-    private lateinit var profileImage: ImageView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        lifecycleScope.launch { FoodHubDatabase.getInstance(applicationContext).syncData() }
+
+        val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
+        val db = FoodHubDatabase.getInstance(applicationContext)
+
+        lifecycleScope.launch { db.syncData(viewGroup.rootView, applicationContext) }
         navSetup()
 
         var login = true
@@ -74,6 +80,7 @@ class MainActivity : AppCompatActivity() {
 //                }
 //                true
 //            }
+
         } else {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }

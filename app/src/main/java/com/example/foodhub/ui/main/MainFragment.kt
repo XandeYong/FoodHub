@@ -55,7 +55,6 @@ class MainFragment : Fragment() {
         if (login) {
             binding.bottomNavigation.visibility = BottomNavigationView.GONE
 
-
         }
 
         return binding.root

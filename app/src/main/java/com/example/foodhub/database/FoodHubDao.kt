@@ -9,7 +9,7 @@ interface BaseDao<T> {
     suspend fun insert(obj: T)
 
     @Insert
-    suspend fun insert(obj: List<T>)
+    suspend fun insert(obj: MutableList<T>)
 
     @Update
     suspend fun update(obj: T)
@@ -28,7 +28,7 @@ abstract class StateDao: BaseDao<State> {
     }
 
     @Transaction
-    open suspend fun syncWithServer(states: List<State>) {
+    open suspend fun syncWithServer(states: MutableList<State>) {
         clear()
         insert(states)
     }
@@ -82,7 +82,7 @@ abstract class NewsDao: BaseDao<News> {
     }
 
     @Transaction
-    open suspend fun syncWithServer(news: List<News>) {
+    open suspend fun syncWithServer(news: MutableList<News>) {
         clear()
         insert(news)
     }
@@ -112,7 +112,7 @@ abstract class CategoryDao: BaseDao<Category> {
     }
 
     @Transaction
-    open suspend fun syncWithServer(category: List<Category>) {
+    open suspend fun syncWithServer(category: MutableList<Category>) {
         clear()
         insert(category)
     }
@@ -142,7 +142,7 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     }
 
     @Transaction
-    open suspend fun syncWithServer(donationForm: List<DonationForm>) {
+    open suspend fun syncWithServer(donationForm: MutableList<DonationForm>) {
         clear()
         insert(donationForm)
     }
@@ -172,7 +172,7 @@ abstract class RequestFormDao: BaseDao<RequestForm> {
     }
 
     @Transaction
-    open suspend fun syncWithServer(requestForm: List<RequestForm>) {
+    open suspend fun syncWithServer(requestForm: MutableList<RequestForm>) {
         clear()
         insert(requestForm)
     }
@@ -202,7 +202,7 @@ abstract class AnalysisReportDao: BaseDao<AnalysisReport> {
     }
 
     @Transaction
-    open suspend fun syncWithServer(analysisReport: List<AnalysisReport>) {
+    open suspend fun syncWithServer(analysisReport: MutableList<AnalysisReport>) {
         clear()
         insert(analysisReport)
     }
@@ -232,7 +232,7 @@ abstract class LocationReportDao: BaseDao<LocationReport> {
     }
 
     @Transaction
-    open suspend fun syncWithServer(locationReport: List<LocationReport>) {
+    open suspend fun syncWithServer(locationReport: MutableList<LocationReport>) {
         clear()
         insert(locationReport)
     }

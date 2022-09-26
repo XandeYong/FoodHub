@@ -16,9 +16,12 @@ import com.example.foodhub.R
 import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.database.State
 import com.example.foodhub.ui.news.NewsFragment
+import com.example.foodhub.util.Util
 import kotlinx.coroutines.launch
 
 class boilerplate: Fragment() {
+
+    val util = Util()
 
     companion object {
         fun newInstance() = NewsFragment()
@@ -30,7 +33,7 @@ class boilerplate: Fragment() {
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_news, container, false)
         lifecycleScope.launch {
-            getBitmap("https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png")
+            util.getBitmap("https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png", requireContext())
         }
 
         return view
@@ -45,14 +48,4 @@ class boilerplate: Fragment() {
         }
     }
 
-    //convert image url to bitmap
-    private suspend fun getBitmap(url: String?): Bitmap {
-        val loading = ImageLoader(requireContext())
-        val request = ImageRequest.Builder(requireContext())
-            .data(url)
-            .build()
-
-        val result = (loading.execute(request) as SuccessResult).drawable
-        return (result as BitmapDrawable).bitmap
-    }
 }
