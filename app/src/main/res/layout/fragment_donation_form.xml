@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Logged.Donor.DonationFormFragment">
+
+
+    <!--  push top  -->
+    <LinearLayout
+        android:id="@+id/linearLayoutTempDF"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ScrollView
+        android:id="@+id/scrollViewDF"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTempDF" >
+
+        <LinearLayout
+            android:id="@+id/linearLayoutFormMainDF"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+
+            <LinearLayout
+                android:id="@+id/linearLayoutFormDF"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/txtDonationFormIdDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_donation_form_id"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fieldDonationFormIdDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:padding="10dp"
+                    android:hint="@string/lbl_donation_form_id"
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:background="@drawable/uneditable_editview_border" />
+
+                <TextView
+                    android:id="@+id/txtCategoryDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_category"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/spinCategoryDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    android:background="@drawable/spinner_design"
+                    android:entries="@array/instituteNameList"
+                    android:inputType="none"/>
+
+                <TextView
+                    android:id="@+id/txtFoodDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_food"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/editFoodDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:background="@drawable/textbox_border" />
+
+                <TextView
+                    android:id="@+id/txtQuantityDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_quantity"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/editQuantityDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:background="@drawable/textbox_border" />
+
+                <TextView
+                    android:id="@+id/txtStatusDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_status"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/editStatusDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text=""
+                    android:textColor="#000000"
+                    android:textSize="14sp"
+                    android:padding="10dp"
+                    android:background="@drawable/textbox_border" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutButtonDF"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="32dp"
+                >
+
+                <Button
+                    android:id="@+id/btnSubmitDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/btn_submit"
+                    android:textColor="@color/white"
+                    android:backgroundTint="#00A300" />
+
+
+                <Button
+                    android:id="@+id/btnCancelDF"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/btn_cancel"
+                    android:textColor="#4E342E"
+                    android:backgroundTint="#FFB52E"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

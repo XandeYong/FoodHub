@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Logged.Admin.FormManagement.Donation.AdminDonationFormDetailFragment">
+
+
+    <!--  push top  -->
+    <LinearLayout
+        android:id="@+id/linearLayoutTempADFD"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ScrollView
+        android:id="@+id/scrollViewADFD"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTempADFD">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutFormMainADFD"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/linearLayoutFormADFD"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="32dp"
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/txtDonorIdADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_donor_id"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/fieldDonorIdADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/uneditable_editview_border"
+                    android:padding="10dp"
+                    android:hint="@string/lbl_donation_form_id"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txtDonationFormIdADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_donation_form_id"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/fieldDonationFormIdADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/uneditable_editview_border"
+                    android:padding="10dp"
+                    android:hint="@string/lbl_donation_form_id"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/txtCategoryADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_category"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fieldCategoryADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/uneditable_editview_border"
+                    android:padding="10dp"
+                    android:hint=""
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/txtFoodADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_food"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fieldFoodADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/uneditable_editview_border"
+                    android:padding="10dp"
+                    android:hint=""
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/txtQuantityADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_quantity"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/fieldQuantityADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/uneditable_editview_border"
+                    android:padding="10dp"
+                    android:hint=""
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/txtStatusADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_status"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/spinStatusADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:padding="10dp"
+                    android:textSize="14sp"
+                    android:background="@drawable/spinner_design"
+                    android:entries="@array/statusList"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutButtonADFD"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="32dp"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnUpdateADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="#00A300"
+                    android:text="@string/btn_update"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btnCancelADFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="20dp"
+                    android:backgroundTint="#FFB52E"
+                    android:text="@string/btn_cancel"
+                    android:textColor="#4E342E" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

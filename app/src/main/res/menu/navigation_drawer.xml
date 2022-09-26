@@ -21,7 +21,7 @@
 
         <item
             android:id="@+id/donor_module"
-            android:title="Donee Module" >
+            android:title="Doner Module" >
 
             <menu>
                 <item

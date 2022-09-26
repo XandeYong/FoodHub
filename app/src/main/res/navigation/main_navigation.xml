@@ -29,10 +29,85 @@
         <action
             android:id="@+id/action_mainActivityLogged_to_accountFragment"
             app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_donationFormFragment"
+            app:destination="@id/donationFormFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_donationFormListFragment"
+            app:destination="@id/donationFormListFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_donationFormDetailFragment"
+            app:destination="@id/donationFormDetailFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_adminDonationFormDetailFragment"
+            app:destination="@id/adminDonationFormDetailFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_requestFormListFragment"
+            app:destination="@id/requestFormListFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_adminDonationFormListFragment"
+            app:destination="@id/adminDonationFormListFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_adminRequestFormListFragment"
+            app:destination="@id/adminRequestFormListFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_reportFragment"
+            app:destination="@id/reportFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_locationReportFragment"
+            app:destination="@id/locationReportFragment" />
+
+
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.foodhub.Logged.All.Account.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/donationFormFragment"
+        android:name="com.example.foodhub.Logged.Donor.DonationFormFragment"
+        android:label="fragment_donation_form"
+        tools:layout="@layout/fragment_donation_form" />
+    <fragment
+        android:id="@+id/donationFormListFragment"
+        android:name="com.example.foodhub.Logged.Donor.DonationFormListFragment"
+        android:label="fragment_donation_form_list"
+        tools:layout="@layout/fragment_donation_form_list" />
+    <fragment
+        android:id="@+id/donationFormDetailFragment"
+        android:name="com.example.foodhub.Logged.Donor.DonationFormDetailFragment"
+        android:label="fragment_donation_form_detail"
+        tools:layout="@layout/fragment_donation_form_detail" />
+    <fragment
+        android:id="@+id/adminDonationFormDetailFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormDetailFragment"
+        android:label="fragment_admin_donation_form_detail"
+        tools:layout="@layout/fragment_admin_donation_form_detail" />
+    <fragment
+        android:id="@+id/requestFormListFragment"
+        android:name="com.example.foodhub.Logged.Donee.RequestFormListFragment"
+        android:label="fragment_request_form_list"
+        tools:layout="@layout/fragment_request_form_list" />
+    <fragment
+        android:id="@+id/adminDonationFormListFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormListFragment"
+        android:label="fragment_admin_donation_form_list"
+        tools:layout="@layout/fragment_admin_donation_form_list" />
+    <fragment
+        android:id="@+id/adminRequestFormListFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Request.AdminRequestFormListFragment"
+        android:label="fragment_admin_request_form_list"
+        tools:layout="@layout/fragment_admin_request_form_list" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.example.foodhub.Logged.Admin.Report.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/locationReportFragment"
+        android:name="com.example.foodhub.Logged.Admin.Report.LocationReportFragment"
+        android:label="fragment_location_report"
+        tools:layout="@layout/fragment_location_report" />
+
 </navigation>

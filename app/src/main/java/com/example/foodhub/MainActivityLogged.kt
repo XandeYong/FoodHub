@@ -50,7 +50,7 @@ class MainActivityLogged: Fragment() {
         *
         * */
 
-        var account = "admin"
+        var account = "donor"
         when(account) {
             "donee" -> {
                 navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
@@ -70,6 +70,37 @@ class MainActivityLogged: Fragment() {
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.profile -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToAccountFragment())
+                //Test create donation form
+                R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToDonationFormFragment())
+
+                //Test donation form list
+                //R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToDonationFormListFragment())
+
+                //Test donation form detail
+                //R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToDonationFormDetailFragment())
+
+              //admin
+                //Test admin donation form detail
+                //R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToAdminDonationFormDetailFragment())
+
+                //Test admin donation form list
+                //R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToAdminDonationFormListFragment())
+
+                //Test admin request form list
+                //R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToAdminRequestFormListFragment())
+
+
+                //(Xande)
+                //Test request form list
+                //R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToRequestFormListFragment())
+
+                //Test report
+                //R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToReportFragment())
+
+                //Test location report
+                //R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToLocationReportFragment())
+
+
             }
             true
         }
