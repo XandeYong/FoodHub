@@ -19,6 +19,9 @@ class MainActivity : AppCompatActivity() {
 
         topAppBar = findViewById(R.id.topAppBar)
         setSupportActionBar(topAppBar)
+        val sharedPref = getSharedPreferences("myPref", MODE_PRIVATE)
+        val editor =sharedPref.edit()
+
 
     }
 

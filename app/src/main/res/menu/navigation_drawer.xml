@@ -61,7 +61,7 @@
 
         <item
             android:id="@+id/admin_module"
-            android:title="Donee Module" >
+            android:title="Admin Module" >
 
             <menu>
                 <item

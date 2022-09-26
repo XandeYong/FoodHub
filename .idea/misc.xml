@@ -28,6 +28,48 @@
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/menu/navigation_drawer.xml" value="0.1" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/menu/top_app_bar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2265" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable-v24/ic_baseline_add_24.xml" value="0.144" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.206" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/btn_reg_background_color.xml" value="0.206" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.206" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.206" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/ic_baseline_list_alt_24.xml" value="0.169" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/inputfiels_error_hint_message.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_botton_straight_line.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_createlist_border.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_dark_gray_background.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_image_btn_redius.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_input_field_.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_null_radio_btn.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_reg_btn.xml" value="0.1635" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_reg_btn_no_checked.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_reg_donee_btn.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_reg_donee_selector.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_reg_donor_btn.xml" value="0.229" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/drawable/style_reg_donor_selector.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/activity_main_logged.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_account.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_create_news_admin.xml" value="0.136" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_login.xml" value="0.264" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_main.xml" value="0.1096757852077001" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_news.xml" value="0.2" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_news_list_admin.xml" value="0.264" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_pertanyaan.xml" value="0.2" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_register.xml" value="0.2585551330798479" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_report.xml" value="0.12360688956433637" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_update_news_admin.xml" value="0.2571428571428571" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/header_navigation_drawer.xml" value="0.264" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/navigation_drawer.xml" value="0.176" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/new_list_item.xml" value="0.23867753623188406" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/news_item_list.xml" value="0.146484375" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/news_item_list_admin.xml" value="0.23867753623188406" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/one_new_list_item.xml" value="0.4" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/one_news_item_list_admin.xml" value="0.264" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/menu/navigation_drawer.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/menu/top_app_bar.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

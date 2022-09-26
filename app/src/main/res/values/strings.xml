@@ -8,4 +8,11 @@
     <!--  Drawer String  -->
     <string name="open_nav_drawer">Navigation Drawer Open</string>
     <string name="close_nav_drawer">Navigation Drawer Close</string>
+
+    <string name="title1" >title1</string>
+    <string name="title2" >title2</string>
+    <string name="title3" >title3</string>
+    <string name="title4" >title4</string>
+    <string name="title5" >title5</string>
+    <string name="title7" >title6</string>
 </resources>

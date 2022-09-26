@@ -1,23 +1,20 @@
 package com.example.foodhub
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
-import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.foodhub.databinding.ActivityMainBinding
+import com.example.foodhub.Logged.Admin.News.NewsList_adminDirections
 import com.example.foodhub.databinding.ActivityMainLoggedBinding
-import com.example.foodhub.databinding.FragmentLoginBinding
-import com.example.foodhub.ui.login.LoginFragment
-import com.example.foodhub.ui.login.LoginViewModel
-import com.example.foodhub.ui.main.MainFragmentDirections
 import com.example.foodhub.ui.news.NewsFragment
 import com.google.android.material.navigation.NavigationView
+
 
 class MainActivityLogged: Fragment() {
 
@@ -26,6 +23,7 @@ class MainActivityLogged: Fragment() {
     }
 
     private lateinit var binding: ActivityMainLoggedBinding
+    private lateinit var binding_1:NewsList_adminDirections
 
     private lateinit var topAppBar: Toolbar
     private lateinit var drawerLayout: DrawerLayout
@@ -34,11 +32,20 @@ class MainActivityLogged: Fragment() {
 
     private val newsFragment = NewsFragment()
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = ActivityMainLoggedBinding.inflate(inflater)
+
+        val preferences = this.requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
+        val editor =preferences.edit()
+
+        editor.putString("user_name","yogene")
+        editor.apply()
+        editor.commit()
+
 
         navDrawerSetup()
         replaceFragment(newsFragment)
@@ -49,6 +56,7 @@ class MainActivityLogged: Fragment() {
         * to start coding your module
         *
         * */
+
 
         var account = "admin"
         when(account) {
@@ -70,6 +78,7 @@ class MainActivityLogged: Fragment() {
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.profile -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToAccountFragment())
+                R.id.news_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToNewsListAdmin())
             }
             true
         }
