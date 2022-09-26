@@ -54,4 +54,13 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btn_delete">Delete</string>
+
+
+<!--  Darren  -->
+    <string name="title1" >title1</string>
+    <string name="title2" >title2</string>
+    <string name="title3" >title3</string>
+    <string name="title4" >title4</string>
+    <string name="title5" >title5</string>
+    <string name="title7" >title6</string>
 </resources>

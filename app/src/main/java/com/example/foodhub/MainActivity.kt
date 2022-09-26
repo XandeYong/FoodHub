@@ -52,6 +52,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val sharedPref = getSharedPreferences("myPref", MODE_PRIVATE)
+        val editor =sharedPref.edit()
+
         val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
         val db = FoodHubDatabase.getInstance(applicationContext)
 
@@ -83,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 
 
 
