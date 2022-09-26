@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Logged.Donee.RequestFormDetailFragment">
+    tools:context=".Logged.Donor.DonationFormFragment">
 
 
     <!--  push top  -->
     <LinearLayout
-        android:id="@+id/linear_layout_temp_RFD"
+        android:id="@+id/linearLayoutTempDF"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="vertical"
@@ -21,23 +21,23 @@
 
 
     <ScrollView
-        android:id="@+id/scroll_view_RFD"
+        android:id="@+id/scrollViewDF"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_temp_RFD" >
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTempDF" >
 
         <LinearLayout
-            android:id="@+id/linear_layout_form_main_RFD"
+            android:id="@+id/linearLayoutFormMainDF"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
 
             <LinearLayout
-                android:id="@+id/linearLayoutFormRFD"
+                android:id="@+id/linearLayoutFormDF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
@@ -46,33 +46,31 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/txt_request_form_id_RFD"
+                    android:id="@+id/txtDonationFormIdDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="20dp"
-                    android:text="@string/lbl_request_form_id"
+                    android:text="@string/lbl_donation_form_id"
                     android:textColor="#0E86D4"
                     android:textSize="14sp" />
 
-
                 <TextView
-                    android:id="@+id/field_request_form_id_RFD"
+                    android:id="@+id/fieldDonationFormIdDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
                     android:padding="10dp"
-                    android:hint="@string/lbl_request_form_id"
+                    android:hint="@string/lbl_donation_form_id"
                     android:textColor="#000000"
                     android:textSize="14sp"
                     android:background="@drawable/uneditable_editview_border" />
 
-
                 <TextView
-                    android:id="@+id/txt_category_RFD"
+                    android:id="@+id/txtCategoryDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -82,22 +80,21 @@
                     android:textColor="#0E86D4"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/field_category_RFD"
+                <Spinner
+                    android:id="@+id/spinCategoryDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
                     android:padding="10dp"
-                    android:text=""
-                    android:textColor="#000000"
                     android:textSize="14sp"
-                    android:background="@drawable/uneditable_editview_border" />
-
+                    android:background="@drawable/spinner_design"
+                    android:entries="@array/instituteNameList"
+                    android:inputType="none"/>
 
                 <TextView
-                    android:id="@+id/txt_food_RFD"
+                    android:id="@+id/txtFoodDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -107,22 +104,25 @@
                     android:textColor="#0E86D4"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/field_food_RFD"
+                <EditText
+                    android:id="@+id/editFoodDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
-                    android:padding="10dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:inputType="textPersonName"
                     android:text=""
                     android:textColor="#000000"
                     android:textSize="14sp"
-                    android:background="@drawable/uneditable_editview_border" />
-
+                    android:padding="10dp"
+                    tools:ignore="SpeakableTextPresentCheck"
+                    android:background="@drawable/textbox_border" />
 
                 <TextView
-                    android:id="@+id/txt_quantity_RFD"
+                    android:id="@+id/txtQuantityDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -132,22 +132,24 @@
                     android:textColor="#0E86D4"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/field_quantity_RFD"
+                <EditText
+                    android:id="@+id/editQuantityDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
-                    android:padding="10dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:inputType="textPersonName"
                     android:text=""
                     android:textColor="#000000"
                     android:textSize="14sp"
-                    android:background="@drawable/uneditable_editview_border" />
-
+                    android:padding="10dp"
+                    android:background="@drawable/textbox_border" />
 
                 <TextView
-                    android:id="@+id/txt_status_RFD"
+                    android:id="@+id/txtStatusDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -157,25 +159,27 @@
                     android:textColor="#0E86D4"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/field_status_RFD"
+                <EditText
+                    android:id="@+id/editStatusDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="16dp"
-                    android:padding="10dp"
+                    android:autofillHints=""
+                    android:ems="10"
+                    android:inputType="textPersonName"
                     android:text=""
                     android:textColor="#000000"
                     android:textSize="14sp"
-                    android:background="@drawable/uneditable_editview_border" />
-
+                    android:padding="10dp"
+                    android:background="@drawable/textbox_border" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linear_layout_button_RFD"
+                android:id="@+id/linearLayoutButtonDF"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -185,17 +189,18 @@
                 >
 
                 <Button
-                    android:id="@+id/btn_delete_RFD"
+                    android:id="@+id/btnSubmitDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:text="@string/btn_delete"
+                    android:text="@string/btn_submit"
                     android:textColor="@color/white"
-                    android:backgroundTint="#ff0033" />
+                    android:backgroundTint="#00A300" />
+
 
                 <Button
-                    android:id="@+id/btn_cancel_RFD"
+                    android:id="@+id/btnCancelDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -214,3 +219,4 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

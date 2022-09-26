@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Logged.Donee.RequestFormDetailFragment">
+    tools:context=".Logged.Admin.FormManagement.Request.AdminRequestFormDetailFragment">
 
 
     <!--  push top  -->
     <LinearLayout
-        android:id="@+id/linear_layout_temp_RFD"
+        android:id="@+id/linearLayoutTempARFD"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="vertical"
@@ -21,23 +20,23 @@
 
 
     <ScrollView
-        android:id="@+id/scroll_view_RFD"
+        android:id="@+id/scroll_view_ARFD"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_temp_RFD" >
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTempARFD">
 
         <LinearLayout
-            android:id="@+id/linear_layout_form_main_RFD"
+            android:id="@+id/linear_layout_form_main_ARFD"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
 
             <LinearLayout
-                android:id="@+id/linearLayoutFormRFD"
+                android:id="@+id/linear_layout_form_ARFD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
@@ -46,7 +45,32 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/txt_request_form_id_RFD"
+                    android:id="@+id/txt_donee_id_ARFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/lbl_donee_id"
+                    android:textColor="#0E86D4"
+                    android:textSize="14sp" />
+
+
+                <TextView
+                    android:id="@+id/field_donee_id_ARFD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/uneditable_editview_border"
+                    android:padding="10dp"
+                    android:hint="@string/lbl_request_form_id"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txt_request_form_id_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -58,21 +82,21 @@
 
 
                 <TextView
-                    android:id="@+id/field_request_form_id_RFD"
+                    android:id="@+id/field_request_form_id_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
+                    android:background="@drawable/uneditable_editview_border"
                     android:padding="10dp"
                     android:hint="@string/lbl_request_form_id"
                     android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:background="@drawable/uneditable_editview_border" />
+                    android:textSize="14sp" />
 
 
                 <TextView
-                    android:id="@+id/txt_category_RFD"
+                    android:id="@+id/txt_category_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -83,46 +107,21 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/field_category_RFD"
+                    android:id="@+id/field_category_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
+                    android:background="@drawable/uneditable_editview_border"
                     android:padding="10dp"
-                    android:text=""
+                    android:hint=""
                     android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:background="@drawable/uneditable_editview_border" />
-
-
-                <TextView
-                    android:id="@+id/txt_food_RFD"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="20dp"
-                    android:text="@string/lbl_food"
-                    android:textColor="#0E86D4"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/field_food_RFD"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginEnd="20dp"
-                    android:padding="10dp"
-                    android:text=""
-                    android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:background="@drawable/uneditable_editview_border" />
-
 
                 <TextView
-                    android:id="@+id/txt_quantity_RFD"
+                    android:id="@+id/txt_quantity_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -133,21 +132,21 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/field_quantity_RFD"
+                    android:id="@+id/field_quantity_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
+                    android:background="@drawable/uneditable_editview_border"
                     android:padding="10dp"
-                    android:text=""
+                    android:hint=""
                     android:textColor="#000000"
-                    android:textSize="14sp"
-                    android:background="@drawable/uneditable_editview_border" />
+                    android:textSize="14sp" />
 
 
                 <TextView
-                    android:id="@+id/txt_status_RFD"
+                    android:id="@+id/txt_status_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -157,8 +156,8 @@
                     android:textColor="#0E86D4"
                     android:textSize="14sp" />
 
-                <TextView
-                    android:id="@+id/field_status_RFD"
+                <Spinner
+                    android:id="@+id/spin_status_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -166,46 +165,43 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="16dp"
                     android:padding="10dp"
-                    android:text=""
-                    android:textColor="#000000"
                     android:textSize="14sp"
-                    android:background="@drawable/uneditable_editview_border" />
+                    android:background="@drawable/spinner_design"
+                    android:entries="@array/statusList"/>
 
 
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linear_layout_button_RFD"
+                android:id="@+id/linear_layout_button_ARFD"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="32dp"
-                >
+                android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/btn_delete_RFD"
+                    android:id="@+id/btn_update_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
-                    android:text="@string/btn_delete"
-                    android:textColor="@color/white"
-                    android:backgroundTint="#ff0033" />
+                    android:backgroundTint="#00A300"
+                    android:text="@string/btn_update"
+                    android:textColor="@color/white" />
 
                 <Button
-                    android:id="@+id/btn_cancel_RFD"
+                    android:id="@+id/btn_cancel_ARFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
+                    android:backgroundTint="#FFB52E"
                     android:text="@string/btn_cancel"
-                    android:textColor="#4E342E"
-                    android:backgroundTint="#FFB52E"/>
+                    android:textColor="#4E342E" />
             </LinearLayout>
-
 
 
         </LinearLayout>

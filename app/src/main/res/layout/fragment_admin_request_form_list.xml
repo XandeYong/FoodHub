@@ -1,78 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Logged.Donor.DonationFormListFragment">
+    tools:context=".Logged.Admin.FormManagement.Request.AdminRequestFormListFragment">
 
 
-        <LinearLayout
-        android:id="@+id/linearLayoutSearchDFL"
+    <LinearLayout
+        android:id="@+id/linear_layout_search_ARFL"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:background="#FFD68A"
         android:layout_gravity="center"
+        android:background="#FFD68A"
         android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editSearchDFL"
+            android:id="@+id/edit_search_ARFL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:background="@color/white"
-            android:inputType="textPersonName"
             android:layout_marginStart="40dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:hint="@string/hint_search_donation_id" />
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="@string/hint_search_request_id"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
 
         <Button
-            android:id="@+id/btnSearchDFL"
+            android:id="@+id/btn_search_ARFL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#525252"
             android:padding="13dp"
-            android:text="@string/btn_search"
-            android:backgroundTint="#525252" />
+            android:text="@string/btn_search" />
 
     </LinearLayout>
 
     //recycler view
+
     <LinearLayout
-        android:id="@+id/linearLayoutDonationListDFL"
+        android:id="@+id/linear_layout_request_list_ARFL"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutSearchDFL"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="16dp">
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_search_ARFL">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewDFL"
+            android:id="@+id/recycler_view_ARFL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
 
-//FloatingActionButton
+    //FloatingActionButton
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionBtnDFL"
+        android:id="@+id/floating_action_btn_ARFL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"

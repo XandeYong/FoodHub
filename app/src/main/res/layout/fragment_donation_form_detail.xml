@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Logged.Donee.RequestFormDetailFragment">
+    tools:context=".Logged.Donor.DonationFormDetailFragment">
 
 
     <!--  push top  -->
     <LinearLayout
-        android:id="@+id/linear_layout_temp_RFD"
+        android:id="@+id/linearLayoutTempDFD"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:orientation="vertical"
@@ -21,23 +21,23 @@
 
 
     <ScrollView
-        android:id="@+id/scroll_view_RFD"
+        android:id="@+id/scrollViewDFD"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_temp_RFD" >
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTempDFD" >
 
         <LinearLayout
-            android:id="@+id/linear_layout_form_main_RFD"
+            android:id="@+id/linearLayoutFormMainDFD"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
 
             <LinearLayout
-                android:id="@+id/linearLayoutFormRFD"
+                android:id="@+id/linearLayoutFormDFD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="32dp"
@@ -46,33 +46,33 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/txt_request_form_id_RFD"
+                    android:id="@+id/txtDonationFormIdDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="20dp"
-                    android:text="@string/lbl_request_form_id"
+                    android:text="@string/lbl_donation_form_id"
                     android:textColor="#0E86D4"
                     android:textSize="14sp" />
 
 
                 <TextView
-                    android:id="@+id/field_request_form_id_RFD"
+                    android:id="@+id/fieldDonationFormIdDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
                     android:padding="10dp"
-                    android:hint="@string/lbl_request_form_id"
+                    android:hint="@string/lbl_donation_form_id"
                     android:textColor="#000000"
                     android:textSize="14sp"
                     android:background="@drawable/uneditable_editview_border" />
 
 
                 <TextView
-                    android:id="@+id/txt_category_RFD"
+                    android:id="@+id/txtCategoryDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -83,7 +83,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/field_category_RFD"
+                    android:id="@+id/fieldCategoryDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -97,7 +97,7 @@
 
 
                 <TextView
-                    android:id="@+id/txt_food_RFD"
+                    android:id="@+id/txtFoodDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -108,7 +108,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/field_food_RFD"
+                    android:id="@+id/fieldFoodDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -122,7 +122,7 @@
 
 
                 <TextView
-                    android:id="@+id/txt_quantity_RFD"
+                    android:id="@+id/txtQuantityDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -133,7 +133,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/field_quantity_RFD"
+                    android:id="@+id/fieldQuantityDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -147,7 +147,7 @@
 
 
                 <TextView
-                    android:id="@+id/txt_status_RFD"
+                    android:id="@+id/txtStatusDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -158,7 +158,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/field_status_RFD"
+                    android:id="@+id/fieldStatusDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -175,7 +175,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/linear_layout_button_RFD"
+                android:id="@+id/linearLayoutButtonDFD"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -185,7 +185,7 @@
                 >
 
                 <Button
-                    android:id="@+id/btn_delete_RFD"
+                    android:id="@+id/btnDeleteDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -195,7 +195,7 @@
                     android:backgroundTint="#ff0033" />
 
                 <Button
-                    android:id="@+id/btn_cancel_RFD"
+                    android:id="@+id/btnCancelDFD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
