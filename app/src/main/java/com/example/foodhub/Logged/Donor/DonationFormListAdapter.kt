@@ -7,8 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodhub.R
-
-
+import com.example.foodhub.database.FoodHubDatabase
 
 
 class DonationFormListAdapter: RecyclerView.Adapter<DonationFormListAdapter.ViewHolder>() {

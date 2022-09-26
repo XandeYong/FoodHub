@@ -36,21 +36,25 @@ class Util {
     }
 
     //json decoder (Get method)
-    fun jsonDecodeGet(view: View?, url: String?): JSONArray? {
+    fun jsonDecodeGet(view: View?, url: String?): JSONArray {
         var jsonArray: JSONArray = JSONArray()
+        var count = 4
 
         val request: JsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
                 Log.d("response_start", "Response received")
                 jsonArray = response.getJSONArray("data")
-
+                count = 10
+                //Log.d("response_start", jsonArray.length().toString())
             }, { error ->
                 Log.d("response", error.toString())
             }
         )
         val requestQueue = Volley.newRequestQueue(view?.context)
         requestQueue.add(request)
+
+        Log.d("response_start", count.toString())
 
         return jsonArray
     }

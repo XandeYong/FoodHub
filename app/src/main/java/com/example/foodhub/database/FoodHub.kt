@@ -20,6 +20,10 @@ import java.util.*
 *   AnalysisReport  = AR1
 *   LocationReport  = LR1
 *
+* Status:
+*   DonationForm    = {Pending, Donated, Deleted}
+*   RequestForm     = {Pending, Fulfill, Deleted}
+*
 * */
 
 @Entity(tableName = "state_table")
@@ -32,12 +36,7 @@ data class State(
 
 
 
-@Entity(tableName = "account_table",
-    foreignKeys = [ForeignKey(
-        entity = State::class,
-        childColumns = ["stateID"],
-        parentColumns = ["stateID"]
-)])
+@Entity(tableName = "account_table")
 data class Account(
     @PrimaryKey var accountID: String = "", //Donor: DO1, Donee: DE1, Admin: A1
     @ColumnInfo(name = "name") var name: String? = "",
@@ -77,16 +76,7 @@ data class Category(
 
 
 
-@Entity(tableName = "donation_form_table", foreignKeys = [
-    ForeignKey(
-        entity = Account::class,
-        childColumns = ["accountID"],
-        parentColumns = ["accountID"]
-    ),ForeignKey(
-        entity = Category::class,
-        childColumns = ["categoryID"],
-        parentColumns = ["categoryID"]
-)])
+@Entity(tableName = "donation_form_table")
 data class DonationForm(
     @PrimaryKey var donationFromID: String = "", //DF1
     @ColumnInfo(name = "categoryID") var categoryID: String? = "",
@@ -100,17 +90,7 @@ data class DonationForm(
 
 
 
-@Entity(tableName = "request_form_table", foreignKeys = [
-    ForeignKey(
-        entity = Account::class,
-        childColumns = ["accountID"],
-        parentColumns = ["accountID"]
-
-    ),ForeignKey(
-        entity = Category::class,
-        childColumns = ["categoryID"],
-        parentColumns = ["categoryID"]
-)])
+@Entity(tableName = "request_form_table")
 data class RequestForm(
     @PrimaryKey var requestFormID: String, //RF1
     @ColumnInfo(name = "categoryID") var categoryID: String? = "",
@@ -138,12 +118,7 @@ data class AnalysisReport(
 
 
 
-@Entity(tableName = "location_report_table",
-    foreignKeys = [ForeignKey(
-        entity = State::class,
-        childColumns = ["stateID"],
-        parentColumns = ["stateID"]
-)])
+@Entity(tableName = "location_report_table")
 data class LocationReport(
     @PrimaryKey var locationReportID: String, //LR1
     @ColumnInfo(name = "stateID") var stateID: String? = "",

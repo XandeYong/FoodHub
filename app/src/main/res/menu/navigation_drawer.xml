@@ -71,7 +71,7 @@
                     android:checked="true" />
 
                 <item
-                    android:id="@+id/reportListFragment"
+                    android:id="@+id/reportFragment"
                     android:icon="@drawable/ic_baseline_list_alt_24"
                     android:title="Report List"
                     android:checked="true" />

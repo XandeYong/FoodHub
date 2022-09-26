@@ -17,33 +17,7 @@
         <action
             android:id="@+id/action_mainFragment_self"
             app:destination="@id/mainFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_donationFormListFragment"
-            app:destination="@id/donationFormListFragment" />
-        <action
-            android:id="@+id/action_mainFragment_to_accountFragment"
-            app:destination="@id/accountFragment"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_mainFragment_to_reportFragment"
-            app:destination="@id/reportFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/accountFragment"
-        android:name="com.example.foodhub.Logged.All.Account.AccountFragment"
-        android:label="fragment_account"
-        tools:layout="@layout/fragment_account" />
-    <fragment
-        android:id="@+id/reportFragment"
-        android:name="com.example.foodhub.Logged.Admin.Report.ReportFragment"
-        android:label="fragment_report"
-        tools:layout="@layout/fragment_report" />
-    <fragment
-        android:id="@+id/donationFormListFragment"
-        android:name="com.example.foodhub.Logged.Donee.DonationFormListFragment"
-        android:label="fragment_donation_form_list"
-        tools:layout="@layout/fragment_donation_form_list" />
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.foodhub.ui.register.RegisterFragment"
@@ -60,4 +34,74 @@
         android:name="com.example.foodhub.ui.news.NewsFragment"
         android:label="fragment_news"
         tools:layout="@layout/fragment_news" />
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.example.foodhub.Logged.All.Account.AccountFragment"
+        android:label="fragment_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/adminDonationFormDetailFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormDetailFragment"
+        android:label="fragment_admin_donation_form_detail"
+        tools:layout="@layout/fragment_admin_donation_form_detail" />
+    <fragment
+        android:id="@+id/adminDonationFormListFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormListFragment"
+        android:label="fragment_admin_donation_form_list"
+        tools:layout="@layout/fragment_admin_donation_form_list" />
+    <fragment
+        android:id="@+id/adminRequestFormDetailFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Request.AdminRequestFormDetailFragment"
+        android:label="fragment_admin_request_form_detail"
+        tools:layout="@layout/fragment_admin_request_form_detail" />
+    <fragment
+        android:id="@+id/adminRequestFormListFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Request.AdminRequestFormListFragment"
+        android:label="fragment_admin_request_form_list"
+        tools:layout="@layout/fragment_admin_request_form_list" />
+    <fragment
+        android:id="@+id/donationFormFragment"
+        android:name="com.example.foodhub.Logged.Donor.DonationFormFragment"
+        android:label="fragment_donation_form"
+        tools:layout="@layout/fragment_donation_form" />
+    <fragment
+        android:id="@+id/donationFormDetailFragment"
+        android:name="com.example.foodhub.Logged.Donor.DonationFormDetailFragment"
+        android:label="fragment_donation_form_detail"
+        tools:layout="@layout/fragment_donation_form_detail" />
+    <fragment
+        android:id="@+id/donationFormListFragment"
+        android:name="com.example.foodhub.Logged.Donor.DonationFormListFragment"
+        android:label="fragment_donation_form_list"
+        tools:layout="@layout/fragment_donation_form_list" />
+    <fragment
+        android:id="@+id/locationReportFragment"
+        android:name="com.example.foodhub.Logged.Admin.Report.LocationReportFragment"
+        android:label="fragment_location_report"
+        tools:layout="@layout/fragment_location_report" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.foodhub.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.example.foodhub.Logged.Admin.Report.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" />
+    <fragment
+        android:id="@+id/requestFormFragment"
+        android:name="com.example.foodhub.Logged.Donee.RequestFormFragment"
+        android:label="fragment_request_form"
+        tools:layout="@layout/fragment_request_form" />
+    <fragment
+        android:id="@+id/requestFormDetailFragment"
+        android:name="com.example.foodhub.Logged.Donee.RequestFormDetailFragment"
+        android:label="fragment_request_form_detail"
+        tools:layout="@layout/fragment_request_form_detail" />
+    <fragment
+        android:id="@+id/requestFormListFragment"
+        android:name="com.example.foodhub.Logged.Donee.RequestFormListFragment"
+        android:label="fragment_request_form_list"
+        tools:layout="@layout/fragment_request_form_list" />
 </navigation>

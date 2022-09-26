@@ -153,6 +153,9 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     @Query("SELECT * FROM donation_form_table ORDER BY createdAt DESC")
     abstract fun getAll():LiveData<List<DonationForm>>
 
+    @Query("SELECT * FROM donation_form_table WHERE status != 'Canceled' ORDER BY createdAt DESC")
+    abstract fun getAllAvailable():LiveData<List<DonationForm>>
+
     @Query("SELECT * FROM donation_form_table ORDER BY createdAt DESC LIMIT 1")
     abstract suspend fun getLatest(): DonationForm
 
