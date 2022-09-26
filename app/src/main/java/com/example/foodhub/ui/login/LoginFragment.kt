@@ -64,11 +64,11 @@ class LoginFragment : Fragment() {
 //                    Toast.makeText(this.requireContext(), "Used Out attempt Limit, Pls try Again Later" , Toast.LENGTH_LONG).show()
 //                }
 //            }
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToMainActivityLogged())
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentSelf())
 
         }
         binding.txtSignUp.setOnClickListener() {
-            findNavController().navigate(LoginFragmentDirections.actionLoginFragment2ToRegisterFragment2()) // not working
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToRegisterFragment()) // not working
 
         }
 
