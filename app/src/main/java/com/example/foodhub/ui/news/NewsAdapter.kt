@@ -40,7 +40,7 @@ class NewsAdapter (): RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
         init {
             fieldDonorIdDFLCL = itemView.findViewById(R.id.title_item_text_view)
-            fieldDonationFormIdDFLCL = itemView.findViewById(R.id.subtitle_item_text_view)
+            fieldDonationFormIdDFLCL = itemView.findViewById(R.id.txt_date)
 
             itemView.setOnClickListener(){
                 displayDonationFormDetail()

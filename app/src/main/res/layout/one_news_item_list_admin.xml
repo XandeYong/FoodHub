@@ -22,26 +22,27 @@
             android:id="@+id/newsList_admin_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="start"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textColor="?attr/colorOnSurface"
-            app:layout_constraintBottom_toTopOf="@id/newsList_admin_subtitle"
+            app:layout_constraintBottom_toTopOf="@+id/newsList_admin_subtitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
             tools:text="Title" />
 
         <TextView
             android:id="@+id/newsList_admin_subtitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
+            android:gravity="start"
             android:textColor="?attr/colorOnSurface"
             android:textSize="16sp"
 
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/newsList_admin_title"
             tools:text="Subtitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
