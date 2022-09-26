@@ -63,4 +63,39 @@
     <string name="title4" >title4</string>
     <string name="title5" >title5</string>
     <string name="title7" >title6</string>
+
+<!--  Adrian  -->
+    <string name="username">Odyssey45</string>
+
+    <!--  States  -->
+    <string-array name="states">
+        <item>Kuala Lumpur</item>
+        <item>Putrajaya</item>
+        <item>Labuan</item>
+        <item>Perlis</item>
+        <item>Kedah</item>
+        <item>Terengganu</item>
+        <item>Pahang</item>
+        <item>Perak</item>
+        <item>Kelantan</item>
+        <item>Penang</item>
+        <item>Selangor</item>
+        <item>Negeri Sembilan</item>
+        <item>Johor</item>
+        <item>Malacca</item>
+        <item>Sabah</item>
+        <item>Sarawak</item>
+    </string-array>
+
+    <!--  Categories  -->
+    <string-array name="categories">
+        <item>Canned Food</item>
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Drinks</item>
+        <item>Meat</item>
+        <item>Fish</item>
+        <item>Egg</item>
+        <item>Seafood</item>
+    </string-array>
 </resources>
