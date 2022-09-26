@@ -29,10 +29,34 @@
         <action
             android:id="@+id/action_mainActivityLogged_to_accountFragment"
             app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_mainActivityLogged_to_viewCategoryFragment"
+            app:destination="@id/viewCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.example.foodhub.Logged.All.Account.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" />
+    <fragment
+            android:id="@+id/profileFragment"
+        android:name="com.example.foodhub.Logged.All.Account.Profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.foodhub.Logged.All.Account.Profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/viewCategoryFragment"
+        android:name="com.example.foodhub.Logged.Admin.Category.ViewCategoryFragment"
+        android:label="fragment_view_category"
+        tools:layout="@layout/fragment_view_category" />
 </navigation>

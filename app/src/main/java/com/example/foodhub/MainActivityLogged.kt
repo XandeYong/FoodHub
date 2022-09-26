@@ -50,7 +50,7 @@ class MainActivityLogged: Fragment() {
         *
         * */
 
-        var account = "admin"
+        var account = "donor"
         when(account) {
             "donee" -> {
                 navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
@@ -69,7 +69,8 @@ class MainActivityLogged: Fragment() {
 
         navigationView.setNavigationItemSelectedListener {
             when(it.itemId) {
-                R.id.profile -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToAccountFragment())
+                R.id.profile -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToViewCategoryFragment())
+                R.id.donation_form_list -> findNavController().navigate(MainActivityLoggedDirections.actionMainActivityLoggedToEditProfileFragment())
             }
             true
         }

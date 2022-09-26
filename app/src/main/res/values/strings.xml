@@ -4,8 +4,41 @@
     <string name="text_login">Login</string>
     <string name="text_home">Home</string>
     <string name="page_title">FoodHub</string>
+    <string name="username">Odyssey45</string>
 
     <!--  Drawer String  -->
     <string name="open_nav_drawer">Navigation Drawer Open</string>
     <string name="close_nav_drawer">Navigation Drawer Close</string>
+
+    <!--  States  -->
+    <string-array name="states">
+        <item>Kuala Lumpur</item>
+        <item>Putrajaya</item>
+        <item>Labuan</item>
+        <item>Perlis</item>
+        <item>Kedah</item>
+        <item>Terengganu</item>
+        <item>Pahang</item>
+        <item>Perak</item>
+        <item>Kelantan</item>
+        <item>Penang</item>
+        <item>Selangor</item>
+        <item>Negeri Sembilan</item>
+        <item>Johor</item>
+        <item>Malacca</item>
+        <item>Sabah</item>
+        <item>Sarawak</item>
+    </string-array>
+
+    <!--  Categories  -->
+    <string-array name="categories">
+        <item>Canned Food</item>
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Drinks</item>
+        <item>Meat</item>
+        <item>Fish</item>
+        <item>Egg</item>
+        <item>Seafood</item>
+    </string-array>
 </resources>

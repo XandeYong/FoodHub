@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewCategoryLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Logged.Admin.Category.ViewCategoryFragment">
+
+    <LinearLayout
+        android:id="@+id/searchLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:background="#FFD68A"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/searchText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="Search category"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/searchButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#525252"
+            android:padding="13dp"
+            android:text="Search" />
+
+    </LinearLayout>
+
+    //Recycle View
+    <LinearLayout
+        android:id="@+id/viewCategoryLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchLinearLayout">
+
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/deleteModeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_gravity="right"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/outlined_button"
+            android:checked="false"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="Delete Mode"
+            android:textColor="@drawable/switch_selector"
+            app:useMaterialThemeColors="true" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/viewCategoryRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingAddButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:contentDescription=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_add_24"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
