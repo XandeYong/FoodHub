@@ -3,15 +3,12 @@ package com.example.foodhub.ui.main
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import com.example.foodhub.Logged.Donor.DonationFormListFragment
 import com.example.foodhub.R
 import com.example.foodhub.databinding.FragmentMainBinding
 import com.example.foodhub.ui.login.LoginFragment
 import com.example.foodhub.ui.news.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.reflect.KClass
 
 

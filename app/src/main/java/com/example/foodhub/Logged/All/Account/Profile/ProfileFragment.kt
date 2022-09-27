@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.commit
 import androidx.navigation.fragment.findNavController
-import com.example.foodhub.R
 import com.example.foodhub.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {

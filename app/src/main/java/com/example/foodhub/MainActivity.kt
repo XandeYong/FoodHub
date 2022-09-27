@@ -1,41 +1,27 @@
 package com.example.foodhub
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import coil.ImageLoader
-import coil.request.ImageRequest
-import coil.request.SuccessResult
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.foodhub.Logged.Donor.DonationFormListFragment
 import com.example.foodhub.database.*
 import com.example.foodhub.util.Util
 import com.google.android.material.navigation.NavigationView
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.json.JSONArray
-import java.io.IOException
-import kotlin.reflect.KClass
 
 
 class MainActivity : AppCompatActivity() {
@@ -53,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val sharedPref = getSharedPreferences("myPref", MODE_PRIVATE)
-        val editor =sharedPref.edit()
+        val editor = sharedPref.edit()
 
         val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
         val db = FoodHubDatabase.getInstance(applicationContext)
@@ -89,13 +75,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-    override fun getDrawerToggleDelegate(): ActionBarDrawerToggle.Delegate? {
-        Log.i("drawer", "clicked")
-
-        return super.getDrawerToggleDelegate()
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.
         onNavDestinationSelected(item, navController)
@@ -114,12 +93,17 @@ class MainActivity : AppCompatActivity() {
         val navHostChildFragmentManager = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment)?.childFragmentManager
 
-        return if (navHostChildFragmentManager?.backStackEntryCount!! > 1) {
-            navHostChildFragmentManager.popBackStack()
-            false
-        } else {
+        return if (navHostChildFragmentManager?.backStackEntryCount!! > 0) {
             val navController = findNavController(R.id.nav_host_fragment)
             navController.navigateUp() || super.onSupportNavigateUp()
+            false
+        } else {
+            if (drawerLayout.isOpen) {
+                drawerLayout.close()
+            } else {
+                drawerLayout.open()
+            }
+            false
         }
     }
 
