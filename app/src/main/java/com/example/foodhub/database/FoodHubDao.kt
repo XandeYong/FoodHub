@@ -57,6 +57,9 @@ abstract class AccountDao: BaseDao<Account> {
         account.updatedAt = generateDate()
     }
 
+    @Update
+    abstract suspend fun updateAt(account: Account)
+
     @Query("SELECT * FROM account_table WHERE accountID = :id")
     abstract suspend fun get(id: String): Account
 
@@ -65,6 +68,9 @@ abstract class AccountDao: BaseDao<Account> {
 
     @Query("SELECT * FROM account_table ORDER BY createdAt DESC LIMIT 1")
     abstract suspend fun getLatest(): Account
+
+    @Query("DELETE FROM account_table WHERE accountID = :id")
+    abstract suspend fun deleteAt(id: String)
 
     @Query("DELETE FROM account_table")
     abstract suspend fun clear()
@@ -129,7 +135,13 @@ abstract class CategoryDao: BaseDao<Category> {
     @Query("DELETE FROM category_table")
     abstract suspend fun clear()
 
+//add
+    @Query("SELECT name FROM category_table ORDER BY createdAt DESC")
+    abstract suspend fun getAllCategoryList(): List<String>
+
 }
+
+
 
 @Dao
 abstract class DonationFormDao: BaseDao<DonationForm> {
@@ -177,6 +189,7 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     abstract fun searchDFAvailable(accountID: String, dfID: String, status: String = "Deleted"): LiveData<List<DonationForm>>
 
 }
+
 
 
 @Dao
