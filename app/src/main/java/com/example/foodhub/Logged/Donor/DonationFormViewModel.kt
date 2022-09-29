@@ -1,19 +1,20 @@
 package com.example.foodhub.Logged.Donor
 
+import android.R
 import android.content.Context
 import android.util.Log
+import android.widget.ArrayAdapter
 import androidx.core.text.isDigitsOnly
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.foodhub.database.Category
 import com.example.foodhub.database.DonationForm
 import com.example.foodhub.database.FoodHubDatabase
+import kotlinx.coroutines.launch
 
 class DonationFormViewModel : ViewModel() {
     var latestDF: DonationForm = DonationForm()
     var newDonationForm: DonationForm = DonationForm()
-    lateinit var categoryList: MutableList<String>
+    lateinit var categoryList: LiveData<List<Category>>
     lateinit var food: String
     lateinit var qty: String
 
@@ -42,11 +43,15 @@ class DonationFormViewModel : ViewModel() {
         }
         newDonationForm.donationFromID = newID
         newDonationForm.status = "Pending"
+        newDonationForm.accountID = latestDF.accountID
     }
 
-    suspend fun getCategoryList(context: Context){
+    fun getCategoryList(context: Context){
         val db = FoodHubDatabase.getInstance(context)
-        categoryList = db.categoryDao.getAllCategoryList() as MutableList<String>
+
+        var category = db.categoryDao.getAll()
+        categoryList = category
+
     }
 
 
@@ -82,11 +87,20 @@ class DonationFormViewModel : ViewModel() {
         return status
     }
 
-//    suspend fun getLatestDonationForm(context: Context){
-//        val db = FoodHubDatabase.getInstance(context)
-//
-//        latestDF = db.donationFormDao.getLatest()
-//    }
+    fun getSelectedCategoryID(category: Category){
+        newDonationForm.categoryID = category.categoryID
+    }
+
+     fun insetDonationFormToDB(context: Context): Int{
+        val db = FoodHubDatabase.getInstance(context)
+         Log.i("TestOO", newDonationForm.toString())
+
+        var value: Long = 0
+         value = db.donationFormDao.insertDonationForm(newDonationForm)
+         Log.i("DonationFormVM", value.toString())
+
+    return value.toInt()
+    }
 
 
 }

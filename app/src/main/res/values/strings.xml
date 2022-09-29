@@ -53,7 +53,7 @@
     </string-array>
     <string-array name="statusListRF">
         <item>Pending</item>
-        <item>Fulfilled</item>
+        <item>Fulfill</item>
         <item>Deleted</item>
     </string-array>
     <string-array name="categoryEmpty">

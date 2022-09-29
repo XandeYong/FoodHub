@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHost
+import androidx.navigation.fragment.findNavController
 import com.example.foodhub.R
 import com.example.foodhub.databinding.FragmentAdminDonationFormDetailBinding
 import kotlinx.coroutines.Dispatchers
@@ -59,8 +60,8 @@ class AdminDonationFormDetailFragment : Fragment() {
         }
 
         binding.btnCancelADFD.setOnClickListener() {
-//back to admin list
-            //findNavController().navigate(AdminDona.actionAdminDonationFormListFragmentToAdminDonationFormDetailFragment())
+            //back to admin list
+            findNavController().navigate(AdminDonationFormDetailFragmentDirections.actionAdminDonationFormDetailFragmentToAdminDonationFormListFragment())
         }
 
         return binding.root

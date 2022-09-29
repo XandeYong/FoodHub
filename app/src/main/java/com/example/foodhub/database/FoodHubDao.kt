@@ -129,10 +129,6 @@ abstract class CategoryDao: BaseDao<Category> {
     @Query("DELETE FROM category_table")
     abstract suspend fun clear()
 
-//add
-    @Query("SELECT name FROM category_table ORDER BY createdAt DESC")
-    abstract suspend fun getAllCategoryList(): List<String>
-
 }
 
 
@@ -172,6 +168,9 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
 
     @Query("SELECT * FROM donation_form_table WHERE accountID = :id ORDER BY createdAt DESC")
     abstract fun getAllListByDonorID(id: String):LiveData<List<DonationForm>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun insertDonationForm(donationForm: DonationForm): Long
 
 
 
