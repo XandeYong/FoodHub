@@ -30,10 +30,10 @@ class RequestFormViewModel : ViewModel() {
     }
 
     fun generateNewReqFormID(){
-        var newID: String = "DE1"
+        var newID: String = "RF1"
         if(latestReqForm != null) {
             val value: Int=  latestReqForm.requestFormID.substring(2).toInt() + 1
-            newID = "DE" + value.toString()
+            newID = "RF" + value.toString()
         }
         newReqForm.requestFormID = newID
         newReqForm.status = "Pending"

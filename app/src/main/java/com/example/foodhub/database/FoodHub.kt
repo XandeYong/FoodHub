@@ -100,7 +100,7 @@ data class RequestForm(
     @ColumnInfo(name = "categoryID") var categoryID: String? = "",
     @ColumnInfo(name = "quantity") var quantity: Int? = null,
     @ColumnInfo(name = "status") var status: String? = "",
-    @ColumnInfo(name = "accountID") var accountID: String?, //Foreign Key
+    @ColumnInfo(name = "accountID") var accountID: String? = "", //Foreign Key
     @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),
     @ColumnInfo(name = "updatedAt") var updatedAt: String? = generateDate()
 )

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -67,6 +68,7 @@ class DonationFormFragment : Fragment() {
         }
 
         binding.btnSubmitDF.setOnClickListener() {
+            it.hideKeyboard()
             if(binding.spinCategoryDF.getSelectedItem().toString().equals("No Category")){
                 Toast.makeText(context, "Cannot Submit Donation Form!", Toast.LENGTH_LONG).show()
             }else{
@@ -75,6 +77,7 @@ class DonationFormFragment : Fragment() {
         }
 
         binding.btnCancelDF.setOnClickListener() {
+            it.hideKeyboard()
             cancelAction()
         }
 
@@ -158,6 +161,10 @@ class DonationFormFragment : Fragment() {
 
     }
 
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
 
 }
 
