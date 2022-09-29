@@ -43,7 +43,7 @@ class AdminRequestFormDetailFragment : Fragment() {
 
             binding.fieldDoneeIdARFD.text = viewModel.adminRF.accountID
             binding.fieldRequestFormIdARFD.text = viewModel.adminRF.requestFormID
-            binding.fieldCategoryARFD.text = viewModel.category.category
+            binding.fieldCategoryARFD.text = viewModel.category.name
             binding.fieldQuantityARFD.text = viewModel.adminRF.quantity.toString()
 
             //check the position of the status selection

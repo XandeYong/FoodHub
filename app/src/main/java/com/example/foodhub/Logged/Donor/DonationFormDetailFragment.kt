@@ -43,7 +43,7 @@ class DonationFormDetailFragment : Fragment() {
             viewModel.getCategory(requireContext(), viewModel.donationF.categoryID.toString())
 
             binding.fieldDonationFormIdDFD.text = viewModel.donationF.donationFromID
-            binding.fieldCategoryDFD.text = viewModel.category.category
+            binding.fieldCategoryDFD.text = viewModel.category.name
             binding.fieldFoodDFD.text = viewModel.donationF.food
             binding.fieldQuantityDFD.text = viewModel.donationF.quantity.toString()
             binding.fieldStatusDFD.text = viewModel.donationF.status

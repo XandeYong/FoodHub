@@ -16,7 +16,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormListAdapter
 import com.example.foodhub.R
-import com.example.foodhub.database.Category
 import com.example.foodhub.databinding.FragmentDonationFormBinding
 import com.example.foodhub.databinding.FragmentLoginBinding
 import com.example.foodhub.ui.main.MainFragmentDirections
@@ -39,7 +38,7 @@ class DonationFormFragment : Fragment() {
         binding = FragmentDonationFormBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(DonationFormViewModel::class.java)
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             viewModel.getLatestDonationForm(requireContext())
             viewModel.generateNewDonationFormID()
 
@@ -48,31 +47,21 @@ class DonationFormFragment : Fragment() {
 
             viewModel.getCategoryList(requireContext())
 
-            if ( viewModel.categoryList == null ){
+            if ( viewModel.categoryList.isEmpty()){
                 val adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.categoryEmpty))
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinCategoryDF.adapter = adapter
 
             }else{
-//                val adapter: ArrayAdapter<String> = ArrayAdapter<Category>(requireContext(), android.R.layout.simple_spinner_item, viewModel.categoryList.toString())
-                val adapter = context?.let {
-                    ArrayAdapter<Category>(it, android.R.layout.simple_spinner_item)
-                }
-                viewModel.categoryList.observe(viewLifecycleOwner, Observer{ categoryL ->
-                    categoryL?.forEach {
-                        adapter?.add(it)
-                        }
-                    })
-
-
-//                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                val adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, viewModel.categoryList)
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                 binding.spinCategoryDF.adapter = adapter
             }
 
         }
 
         binding.btnSubmitDF.setOnClickListener() {
-//            submitAction()
+            submitAction()
         }
 
         binding.btnCancelDF.setOnClickListener() {
@@ -136,10 +125,10 @@ class DonationFormFragment : Fragment() {
 
     }
 
-    private suspend fun insertDonationForm(){
-        viewModel.insetDonationFormToDB(requireContext())
+    private fun insertDonationForm(){
+//        viewModel.insetDonationFormToDB(requireContext())
     }
 
 
-    }
+}
 

@@ -9,12 +9,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.foodhub.database.Category
 import com.example.foodhub.database.DonationForm
 import com.example.foodhub.database.FoodHubDatabase
-import kotlinx.coroutines.launch
 
 class DonationFormViewModel : ViewModel() {
     var latestDF: DonationForm = DonationForm()
     var newDonationForm: DonationForm = DonationForm()
-    lateinit var categoryList: LiveData<List<Category>>
+    lateinit var categoryList: MutableList<String>
     lateinit var food: String
     lateinit var qty: String
 
@@ -38,19 +37,16 @@ class DonationFormViewModel : ViewModel() {
     fun generateNewDonationFormID(){
         var newID: String = "DF1"
         if(latestDF != null) {
-           val value: Int=  latestDF.donationFromID.substring(2).toInt() + 1
-           newID = "DF" + value.toString()
+            val value: Int=  latestDF.donationFromID.substring(2).toInt() + 1
+            newID = "DF" + value.toString()
         }
         newDonationForm.donationFromID = newID
         newDonationForm.status = "Pending"
     }
 
-    fun getCategoryList(context: Context){
+    suspend fun getCategoryList(context: Context){
         val db = FoodHubDatabase.getInstance(context)
-
-        var aDFL = db.categoryDao.getAll()
-        categoryList = aDFL
-
+        categoryList = db.categoryDao.getAllCategoryList() as MutableList<String>
     }
 
 
@@ -86,11 +82,11 @@ class DonationFormViewModel : ViewModel() {
         return status
     }
 
-    suspend fun insetDonationFormToDB(context: Context){
-        val db = FoodHubDatabase.getInstance(context)
-
-        val statusInt = db.donationFormDao.insertDonationForm(newDonationForm)
-    }
+//    suspend fun getLatestDonationForm(context: Context){
+//        val db = FoodHubDatabase.getInstance(context)
+//
+//        latestDF = db.donationFormDao.getLatest()
+//    }
 
 
 }

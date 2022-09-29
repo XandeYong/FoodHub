@@ -130,8 +130,8 @@ abstract class CategoryDao: BaseDao<Category> {
     abstract suspend fun clear()
 
 //add
-    @Query("SELECT * FROM category_table ORDER BY createdAt DESC")
-    abstract suspend fun getAllCategoryList(): List<Category>
+    @Query("SELECT name FROM category_table ORDER BY createdAt DESC")
+    abstract suspend fun getAllCategoryList(): List<String>
 
 }
 
@@ -173,8 +173,6 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     @Query("SELECT * FROM donation_form_table WHERE accountID = :id ORDER BY createdAt DESC")
     abstract fun getAllListByDonorID(id: String):LiveData<List<DonationForm>>
 
-    @Insert
-    abstract suspend fun insertDonationForm(vararg donationForm: DonationForm): Int
 
 
 }

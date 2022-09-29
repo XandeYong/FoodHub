@@ -44,7 +44,7 @@ class AdminDonationFormDetailFragment : Fragment() {
 
             binding.fieldDonorIdADFD.text = viewModel.adminDF.accountID
             binding.fieldDonationFormIdADFD.text = viewModel.adminDF.donationFromID
-            binding.fieldCategoryADFD.text = viewModel.category.category
+            binding.fieldCategoryADFD.text = viewModel.category.name
             binding.fieldFoodADFD.text = viewModel.adminDF.food
             binding.fieldQuantityADFD.text = viewModel.adminDF.quantity.toString()
 
