@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         if (login) {
             navDrawerSetup()
 
-            var account = "donor"
+            var account = "admin"
             when(account) {
                 "donee" -> {
                     navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
