@@ -3,6 +3,7 @@ package com.example.foodhub.Logged.Admin.FormManagement.Donation
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.content.Context
+import android.hardware.input.InputManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -69,6 +70,7 @@ class AdminDonationFormListFragment : Fragment() {
             }
         })
         binding.btnSearchADFL.setOnClickListener() {
+//            it.hide()
             search()
         }
         return binding.root
@@ -79,16 +81,33 @@ class AdminDonationFormListFragment : Fragment() {
     }
 
     fun search(){
-        viewModel. searchAdminDonationForm(requireContext(), "DF1")
+        if(validateSearchInput()){
+            viewModel. searchAdminDonationForm(requireContext(), binding.editSearchADFL.text.trim().toString())
 
-        viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
-            (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
-            //set toast if empty list
-            if (myAdapter.getItemCount() == 0)
-            {
-                Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
-            }
-        })
+            viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
+                (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
+                //set toast if empty list
+                if (myAdapter.getItemCount() == 0)
+                {
+                    Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }else{
+            Toast.makeText(getActivity(), "Search Field Is Empty!", Toast.LENGTH_SHORT).show()
+        }
+
+
     }
+
+    fun validateSearchInput(): Boolean {
+        val status = binding.editSearchADFL.text.isNotEmpty()
+        return status
+    }
+
+//    fun View.hideKeyboard() {
+//        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputManager
+//        inputManager.(windowToken, 0)
+//    }
+
 
 }

@@ -131,8 +131,6 @@ abstract class CategoryDao: BaseDao<Category> {
 
 }
 
-
-
 @Dao
 abstract class DonationFormDao: BaseDao<DonationForm> {
 
