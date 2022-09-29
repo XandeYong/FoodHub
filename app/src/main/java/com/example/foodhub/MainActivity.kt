@@ -93,6 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         } else {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+
         }
 
     }
