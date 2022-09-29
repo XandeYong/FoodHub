@@ -33,7 +33,11 @@
         android:id="@+id/adminDonationFormDetailFragment"
         android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormDetailFragment"
         android:label="fragment_admin_donation_form_detail"
-        tools:layout="@layout/fragment_admin_donation_form_detail" />
+        tools:layout="@layout/fragment_admin_donation_form_detail" >
+        <action
+            android:id="@+id/action_adminDonationFormDetailFragment_to_adminDonationFormListFragment"
+            app:destination="@id/adminDonationFormListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/adminDonationFormListFragment"
         android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormListFragment"
@@ -47,7 +51,11 @@
         android:id="@+id/adminRequestFormDetailFragment"
         android:name="com.example.foodhub.Logged.Admin.FormManagement.Request.AdminRequestFormDetailFragment"
         android:label="fragment_admin_request_form_detail"
-        tools:layout="@layout/fragment_admin_request_form_detail" />
+        tools:layout="@layout/fragment_admin_request_form_detail" >
+        <action
+            android:id="@+id/action_adminRequestFormDetailFragment_to_adminRequestFormListFragment"
+            app:destination="@id/adminRequestFormListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/adminRequestFormListFragment"
         android:name="com.example.foodhub.Logged.Admin.FormManagement.Request.AdminRequestFormListFragment"
@@ -61,12 +69,20 @@
         android:id="@+id/donationFormFragment"
         android:name="com.example.foodhub.Logged.Donor.DonationFormFragment"
         android:label="fragment_donation_form"
-        tools:layout="@layout/fragment_donation_form" />
+        tools:layout="@layout/fragment_donation_form" >
+        <action
+            android:id="@+id/action_donationFormFragment_to_donationFormListFragment"
+            app:destination="@id/donationFormListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/donationFormDetailFragment"
         android:name="com.example.foodhub.Logged.Donor.DonationFormDetailFragment"
         android:label="fragment_donation_form_detail"
-        tools:layout="@layout/fragment_donation_form_detail" />
+        tools:layout="@layout/fragment_donation_form_detail" >
+        <action
+            android:id="@+id/action_donationFormDetailFragment_to_donationFormListFragment"
+            app:destination="@id/donationFormListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/donationFormListFragment"
         android:name="com.example.foodhub.Logged.Donor.DonationFormListFragment"
@@ -98,12 +114,20 @@
         android:id="@+id/requestFormFragment"
         android:name="com.example.foodhub.Logged.Donee.RequestFormFragment"
         android:label="fragment_request_form"
-        tools:layout="@layout/fragment_request_form" />
+        tools:layout="@layout/fragment_request_form" >
+        <action
+            android:id="@+id/action_requestFormFragment_to_requestFormListFragment"
+            app:destination="@id/requestFormListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/requestFormDetailFragment"
         android:name="com.example.foodhub.Logged.Donee.RequestFormDetailFragment"
         android:label="fragment_request_form_detail"
-        tools:layout="@layout/fragment_request_form_detail" />
+        tools:layout="@layout/fragment_request_form_detail" >
+        <action
+            android:id="@+id/action_requestFormDetailFragment_to_requestFormListFragment"
+            app:destination="@id/requestFormListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/requestFormListFragment"
         android:name="com.example.foodhub.Logged.Donee.RequestFormListFragment"
@@ -120,7 +144,11 @@
         android:id="@+id/createNews_admin"
         android:name="com.example.foodhub.Logged.Admin.News.createNews_admin"
         android:label="fragment_create_news_admin"
-        tools:layout="@layout/fragment_create_news_admin" />
+        tools:layout="@layout/fragment_create_news_admin" >
+        <action
+            android:id="@+id/action_createNews_admin_to_newsList_admin"
+            app:destination="@id/newsList_admin" />
+    </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.foodhub.Logged.All.Account.Profile.EditProfileFragment"
@@ -150,7 +178,11 @@
         android:id="@+id/updateNews_admin"
         android:name="com.example.foodhub.Logged.Admin.News.updateNews_admin"
         android:label="fragment_update_news_admin"
-        tools:layout="@layout/fragment_update_news_admin" />
+        tools:layout="@layout/fragment_update_news_admin" >
+        <action
+            android:id="@+id/action_updateNews_admin_to_newsList_admin"
+            app:destination="@id/newsList_admin" />
+    </fragment>
     <fragment
         android:id="@+id/viewCategoryFragment"
         android:name="com.example.foodhub.Logged.Admin.Category.ViewCategoryFragment"
