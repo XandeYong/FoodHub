@@ -13,11 +13,11 @@ class AdminDonationFormListViewModel : ViewModel() {
     lateinit var adminDFL: LiveData<List<DonationForm>>
 
     init {
-        Log.i("DonationFormListVM", "Donation Form List View Model has been Created!")
+        Log.i("AdminDonationFormListVM", "Admin Donation Form List View Model has been Created!")
     }
 
     override fun onCleared() {
-        Log.i("DonationFormListVM","Donation Form List View Model has been Destroyed!")
+        Log.i("AdminDonationFormListVM","Admin Donation Form List View Model has been Destroyed!")
         super.onCleared()
     }
 
@@ -27,6 +27,15 @@ class AdminDonationFormListViewModel : ViewModel() {
         viewModelScope.launch {
             var aDFL = db.donationFormDao.getAll()
             adminDFL = aDFL
+        }
+    }
+
+    fun searchAdminDonationForm(context: Context, id: String){
+        val db = FoodHubDatabase.getInstance(context)
+
+        viewModelScope.launch {
+            var search = db.donationFormDao.searchDF(id)
+            adminDFL = search
         }
     }
 

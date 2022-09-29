@@ -68,12 +68,27 @@ class AdminDonationFormListFragment : Fragment() {
                 findNavController().navigate(AdminDonationFormListFragmentDirections.actionAdminDonationFormListFragmentToAdminDonationFormDetailFragment())
             }
         })
-
+        binding.btnSearchADFL.setOnClickListener() {
+            search()
+        }
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
+
+    fun search(){
+        viewModel. searchAdminDonationForm(requireContext(), "DF1")
+
+        viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
+            (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
+            //set toast if empty list
+            if (myAdapter.getItemCount() == 0)
+            {
+                Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
 }
