@@ -3,11 +3,11 @@ package com.example.foodhub.Logged.Admin.FormManagement.Donation
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.content.Context
-import android.hardware.input.InputManager
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -69,10 +69,12 @@ class AdminDonationFormListFragment : Fragment() {
                 findNavController().navigate(AdminDonationFormListFragmentDirections.actionAdminDonationFormListFragmentToAdminDonationFormDetailFragment())
             }
         })
+
         binding.btnSearchADFL.setOnClickListener() {
-//            it.hide()
+            it.hideKeyboard()
             search()
         }
+
         return binding.root
     }
 
@@ -82,7 +84,7 @@ class AdminDonationFormListFragment : Fragment() {
 
     fun search(){
         if(validateSearchInput()){
-            viewModel. searchAdminDonationForm(requireContext(), binding.editSearchADFL.text.trim().toString())
+            viewModel. searchAdminDonationForm(requireContext(), binding.editSearchADFL.text.toString().uppercase().trim())
 
             viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
                 (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
@@ -96,7 +98,6 @@ class AdminDonationFormListFragment : Fragment() {
             Toast.makeText(getActivity(), "Search Field Is Empty!", Toast.LENGTH_SHORT).show()
         }
 
-
     }
 
     fun validateSearchInput(): Boolean {
@@ -104,10 +105,10 @@ class AdminDonationFormListFragment : Fragment() {
         return status
     }
 
-//    fun View.hideKeyboard() {
-//        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputManager
-//        inputManager.(windowToken, 0)
-//    }
 
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
 
 }

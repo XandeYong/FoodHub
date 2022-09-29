@@ -170,8 +170,11 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     @Insert
     abstract fun insertDonationForm(donationForm: DonationForm): Long
 
-    @Query("SELECT * FROM donation_form_table WHERE donationFromID = :id ORDER BY createdAt DESC")
+    @Query("SELECT * FROM donation_form_table WHERE donationFromID LIKE :id ORDER BY createdAt DESC")
     abstract fun searchDF(id: String):LiveData<List<DonationForm>>
+
+    @Query("SELECT * FROM donation_form_table WHERE accountID = :accountID AND donationFromID LIKE :dfID AND status != :status ORDER BY createdAt DESC")
+    abstract fun searchDFAvailable(accountID: String, dfID: String, status: String = "Deleted"):LiveData<List<DonationForm>>
 
 
 }
@@ -207,6 +210,9 @@ abstract class RequestFormDao: BaseDao<RequestForm> {
 //add
     @Query(" UPDATE request_form_table SET status=:status WHERE requestFormID = :id")
     abstract suspend fun updateStatus(status: String, id: String): Int
+
+    @Query("SELECT * FROM request_form_table WHERE requestFormID LIKE :id ORDER BY createdAt DESC")
+    abstract fun searchRF(id: String):LiveData<List<RequestForm>>
 
 }
 

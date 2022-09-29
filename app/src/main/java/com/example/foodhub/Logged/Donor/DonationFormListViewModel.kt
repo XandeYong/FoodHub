@@ -30,5 +30,14 @@ class DonationFormListViewModel : ViewModel() {
         }
     }
 
+    fun searchDonationForm(context: Context, donorID: String, dfID: String){
+        val db = FoodHubDatabase.getInstance(context)
+
+        viewModelScope.launch {
+            var search = db.donationFormDao.searchDFAvailable(donorID,"%$dfID%")
+            donationFL = search
+        }
+    }
+
 
 }

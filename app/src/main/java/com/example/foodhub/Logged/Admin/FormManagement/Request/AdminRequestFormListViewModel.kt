@@ -30,4 +30,13 @@ class AdminRequestFormListViewModel : ViewModel() {
         }
     }
 
+    fun searchAdminRequestForm(context: Context, id: String){
+        val db = FoodHubDatabase.getInstance(context)
+
+        viewModelScope.launch {
+            var search = db.requestFormDao.searchRF("%$id%")
+            adminRFL = search
+        }
+    }
+
 }
