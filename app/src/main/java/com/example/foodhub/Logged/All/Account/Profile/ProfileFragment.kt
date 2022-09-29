@@ -69,7 +69,6 @@ class ProfileFragment : Fragment() {
         }
 
         binding.editProfileButton.setOnClickListener {
-            binding.profileImage.setImageDrawable(null)
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
         }
         return binding.root

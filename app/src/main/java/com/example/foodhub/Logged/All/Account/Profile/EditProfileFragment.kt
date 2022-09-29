@@ -23,6 +23,7 @@ import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentEditProfileBinding
 import com.example.foodhub.util.Util
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -154,9 +155,14 @@ class EditProfileFragment : Fragment() {
 
 
                         lifecycleScope.launch{
+                            //Update to DB
                             db.accountDao.updateAt(userAccount)
 
-                            Toast.makeText(activity,"Profile updated!",Toast.LENGTH_SHORT).show()
+                            //Updated noti Snackbar
+                            Snackbar.make(requireActivity().findViewById(R.id.profileFragment),"Profile Updated!",Snackbar.LENGTH_LONG)
+                                .setAction("Dismiss"){
+                                    //Empty to dismiss Snack Bar
+                                }.show()
 
                             findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
                         }
