@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodhub.databinding.FragmentAdminRequestFormListBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AdminRequestFormListFragment : Fragment() {
@@ -60,7 +59,6 @@ class AdminRequestFormListFragment : Fragment() {
         //set onlClick to Admin Request Form Detail
         (myAdapter as AdminRequestFormListAdapter).setOnClickListener(object : AdminRequestFormListAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
-                Toast.makeText(requireContext(), "You clicked on $position", Toast.LENGTH_LONG).show() //need removed
                 val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
                 val editor =preferences.edit()
                 editor.putString("requestFromID",  (myAdapter as AdminRequestFormListAdapter).adminRequestFormList[position].requestFormID)

@@ -166,10 +166,10 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     @Query(" UPDATE donation_form_table SET status=:status WHERE donationFromID = :id")
     abstract suspend fun updateStatus(status: String, id: String): Int
 
-    @Query("SELECT * FROM donation_form_table WHERE accountID = :id ORDER BY createdAt DESC")
-    abstract fun getAllListByDonorID(id: String):LiveData<List<DonationForm>>
+    @Query("SELECT * FROM donation_form_table WHERE accountID = :id AND status != :status ORDER BY createdAt DESC")
+    abstract fun getAllListByDonorID(id: String, status: String = "Deleted"):LiveData<List<DonationForm>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert
     abstract fun insertDonationForm(donationForm: DonationForm): Long
 
 

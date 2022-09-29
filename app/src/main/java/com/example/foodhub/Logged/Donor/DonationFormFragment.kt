@@ -1,6 +1,7 @@
 package com.example.foodhub.Logged.Donor
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,9 +17,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.foodhub.R
 import com.example.foodhub.database.Category
 import com.example.foodhub.databinding.FragmentDonationFormBinding
-import kotlinx.android.synthetic.main.fragment_donation_form.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DonationFormFragment : Fragment() {
 
@@ -114,7 +115,7 @@ class DonationFormFragment : Fragment() {
 
     private fun cancelAction(){
         //back to donation form list
-        findNavController().navigate(DonationFormDetailFragmentDirections.actionDonationFormDetailFragmentToDonationFormListFragment())
+        findNavController().navigate(DonationFormFragmentDirections.actionDonationFormFragmentToDonationFormListFragment())
     }
 
     private fun displayAlertDialog(){
@@ -138,12 +139,23 @@ class DonationFormFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO){
             viewModel.getSelectedCategoryID(binding.spinCategoryDF.selectedItem as Category)
             value = viewModel.insetDonationFormToDB(requireContext())
-        }
-        if(value != 0 || value != null){
-            Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
 
-        }else{
-            Toast.makeText(requireContext(), "Fail", Toast.LENGTH_SHORT).show()
+            withContext(Dispatchers.Main) {
+                if(value != 0 && value != null){
+                    Toast.makeText(requireContext(), "Create Success", Toast.LENGTH_SHORT).show()
+                    val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
+                    val editor =preferences.edit()
+                    editor.putString("donationFromID", viewModel.newDonationForm.donationFromID)
+                    editor.apply()
+                    editor.commit()
+
+                    //Go to Donation Form detail
+//                    findNavController().navigate(DonationFormFragmentDirections.ac())
+
+                }else{
+                    Toast.makeText(requireContext(), "Create Fail", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
     }

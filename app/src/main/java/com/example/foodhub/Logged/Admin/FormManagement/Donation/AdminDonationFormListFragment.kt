@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodhub.databinding.FragmentAdminDonationFormListBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AdminDonationFormListFragment : Fragment() {
@@ -61,7 +60,6 @@ class AdminDonationFormListFragment : Fragment() {
         //set onlClick to Admin Donation Form Detail
         (myAdapter as AdminDonationFormListAdapter).setOnClickListener(object : AdminDonationFormListAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
-                Toast.makeText(requireContext(), "You clicked on $position",Toast.LENGTH_LONG).show() //need removed
                 val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
                 val editor =preferences.edit()
                 editor.putString("donationFromID",  (myAdapter as AdminDonationFormListAdapter).adminDonationFormList[position].donationFromID)

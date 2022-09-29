@@ -1,15 +1,12 @@
 package com.example.foodhub.Logged.Donor
 
-import android.R
 import android.content.Context
 import android.util.Log
-import android.widget.ArrayAdapter
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.*
 import com.example.foodhub.database.Category
 import com.example.foodhub.database.DonationForm
 import com.example.foodhub.database.FoodHubDatabase
-import kotlinx.coroutines.launch
 
 class DonationFormViewModel : ViewModel() {
     var latestDF: DonationForm = DonationForm()
@@ -93,11 +90,14 @@ class DonationFormViewModel : ViewModel() {
 
      fun insetDonationFormToDB(context: Context): Int{
         val db = FoodHubDatabase.getInstance(context)
-         Log.i("TestOO", newDonationForm.toString())
-
         var value: Long = 0
-         value = db.donationFormDao.insertDonationForm(newDonationForm)
-         Log.i("DonationFormVM", value.toString())
+
+         try{
+            value = db.donationFormDao.insertDonationForm(newDonationForm)
+
+        }catch (ex: Exception){
+            Log.i("Insert Failed", ex.toString());
+        }
 
     return value.toInt()
     }

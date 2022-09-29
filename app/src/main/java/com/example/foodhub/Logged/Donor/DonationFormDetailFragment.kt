@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.foodhub.databinding.FragmentDonationFormDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,8 +56,8 @@ class DonationFormDetailFragment : Fragment() {
         }
 
         binding.btnCancelDFD.setOnClickListener() {
-
-//            findNavController().navigate(AdminDonationFormListFragmentDirections.actionAdminDonationFormListFragmentToAdminDonationFormDetailFragment())
+            //Back To Donation Form List
+            findNavController().navigate(DonationFormDetailFragmentDirections.actionDonationFormDetailFragmentToDonationFormListFragment())
         }
 
         return binding.root
@@ -85,6 +86,18 @@ class DonationFormDetailFragment : Fragment() {
     private fun deleteDonationForm(donationFormID: String){
         //add action to change status only
 
+        lifecycleScope.launch {
+            val value = viewModel.updateStatusToDB(requireContext())
+            if(value == 0){
+                Toast.makeText(getActivity(), "Delete Failed!", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(getActivity(), "Delete Success!", Toast.LENGTH_SHORT).show()
+
+                //Back To Donation Form List
+                findNavController().navigate(DonationFormDetailFragmentDirections.actionDonationFormDetailFragmentToDonationFormListFragment())
+
+            }
+        }
     }
 
 }

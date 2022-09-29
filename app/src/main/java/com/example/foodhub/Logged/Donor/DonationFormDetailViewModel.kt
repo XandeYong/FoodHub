@@ -32,16 +32,12 @@ class DonationFormDetailViewModel : ViewModel() {
         category = db.categoryDao.get(categoryID)
     }
 
-    fun checkStatusSelectedPosition(statusListDF: Array<String>): Int{
-        var position: Int = 0
-        for(status in statusListDF) {
-            if(!status.equals(donationF.status)) {
-                position++
-            }else{
-                break
-            }
-        }
-        return position
+    suspend fun updateStatusToDB(context: Context): Int{
+        val db = FoodHubDatabase.getInstance(context)
+
+        var value = db.donationFormDao.updateStatus("Deleted", donationF.donationFromID)
+
+        return value
     }
 
 

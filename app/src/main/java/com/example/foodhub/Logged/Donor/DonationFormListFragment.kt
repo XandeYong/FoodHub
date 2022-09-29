@@ -1,6 +1,5 @@
 package com.example.foodhub.Logged.Donor
 
-import android.R
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodhub.databinding.FragmentDonationFormListBinding
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
@@ -49,7 +47,7 @@ class DonationFormListFragment : Fragment() {
         recyclerView.adapter = myAdapter
 
         //Set Donor ID get from darren
-        donorID = "DO1"
+        donorID = "DO2"
 
         lifecycleScope.launch {
             viewModel.getDonationFormList(requireContext(), donorID)
@@ -66,7 +64,7 @@ class DonationFormListFragment : Fragment() {
         //set onlClick to Donation Form Detail
         (myAdapter as DonationFormListAdapter).setOnClickListener(object : DonationFormListAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
-                Toast.makeText(requireContext(), "You clicked on $position", Toast.LENGTH_LONG).show() //need removed
+
                 val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
                 val editor =preferences.edit()
                 editor.putString("donationFromID",  (myAdapter as DonationFormListAdapter).donationFormList[position].donationFromID)
