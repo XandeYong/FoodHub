@@ -45,9 +45,11 @@ class MainActivity : AppCompatActivity() {
         val accountType =sharedPref.getString("accountType" , null)
         val accountID =sharedPref.getString("accountID" , null)
 
-        if(accountID.toString().trim().isNotEmpty()){
-            loginCredential = true
-        }
+
+        loginCredential = true
+//        if(accountID.toString().trim() != "null") {
+//            loginCredential = true
+//        }
         val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
         val db = FoodHubDatabase.getInstance(applicationContext)
 
