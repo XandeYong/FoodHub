@@ -22,7 +22,7 @@ import java.util.*
 *
 * Status:
 *   DonationForm    = {Pending, Donated, Deleted}
-*   RequestForm     = {Pending, Fulfill, Deleted}
+*   RequestForm     = {Pending, Fulfilled, Deleted}
 *
 * */
 
@@ -42,7 +42,7 @@ data class Account(
     @ColumnInfo(name = "name") var name: String? = "",
     @ColumnInfo(name = "image") var image: Bitmap? = null,
     @ColumnInfo(name = "address") var address: String? = "",
-    @ColumnInfo(name = "state") var state: String? = "",
+    @ColumnInfo(name = "stateID") var stateID: String? = "",
     @ColumnInfo(name = "dob") var dob: Date? = null,
     @ColumnInfo(name = "gender") var gender: String? = "",
     @ColumnInfo(name = "email") var email: String? = "",
@@ -72,14 +72,18 @@ data class Category(
     @ColumnInfo(name = "name") var name: String? = "",
     @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),
     @ColumnInfo(name = "updatedAt") var updatedAt: String? = generateDate()
-)
+){
+    override fun toString(): String {
+        return name.toString()
+    }
+}
 
 
 
 @Entity(tableName = "donation_form_table")
 data class DonationForm(
     @PrimaryKey var donationFromID: String = "", //DF1
-    @ColumnInfo(name = "categoryName") var categoryName: String? = "",
+    @ColumnInfo(name = "categoryID") var categoryID: String? = "",
     @ColumnInfo(name = "food") var food: String? = "",
     @ColumnInfo(name = "quantity") var quantity: Int? = null,
     @ColumnInfo(name = "status") var status: String? = "",
@@ -93,7 +97,7 @@ data class DonationForm(
 @Entity(tableName = "request_form_table")
 data class RequestForm(
     @PrimaryKey var requestFormID: String, //RF1
-    @ColumnInfo(name = "categoryName") var categoryName: String? = "",
+    @ColumnInfo(name = "categoryID") var categoryID: String? = "",
     @ColumnInfo(name = "quantity") var quantity: Int? = null,
     @ColumnInfo(name = "status") var status: String? = "",
     @ColumnInfo(name = "accountID") var accountID: String?, //Foreign Key
@@ -121,7 +125,7 @@ data class AnalysisReport(
 @Entity(tableName = "location_report_table")
 data class LocationReport(
     @PrimaryKey var locationReportID: String, //LR1
-    @ColumnInfo(name = "state") var state: String? = "",
+    @ColumnInfo(name = "stateID") var stateID: String? = "",
     @ColumnInfo(name = "totalDonor") var totalDonor: Int? = null,
     @ColumnInfo(name = "totalDonee") var totalDonee: Int? = null,
     @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),

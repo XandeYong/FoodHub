@@ -8,18 +8,6 @@
     tools:context=".Logged.Donor.DonationFormDetailFragment">
 
 
-    <!--  push top  -->
-    <LinearLayout
-        android:id="@+id/linearLayoutTempDFD"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
     <ScrollView
         android:id="@+id/scrollViewDFD"
         android:layout_width="match_parent"
@@ -27,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTempDFD" >
+        app:layout_constraintTop_toTopOf="parent"  >
 
         <LinearLayout
             android:id="@+id/linearLayoutFormMainDFD"
