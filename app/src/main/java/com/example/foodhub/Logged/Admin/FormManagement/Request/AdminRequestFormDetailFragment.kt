@@ -39,7 +39,7 @@ class AdminRequestFormDetailFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.IO) {
             viewModel.getAdminRequestForm(requireContext(), requestFromID.toString())
-            viewModel.getCategory(requireContext(), viewModel.adminRF.categoryID.toString())
+            viewModel.getCategory(requireContext(), viewModel.adminRF.categoryName.toString())
 
             binding.fieldDoneeIdARFD.text = viewModel.adminRF.accountID
             binding.fieldRequestFormIdARFD.text = viewModel.adminRF.requestFormID
