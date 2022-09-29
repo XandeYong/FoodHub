@@ -66,6 +66,7 @@ class LoginFragment : Fragment() {
 //            }
             findNavController().navigate(MainFragmentDirections.actionMainFragmentSelf())
 
+
         }
         binding.txtSignUp.setOnClickListener() {
             findNavController().navigate(MainFragmentDirections.actionMainFragmentToRegisterFragment()) // not working

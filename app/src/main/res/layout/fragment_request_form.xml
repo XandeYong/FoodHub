@@ -8,17 +8,6 @@ android:layout_height="match_parent"
 tools:context=".Logged.Donee.RequestFormFragment">
 
 
-<!--  push top  -->
-<LinearLayout
-    android:id="@+id/linear_layout_temp_RF"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:orientation="vertical"
-    android:visibility="invisible"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
-
 
 <ScrollView
     android:id="@+id/scroll_view_RF"
@@ -27,7 +16,7 @@ tools:context=".Logged.Donee.RequestFormFragment">
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/linear_layout_temp_RF" >
+    app:layout_constraintTop_toTopOf="parent"  >
 
     <LinearLayout
         android:id="@+id/linear_layout_form_main_RF"

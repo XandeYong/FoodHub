@@ -8,18 +8,6 @@
     tools:context=".Logged.Donor.DonationFormFragment">
 
 
-    <!--  push top  -->
-    <LinearLayout
-        android:id="@+id/linearLayoutTempDF"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
     <ScrollView
         android:id="@+id/scrollViewDF"
         android:layout_width="match_parent"
@@ -27,7 +15,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayoutTempDF" >
+        app:layout_constraintTop_toTopOf="parent" >
 
         <LinearLayout
             android:id="@+id/linearLayoutFormMainDF"
@@ -64,7 +52,6 @@
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
                     android:padding="10dp"
-                    android:hint="@string/lbl_donation_form_id"
                     android:textColor="#000000"
                     android:textSize="14sp"
                     android:background="@drawable/uneditable_editview_border" />
@@ -90,7 +77,6 @@
                     android:padding="10dp"
                     android:textSize="14sp"
                     android:background="@drawable/spinner_design"
-                    android:entries="@array/instituteNameList"
                     android:inputType="none"/>
 
                 <TextView
@@ -141,7 +127,7 @@
                     android:layout_marginEnd="20dp"
                     android:autofillHints=""
                     android:ems="10"
-                    android:inputType="textPersonName"
+                    android:inputType="number"
                     android:text=""
                     android:textColor="#000000"
                     android:textSize="14sp"
@@ -159,22 +145,18 @@
                     android:textColor="#0E86D4"
                     android:textSize="14sp" />
 
-                <EditText
-                    android:id="@+id/editStatusDF"
+                <TextView
+                    android:id="@+id/fieldStatusDF"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="16dp"
-                    android:autofillHints=""
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text=""
+                    android:padding="10dp"
                     android:textColor="#000000"
                     android:textSize="14sp"
-                    android:padding="10dp"
-                    android:background="@drawable/textbox_border" />
+                    android:background="@drawable/uneditable_editview_border" />
 
             </LinearLayout>
 

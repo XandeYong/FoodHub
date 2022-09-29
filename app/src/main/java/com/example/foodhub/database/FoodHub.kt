@@ -22,7 +22,7 @@ import java.util.*
 *
 * Status:
 *   DonationForm    = {Pending, Donated, Deleted}
-*   RequestForm     = {Pending, Fulfill, Deleted}
+*   RequestForm     = {Pending, Fulfilled, Deleted}
 *
 * */
 
@@ -72,12 +72,10 @@ data class Category(
     @ColumnInfo(name = "name") var name: String? = "",
     @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),
     @ColumnInfo(name = "updatedAt") var updatedAt: String? = generateDate()
-) {
-
+){
     override fun toString(): String {
         return name.toString()
     }
-
 }
 
 

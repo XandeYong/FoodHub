@@ -4,32 +4,41 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodhub.R
+import com.example.foodhub.database.DonationForm
+
 
 class AdminDonationFormListAdapter: RecyclerView.Adapter<AdminDonationFormListAdapter.ViewHolder>() {
-    //for text data
-    private var donorIdArray = arrayOf("WM123SS","WM5555S","WK526SR","WK526SR","WK56SR","WK26SR","W526SR","WK526S","WKSR","WK526SR","WK526SR","WK526SR","WK526SR","WK526SR","WK526SR","WK526SR","WK526SR","WK526SR")
-    private var donationFormIdArray = arrayOf("1","2","3", "1","2","3", "1","2","3", "1","2","3", "1","2","3", "1","2","3")
 
+    var adminDonationFormList: MutableList<DonationForm> = mutableListOf()
+
+    private lateinit var mListener: onItemClickListener
+
+    interface onItemClickListener{
+        fun onItemClick(position: Int)
+    }
+    fun setOnClickListener(listener: onItemClickListener){
+        mListener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminDonationFormListAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.admin_donation_form_list_card_layout, parent, false)
-        return ViewHolder(v)
+        return ViewHolder(v, mListener)
     }
 
     //Identify how many item are passing to the view holder
     override fun getItemCount(): Int {
-        return donorIdArray.size
+        return adminDonationFormList.size
     }
 
     override fun onBindViewHolder(holder: AdminDonationFormListAdapter.ViewHolder, position: Int) {
-        holder.fieldDonorIdADFLCL.text = donorIdArray[position]
-        holder.fieldDonationFormIdADFLCL.text = donationFormIdArray[position]
+            val adminDonationForm: DonationForm = adminDonationFormList[position]
+            holder.fieldDonorIdADFLCL.text = adminDonationForm.accountID
+            holder.fieldDonationFormIdADFLCL.text = adminDonationForm.donationFromID
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView){
         lateinit var fieldDonorIdADFLCL: TextView
         lateinit var fieldDonationFormIdADFLCL: TextView
 
@@ -38,14 +47,18 @@ class AdminDonationFormListAdapter: RecyclerView.Adapter<AdminDonationFormListAd
             fieldDonationFormIdADFLCL = itemView.findViewById(R.id.fieldDonationFormIdADFLCL)
 
             itemView.setOnClickListener(){
-                displayAdminDonationFormDetail()
+                listener.onItemClick(adapterPosition)
 
             }
         }
 
-        private fun displayAdminDonationFormDetail(){
-            //This need change to navigate to the Donation form Detail
-            Toast.makeText(itemView.context, "You clicked on ${donorIdArray[absoluteAdapterPosition]}",Toast.LENGTH_LONG).show()
-        }
     }
+
+    fun setData(adfl: List<DonationForm>) {
+        adminDonationFormList = adfl as MutableList<DonationForm>
+        notifyDataSetChanged()
+    }
+
+
+
 }
