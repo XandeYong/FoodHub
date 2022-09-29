@@ -22,7 +22,7 @@ import java.util.*
 *
 * Status:
 *   DonationForm    = {Pending, Donated, Deleted}
-*   RequestForm     = {Pending, Fulfill, Deleted}
+*   RequestForm     = {Pending, Fulfilled, Deleted}
 *
 * */
 
@@ -69,7 +69,7 @@ data class News(
 @Entity(tableName = "category_table")
 data class Category(
     @PrimaryKey var categoryID: String = "", //C1
-    @ColumnInfo(name = "name") var category: String? = "",
+    @ColumnInfo(name = "name") var name: String? = "",
     @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),
     @ColumnInfo(name = "updatedAt") var updatedAt: String? = generateDate()
 )

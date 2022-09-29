@@ -129,6 +129,10 @@ abstract class CategoryDao: BaseDao<Category> {
     @Query("DELETE FROM category_table")
     abstract suspend fun clear()
 
+//add
+    @Query("SELECT * FROM category_table ORDER BY createdAt DESC")
+    abstract suspend fun getAllCategoryList(): List<Category>
+
 }
 
 
@@ -153,7 +157,7 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     @Query("SELECT * FROM donation_form_table ORDER BY createdAt DESC")
     abstract fun getAll():LiveData<List<DonationForm>>
 
-    @Query("SELECT * FROM donation_form_table WHERE status != 'Canceled' ORDER BY createdAt DESC")
+    @Query("SELECT * FROM donation_form_table WHERE status != 'Deleted' ORDER BY createdAt DESC")
     abstract fun getAllAvailable():LiveData<List<DonationForm>>
 
     @Query("SELECT * FROM donation_form_table ORDER BY createdAt DESC LIMIT 1")
@@ -161,6 +165,17 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
 
     @Query("DELETE FROM donation_form_table")
     abstract suspend fun clear()
+
+//add
+    @Query(" UPDATE donation_form_table SET status=:status WHERE donationFromID = :id")
+    abstract suspend fun updateStatus(status: String, id: String): Int
+
+    @Query("SELECT * FROM donation_form_table WHERE accountID = :id ORDER BY createdAt DESC")
+    abstract fun getAllListByDonorID(id: String):LiveData<List<DonationForm>>
+
+    @Insert
+    abstract suspend fun insertDonationForm(vararg donationForm: DonationForm): Int
+
 
 }
 
@@ -191,6 +206,10 @@ abstract class RequestFormDao: BaseDao<RequestForm> {
 
     @Query("DELETE FROM request_form_table")
     abstract suspend fun clear()
+
+//add
+    @Query(" UPDATE request_form_table SET status=:status WHERE requestFormID = :id")
+    abstract suspend fun updateStatus(status: String, id: String): Int
 
 }
 

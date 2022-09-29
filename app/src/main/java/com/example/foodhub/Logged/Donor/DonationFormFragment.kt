@@ -4,16 +4,24 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormListAdapter
 import com.example.foodhub.R
+import com.example.foodhub.database.Category
 import com.example.foodhub.databinding.FragmentDonationFormBinding
 import com.example.foodhub.databinding.FragmentLoginBinding
 import com.example.foodhub.ui.main.MainFragmentDirections
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class DonationFormFragment : Fragment() {
 
@@ -29,8 +37,42 @@ class DonationFormFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDonationFormBinding.inflate(inflater)
+        viewModel = ViewModelProvider(this).get(DonationFormViewModel::class.java)
+
+        lifecycleScope.launch {
+            viewModel.getLatestDonationForm(requireContext())
+            viewModel.generateNewDonationFormID()
+
+            binding.fieldDonationFormIdDF.text = viewModel.newDonationForm.donationFromID
+            binding.fieldStatusDF.text = viewModel.newDonationForm.status
+
+            viewModel.getCategoryList(requireContext())
+
+            if ( viewModel.categoryList == null ){
+                val adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, resources.getStringArray(R.array.categoryEmpty))
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinCategoryDF.adapter = adapter
+
+            }else{
+//                val adapter: ArrayAdapter<String> = ArrayAdapter<Category>(requireContext(), android.R.layout.simple_spinner_item, viewModel.categoryList.toString())
+                val adapter = context?.let {
+                    ArrayAdapter<Category>(it, android.R.layout.simple_spinner_item)
+                }
+                viewModel.categoryList.observe(viewLifecycleOwner, Observer{ categoryL ->
+                    categoryL?.forEach {
+                        adapter?.add(it)
+                        }
+                    })
+
+
+//                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                binding.spinCategoryDF.adapter = adapter
+            }
+
+        }
+
         binding.btnSubmitDF.setOnClickListener() {
-            submitAction()
+//            submitAction()
         }
 
         binding.btnCancelDF.setOnClickListener() {
@@ -43,33 +85,37 @@ class DonationFormFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DonationFormViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     private fun submitAction() {
-//        binding.txtDonationFormIdDF.text = "hhhkhhjkhjhjhjhjk"
-//
-//        binding.editFoodDF.setError("Error");
-//        binding.editFoodDF.requestFocus()
-        //binding.editDonationFormIdDF.setText("dsdsd")
+        viewModel.setValueFromEditTextView(binding.editFoodDF.text.toString(), binding.editQuantityDF.text.toString())
+        var status: Boolean = true
+        if(viewModel.validateFood() != true){
+            binding.editFoodDF.setError("Field must be in alphabet and cannot be left empty!")
+            binding.editFoodDF.requestFocus()
+            status = false
+        }else{
+            binding.editFoodDF.setError(null)
+        }
 
-        //viewModel.food.value = binding.editFoodDF.text.toString()
+        if(viewModel.validateQuantity() != true){
+            binding.editQuantityDF.setError("Field must be in digit and cannot be left empty!")
+            binding.editQuantityDF.requestFocus()
+            status = false
+        }else{
+            binding.editQuantityDF.setError(null)
+        }
 
-        //viewModel.setValue(binding.editFoodDF.text.toString())
-        //binding.fieldDonationFormIdDF.text =viewModel.food.value
+        if(status){
+            displayAlertDialog()
+        }
 
-
-        viewModel.setValue2(binding.editFoodDF.text.toString())
-        binding.fieldDonationFormIdDF.text =viewModel.test.toString()
-
-        //displayAlertDialog()
     }
 
     private fun cancelAction(){
-
+//back to admin list
+//            findNavController().navigate(AdminDonationFormListFragmentDirections.actionAdminDonationFormListFragmentToAdminDonationFormDetailFragment())
     }
-
 
     private fun displayAlertDialog(){
         //alert dialog
@@ -83,11 +129,15 @@ class DonationFormFragment : Fragment() {
         }
         val alertDialogBuilder= AlertDialog.Builder(getActivity())
         alertDialogBuilder.setTitle("Confirm Submit")
-        alertDialogBuilder.setMessage("Are you sure yoy want to submit this form?")
+        alertDialogBuilder.setMessage("Are you sure you want to submit this form?")
         alertDialogBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener(function = positiveButtonClick))
         alertDialogBuilder.setNegativeButton("No", DialogInterface.OnClickListener(function = negativeButtonClick))
         alertDialogBuilder.show()
 
+    }
+
+    private suspend fun insertDonationForm(){
+        viewModel.insetDonationFormToDB(requireContext())
     }
 
 
