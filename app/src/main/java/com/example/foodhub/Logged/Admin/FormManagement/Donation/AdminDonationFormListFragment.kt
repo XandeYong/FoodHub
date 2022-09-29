@@ -63,7 +63,7 @@ class AdminDonationFormListFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
                 val editor =preferences.edit()
-                editor.putString("donationFromID",  (myAdapter as AdminDonationFormListAdapter).adminDonationFormList[position].donationFromID)
+                editor.putString("donationFormID",  (myAdapter as AdminDonationFormListAdapter).adminDonationFormList[position].donationFormID)
                 editor.apply()
                 editor.commit()
                 findNavController().navigate(AdminDonationFormListFragmentDirections.actionAdminDonationFormListFragmentToAdminDonationFormDetailFragment())

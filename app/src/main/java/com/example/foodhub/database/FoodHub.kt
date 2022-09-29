@@ -82,7 +82,7 @@ data class Category(
 
 @Entity(tableName = "donation_form_table")
 data class DonationForm(
-    @PrimaryKey var donationFromID: String = "", //DF1
+    @PrimaryKey var donationFormID: String = "", //DF1
     @ColumnInfo(name = "categoryID") var categoryID: String? = "",
     @ColumnInfo(name = "food") var food: String? = "",
     @ColumnInfo(name = "quantity") var quantity: Int? = null,
@@ -96,7 +96,7 @@ data class DonationForm(
 
 @Entity(tableName = "request_form_table")
 data class RequestForm(
-    @PrimaryKey var requestFormID: String, //RF1
+    @PrimaryKey var requestFormID: String , //RF1
     @ColumnInfo(name = "categoryID") var categoryID: String? = "",
     @ColumnInfo(name = "quantity") var quantity: Int? = null,
     @ColumnInfo(name = "status") var status: String? = "",

@@ -41,7 +41,7 @@ class DonationFormFragment : Fragment() {
             viewModel.getLatestDonationForm(requireContext())
             viewModel.generateNewDonationFormID()
 
-            binding.fieldDonationFormIdDF.text = viewModel.newDonationForm.donationFromID
+            binding.fieldDonationFormIdDF.text = viewModel.newDonationForm.donationFormID
             binding.fieldStatusDF.text = viewModel.newDonationForm.status
 
             viewModel.getCategoryList(requireContext())
@@ -63,8 +63,6 @@ class DonationFormFragment : Fragment() {
                     }
 
                 })
-
-
 
         }
 
@@ -138,14 +136,14 @@ class DonationFormFragment : Fragment() {
         var value:Int = 0
         lifecycleScope.launch(Dispatchers.IO){
             viewModel.getSelectedCategoryID(binding.spinCategoryDF.selectedItem as Category)
-            value = viewModel.insetDonationFormToDB(requireContext())
+            value = viewModel.insertDonationFormToDB(requireContext())
 
             withContext(Dispatchers.Main) {
                 if(value != 0 && value != null){
                     Toast.makeText(requireContext(), "Create Success", Toast.LENGTH_SHORT).show()
                     val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
                     val editor =preferences.edit()
-                    editor.putString("donationFromID", viewModel.newDonationForm.donationFromID)
+                    editor.putString("donationFormID", viewModel.newDonationForm.donationFormID)
                     editor.apply()
                     editor.commit()
 

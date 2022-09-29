@@ -68,7 +68,7 @@ class DonationFormListFragment : Fragment() {
 
                 val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
                 val editor =preferences.edit()
-                editor.putString("donationFromID",  (myAdapter as DonationFormListAdapter).donationFormList[position].donationFromID)
+                editor.putString("donationFormID",  (myAdapter as DonationFormListAdapter).donationFormList[position].donationFormID)
                 editor.apply()
                 editor.commit()
                 findNavController().navigate(DonationFormListFragmentDirections.actionDonationFormListFragmentToDonationFormDetailFragment())

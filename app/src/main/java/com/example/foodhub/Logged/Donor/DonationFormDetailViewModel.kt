@@ -35,7 +35,7 @@ class DonationFormDetailViewModel : ViewModel() {
     suspend fun updateStatusToDB(context: Context): Int{
         val db = FoodHubDatabase.getInstance(context)
 
-        var value = db.donationFormDao.updateStatus("Deleted", donationF.donationFromID)
+        var value = db.donationFormDao.updateStatus("Deleted", donationF.donationFormID)
 
         return value
     }
