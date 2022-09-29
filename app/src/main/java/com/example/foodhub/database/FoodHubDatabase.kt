@@ -11,7 +11,7 @@ import kotlinx.coroutines.delay
 import com.example.foodhub.util.Util
 import org.json.JSONArray
 
-@Database(entities = [State::class, Account::class, News::class, Category::class, DonationForm::class, RequestForm::class, AnalysisReport::class, LocationReport::class], version = 3, exportSchema = false)
+@Database(entities = [State::class, Account::class, News::class, Category::class, DonationForm::class, RequestForm::class, AnalysisReport::class, LocationReport::class], version = 4, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class FoodHubDatabase: RoomDatabase() {
 
