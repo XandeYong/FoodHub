@@ -57,6 +57,9 @@ abstract class AccountDao: BaseDao<Account> {
         account.updatedAt = generateDate()
     }
 
+    @Update
+    abstract suspend fun updateAt(account: Account)
+
     @Query("SELECT * FROM account_table WHERE accountID = :id")
     abstract suspend fun get(id: String): Account
 
@@ -65,6 +68,9 @@ abstract class AccountDao: BaseDao<Account> {
 
     @Query("SELECT * FROM account_table ORDER BY createdAt DESC LIMIT 1")
     abstract suspend fun getLatest(): Account
+
+    @Query("DELETE FROM account_table WHERE accountID = :id")
+    abstract suspend fun deleteAt(id: String)
 
     @Query("DELETE FROM account_table")
     abstract suspend fun clear()
@@ -129,6 +135,10 @@ abstract class CategoryDao: BaseDao<Category> {
     @Query("DELETE FROM category_table")
     abstract suspend fun clear()
 
+//add
+    @Query("SELECT name FROM category_table ORDER BY createdAt DESC")
+    abstract suspend fun getAllCategoryList(): List<String>
+
 }
 
 
@@ -147,7 +157,7 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
         insert(donationForm)
     }
 
-    @Query("SELECT * FROM donation_form_table WHERE donationFormID = :id")
+    @Query("SELECT * FROM donation_form_table WHERE donationFromID = :id")
     abstract suspend fun get(id: String): DonationForm
 
     @Query("SELECT * FROM donation_form_table ORDER BY createdAt DESC")
@@ -163,17 +173,12 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     abstract suspend fun clear()
 
 //add
-    @Query(" UPDATE donation_form_table SET status=:status WHERE donationFormID = :id")
+    @Query(" UPDATE donation_form_table SET status=:status WHERE donationFromID = :id")
     abstract suspend fun updateStatus(status: String, id: String): Int
 
-    @Query("SELECT * FROM donation_form_table WHERE accountID = :id AND status != :status ORDER BY createdAt DESC")
-    abstract fun getAllListByDonorID(id: String, status: String = "Deleted"):LiveData<List<DonationForm>>
+    @Query("SELECT * FROM donation_form_table WHERE accountID = :id ORDER BY createdAt DESC")
+    abstract fun getAllListByDonorID(id: String):LiveData<List<DonationForm>>
 
-    @Insert
-    abstract fun insertDonationForm(donationForm: DonationForm): Long
-
-    @Query("SELECT * FROM donation_form_table WHERE donationFormID = :id ORDER BY createdAt DESC")
-    abstract fun searchDF(id: String):LiveData<List<DonationForm>>
 
 
 }
