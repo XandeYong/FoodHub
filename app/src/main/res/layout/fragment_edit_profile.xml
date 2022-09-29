@@ -22,7 +22,7 @@
         android:id="@+id/addProfileButton"
         style="@style/ToggleButtonWithIconOnly"
         android:layout_width="0dp"
-
+        app:iconPadding="0dp"
         android:layout_height="37dp"
         android:layout_marginEnd="108dp"
         app:icon="@drawable/ic_baseline_add_circle_24"
@@ -72,7 +72,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"
-            android:layout_marginTop="16dp"
             android:layout_marginRight="28dp"
             android:gravity="center_horizontal"
             android:hint="Address"
