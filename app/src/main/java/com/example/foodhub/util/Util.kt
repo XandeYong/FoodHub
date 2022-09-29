@@ -35,10 +35,6 @@ class Util {
         return (result as BitmapDrawable).bitmap
     }
 
-    //convert image to bitmap
-//    suspend fun getBitmap(image:)
-
-
     //json decoder (Get method)
     fun jsonDecodeGet(view: View?, url: String?): JSONArray {
         var jsonArray: JSONArray = JSONArray()

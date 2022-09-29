@@ -1,6 +1,7 @@
 package com.example.foodhub
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -142,20 +143,17 @@ class MainActivity : AppCompatActivity() {
 
     //sync data
     suspend fun syncData(view: View?, context: Context) {
-        var i = 0
         val url = "http://10.0.2.2/foodhub_server/"
 
-        while (true) {
-            Log.i("SyncData", "working: " + ++i)
-            stateSync(view, context, url)
-            newsSync(view, context, url)
-            categorySync(view, context, url)
-            donationFormSync(view, context, url)
-            requestFormSync(view, context, url)
-            analysisReportSync(view, context, url)
-            locationReportSync(view, context, url)
-            delay(30000)
-        }
+        Log.i("SyncData", "working: ")
+        stateSync(view, context, url)
+        newsSync(view, context, url)
+        categorySync(view, context, url)
+        donationFormSync(view, context, url)
+        requestFormSync(view, context, url)
+        analysisReportSync(view, context, url)
+        locationReportSync(view, context, url)
+        delay(30000)
     }
 
     private suspend fun stateSync(view: View?, context: Context, _url: String) {
@@ -210,19 +208,20 @@ class MainActivity : AppCompatActivity() {
                         val jsonObj = jsonArray.getJSONObject(i)
                         val id = jsonObj.getString("news_id")
                         val title = jsonObj.getString("title")
-                        val image = jsonObj.getString("image")
+                        val imageJson = jsonObj.getString("image")
                         val newsUrl = jsonObj.getString("url")
                         val createdAt = jsonObj.getString("created_at")
                         val updatedAt = jsonObj.getString("updated_at")
 
-                        val news: News = News(id, title, util.getBitmap(image, context), newsUrl, createdAt, updatedAt)
+                        val image:Bitmap = util.getBitmap(imageJson, applicationContext)
+
+                        val news: News = News(id, title, image, newsUrl, createdAt, updatedAt)
                         list.add(news)
                     }
 
                     val db = FoodHubDatabase.getInstance(context)
-                    lifecycleScope.launch {
-                        db.newsDao.syncWithServer(list)
-                    }
+                    db.newsDao.syncWithServer(list)
+
                 }
 
             }, { error ->
