@@ -2,6 +2,7 @@ package com.example.foodhub.Logged.All.Account.Profile
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +31,11 @@ class ProfileFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("VM_Resume", "resome")
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

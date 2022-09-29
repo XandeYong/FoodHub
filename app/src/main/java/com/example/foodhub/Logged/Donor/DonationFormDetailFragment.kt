@@ -35,15 +35,15 @@ class DonationFormDetailFragment : Fragment() {
 
 
         val preferences = this.requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
-        val donationFromID =  preferences.getString("donationFromID", null)
+        val donationFormID =  preferences.getString("donationFormID", null)
         //remove the sharedPref
-        preferences.edit().remove("donationFromID").commit()
+        preferences.edit().remove("donationFormID").commit()
 
         lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.getDonationForm(requireContext(), donationFromID.toString())
+            viewModel.getDonationForm(requireContext(), donationFormID.toString())
             viewModel.getCategory(requireContext(), viewModel.donationF.categoryID.toString())
 
-            binding.fieldDonationFormIdDFD.text = viewModel.donationF.donationFromID
+            binding.fieldDonationFormIdDFD.text = viewModel.donationF.donationFormID
             binding.fieldCategoryDFD.text = viewModel.category.name
             binding.fieldFoodDFD.text = viewModel.donationF.food
             binding.fieldQuantityDFD.text = viewModel.donationF.quantity.toString()
@@ -70,7 +70,7 @@ class DonationFormDetailFragment : Fragment() {
     private fun displayAlertDialog(){
         //alert dialog
         val positiveButtonClick ={ dialog: DialogInterface, which: Int ->
-            deleteDonationForm(viewModel.donationF.donationFromID)
+            deleteDonationForm(viewModel.donationF.donationFormID)
         }
         val negativeButtonClick ={ dialog: DialogInterface, which: Int ->
         }

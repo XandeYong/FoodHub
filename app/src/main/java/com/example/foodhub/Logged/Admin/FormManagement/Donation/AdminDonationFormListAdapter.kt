@@ -35,7 +35,7 @@ class AdminDonationFormListAdapter: RecyclerView.Adapter<AdminDonationFormListAd
     override fun onBindViewHolder(holder: AdminDonationFormListAdapter.ViewHolder, position: Int) {
             val adminDonationForm: DonationForm = adminDonationFormList[position]
             holder.fieldDonorIdADFLCL.text = adminDonationForm.accountID
-            holder.fieldDonationFormIdADFLCL.text = adminDonationForm.donationFromID
+            holder.fieldDonationFormIdADFLCL.text = adminDonationForm.donationFormID
     }
 
     inner class ViewHolder(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView){

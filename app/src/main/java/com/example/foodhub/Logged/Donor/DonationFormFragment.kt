@@ -41,7 +41,7 @@ class DonationFormFragment : Fragment() {
             viewModel.getLatestDonationForm(requireContext())
             viewModel.generateNewDonationFormID()
 
-            binding.fieldDonationFormIdDF.text = viewModel.newDonationForm.donationFromID
+            binding.fieldDonationFormIdDF.text = viewModel.newDonationForm.donationFormID
             binding.fieldStatusDF.text = viewModel.newDonationForm.status
 
             viewModel.getCategoryList(requireContext())
@@ -145,7 +145,7 @@ class DonationFormFragment : Fragment() {
                     Toast.makeText(requireContext(), "Create Success", Toast.LENGTH_SHORT).show()
                     val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
                     val editor =preferences.edit()
-                    editor.putString("donationFromID", viewModel.newDonationForm.donationFromID)
+                    editor.putString("donationFormID", viewModel.newDonationForm.donationFormID)
                     editor.apply()
                     editor.commit()
 

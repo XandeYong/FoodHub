@@ -35,16 +35,16 @@ class AdminDonationFormDetailFragment : Fragment() {
 
 
         val preferences = this.requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
-        val donationFromID =  preferences.getString("donationFromID", null)
+        val donationFormID =  preferences.getString("donationFormID", null)
         //remove the sharedPref
-        preferences.edit().remove("donationFromID").commit()
+        preferences.edit().remove("donationFormID").commit()
 
         lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.getAdminDonationForm(requireContext(), donationFromID.toString())
+            viewModel.getAdminDonationForm(requireContext(), donationFormID.toString())
             viewModel.getCategory(requireContext(), viewModel.adminDF.categoryID.toString())
 
             binding.fieldDonorIdADFD.text = viewModel.adminDF.accountID
-            binding.fieldDonationFormIdADFD.text = viewModel.adminDF.donationFromID
+            binding.fieldDonationFormIdADFD.text = viewModel.adminDF.donationFormID
             binding.fieldCategoryADFD.text = viewModel.category.name
             binding.fieldFoodADFD.text = viewModel.adminDF.food
             binding.fieldQuantityADFD.text = viewModel.adminDF.quantity.toString()
