@@ -14,21 +14,15 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.example.foodhub.MainActivity
 import com.example.foodhub.R
 import com.example.foodhub.database.Account
 import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentEditProfileBinding
-import com.example.foodhub.ui.main.MainFragmentDirections
 import com.example.foodhub.util.Util
 import com.google.android.material.datepicker.MaterialDatePicker
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
@@ -161,19 +155,11 @@ class EditProfileFragment : Fragment() {
 
                         lifecycleScope.launch{
                             db.accountDao.updateAt(userAccount)
+
+                            Toast.makeText(activity,"Profile updated!",Toast.LENGTH_SHORT).show()
+
+                            findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
                         }
-
-//                        var frg: Fragment? = null
-//                        frg = parentFragmentManager.findFragmentByTag("Your_Fragment_TAG")
-//                        val ft: FragmentTransaction = FragmentActivity.parentFragmentManager().beginTransaction()
-//                        ft.detach(frg)
-//                        ft.attach(frg)
-//                        ft.commit()
-
-                        Toast.makeText(activity,"Profile updated!",Toast.LENGTH_SHORT).show()
-
-                        findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
-
                     }
                     .setNegativeButton("Cancel"){ dialog, id->
                         //Dismiss dialog

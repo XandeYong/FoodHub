@@ -157,7 +157,7 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
         insert(donationForm)
     }
 
-    @Query("SELECT * FROM donation_form_table WHERE donationFromID = :id")
+    @Query("SELECT * FROM donation_form_table WHERE donationFormID = :id")
     abstract suspend fun get(id: String): DonationForm
 
     @Query("SELECT * FROM donation_form_table ORDER BY createdAt DESC")
@@ -173,12 +173,17 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     abstract suspend fun clear()
 
 //add
-    @Query(" UPDATE donation_form_table SET status=:status WHERE donationFromID = :id")
+    @Query(" UPDATE donation_form_table SET status=:status WHERE donationFormID = :id")
     abstract suspend fun updateStatus(status: String, id: String): Int
 
-    @Query("SELECT * FROM donation_form_table WHERE accountID = :id ORDER BY createdAt DESC")
-    abstract fun getAllListByDonorID(id: String):LiveData<List<DonationForm>>
+    @Query("SELECT * FROM donation_form_table WHERE accountID = :id AND status != :status ORDER BY createdAt DESC")
+    abstract fun getAllListByDonorID(id: String, status: String = "Deleted"):LiveData<List<DonationForm>>
 
+    @Insert
+    abstract fun insertDonationForm(donationForm: DonationForm): Long
+
+    @Query("SELECT * FROM donation_form_table WHERE donationFormID = :id ORDER BY createdAt DESC")
+    abstract fun searchDF(id: String):LiveData<List<DonationForm>>
 
 
 }

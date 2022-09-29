@@ -3,6 +3,8 @@ package com.example.foodhub.Logged.All.Account.Profile
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.text.format.DateFormat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
+import com.example.foodhub.database.Account
 import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentProfileBinding
 import com.example.foodhub.util.Util
@@ -77,39 +80,14 @@ class ProfileFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        lifecycleScope.launch{
-            //Initiate DB
-            val db = FoodHubDatabase.getInstance(requireContext())
-
-            //Get account from DB
-            var account = db.accountDao.getLatest()
-
-            //Load from DB to Profile
-            binding.profileImage.load(account.image)
-            binding.idText.text = account.accountID
-            binding.nameText.text = account.name.toString()
-            binding.textAddress.text = account.address.toString()
-
-            //Get Age from DOB
-            val ageFormat = SimpleDateFormat("yyyy")
-            binding.textAge.text = (Calendar.getInstance().get(Calendar.YEAR).toInt() - ageFormat.format(account.dob).toInt()).toString()
-
-            //Setup Gender
-            if(account.gender == "M"){
-                binding.textGender.text = "Male"
-            }else{
-                binding.textGender.text = "Female"
-            }
-        }
-    }
 }
 
-//db.accountDao.clear()
-//db.accountDao.insert(
-//Account("A1", "Adrian Fong", util.getBitmap("http://10.0.2.2/foodhub_server/image/account/A1.jpg", requireContext()), "PV15 Platinum Victory",
-//null, dateFormat.parse(date), "M", "adrain2000@live.com", "12345", "Admin",
-//util.generateDate(),util.generateDate())
-//)
+//            //Add Account
+//            val dateFormat = SimpleDateFormat("dd-MM-yyyy")
+//            val date = "22-4-2000"
+//
+//            db.accountDao.insert(
+//            Account("A1", "Adrian Fong", util.getBitmap("http://10.0.2.2/foodhub_server/image/account/A1.jpg", requireContext()), "PV15 Platinum Victory",
+//            null, dateFormat.parse(date), "M", "adrain2000@live.com", "12345", "Admin",
+//            util.generateDate(),util.generateDate())
+//            )
