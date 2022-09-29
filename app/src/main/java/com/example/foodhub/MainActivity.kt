@@ -40,6 +40,22 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
+        val db = FoodHubDatabase.getInstance(applicationContext)
+
+        /*
+        *
+        * start application
+        *   -> get account_table from local db
+        *   -> check login credential (email, password) with remote server
+        *
+        *   if
+        *       -> save into sharePref
+        *   else
+        *       -> clear account_table from local db
+        *       -> clear sharePref
+        *
+        * */
 
         val sharedPref = getSharedPreferences("login_S", MODE_PRIVATE)
         val accountType =sharedPref.getString("accountType" , null)
@@ -50,8 +66,7 @@ class MainActivity : AppCompatActivity() {
 //        if(accountID.toString().trim() != "null") {
 //            loginCredential = true
 //        }
-        val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
-        val db = FoodHubDatabase.getInstance(applicationContext)
+
 
         lifecycleScope.launch { syncData(viewGroup.rootView, applicationContext) }
         navSetup()
@@ -101,12 +116,15 @@ class MainActivity : AppCompatActivity() {
     private fun handleNestedFragmentsBackStack(): Boolean {
         val navHostChildFragmentManager = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment)?.childFragmentManager
+        Log.d("backstack-Start", navHostChildFragmentManager?.backStackEntryCount.toString())
 
         return if (navHostChildFragmentManager?.backStackEntryCount!! > 0) {
+            Log.d("backstack-if", navHostChildFragmentManager.backStackEntryCount.toString())
             val navController = findNavController(R.id.nav_host_fragment)
             navController.navigateUp() || super.onSupportNavigateUp()
             false
         } else {
+            Log.d("backstack-else", navHostChildFragmentManager.backStackEntryCount.toString())
             if (drawerLayout.isOpen) {
                 drawerLayout.close()
             } else {

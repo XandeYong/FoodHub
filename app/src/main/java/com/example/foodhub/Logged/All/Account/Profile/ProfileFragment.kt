@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import coil.load
 import com.example.foodhub.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
