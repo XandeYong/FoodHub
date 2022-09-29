@@ -34,24 +34,30 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
+    var loginCredential: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sharedPref = getSharedPreferences("myPref", MODE_PRIVATE)
-        val editor = sharedPref.edit()
+        val sharedPref = getSharedPreferences("login_S", MODE_PRIVATE)
+        val accountType =sharedPref.getString("accountType" , null)
+        val accountID =sharedPref.getString("accountID" , null)
 
+        if(accountID.toString().trim().isNotEmpty()){
+            loginCredential = true
+        }
         val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
         val db = FoodHubDatabase.getInstance(applicationContext)
 
         lifecycleScope.launch { syncData(viewGroup.rootView, applicationContext) }
         navSetup()
 
-        var login = true
+        var login = loginCredential
         if (login) {
             navDrawerSetup()
 
-            var account = "admin"
+            var account = accountType.toString()
             when(account) {
                 "donee" -> {
                     navigationView.menu.setGroupVisible(R.id.admin_module_group, false)

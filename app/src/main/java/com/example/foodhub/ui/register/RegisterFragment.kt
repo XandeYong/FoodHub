@@ -140,11 +140,9 @@ class RegisterFragment : Fragment() {
                 val jsonResponse = JSONObject(response)
                 val status = jsonResponse.getInt("status")
 
-
-
                 if (status == 0) {
                     val ToLoginData =
-                        activity?.getSharedPreferences("ToLogin", Context.MODE_PRIVATE)
+                        this.requireActivity().getSharedPreferences("ToLogin", Context.MODE_PRIVATE)
                     val ToLoginDataStore = ToLoginData?.edit()
 
                     ToLoginDataStore?.putString("email", email)
@@ -152,10 +150,12 @@ class RegisterFragment : Fragment() {
                     ToLoginDataStore?.apply()
                     ToLoginDataStore?.commit()
 
+                    Log.i("GOTSHARE" , ToLoginDataStore.toString())
+
                     Toast.makeText(context, "Register Successfully", Toast.LENGTH_LONG).show()
-//                    findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
+                    findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
                 }else {
-                    Toast.makeText(context, "Register Failed, Try Again!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "This Email Account Was Registered, Try Again!", Toast.LENGTH_LONG).show()
                 }
             },
             Response.ErrorListener { error ->

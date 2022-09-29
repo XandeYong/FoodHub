@@ -3,7 +3,6 @@
     <string name="text_register">Register</string>
     <string name="text_login">Login</string>
     <string name="text_home">Home</string>
-    <string name="page_title">FoodHub</string>
 
     <!--  Drawer String  -->
     <string name="open_nav_drawer">Navigation Drawer Open</string>
@@ -61,7 +60,6 @@
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="btn_delete">Delete</string>
 
 
@@ -97,14 +95,4 @@
     </string-array>
 
     <!--  Categories  -->
-    <string-array name="categories">
-        <item>Canned Food</item>
-        <item>Vegetables</item>
-        <item>Fruits</item>
-        <item>Drinks</item>
-        <item>Meat</item>
-        <item>Fish</item>
-        <item>Egg</item>
-        <item>Seafood</item>
-    </string-array>
 </resources>
