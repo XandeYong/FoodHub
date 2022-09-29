@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,8 +23,7 @@ class NewsList_admin : Fragment() {
 
     private lateinit var binding : FragmentNewsListAdminBinding
     private lateinit var recyclerView: RecyclerView
-
-
+    private lateinit var viewModel: NewsListAdminViewModel
 
     private lateinit var adapter: NewsListAdminAdapterTest
     private lateinit var newList : ArrayList<NewsListAdminViewModel>
@@ -32,37 +33,6 @@ class NewsList_admin : Fragment() {
     ): View? {
 
         binding = FragmentNewsListAdminBinding.inflate(inflater)
-
-        // Add the following lines to create RecyclerView
-        recyclerView = binding.recyclerViewNewsListAdmin
-        recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager  = LinearLayoutManager(this.requireContext())
-
-        newList= ArrayList()
-
-        newList.add(NewsListAdminViewModel(1,  "testl"))
-        newList.add(NewsListAdminViewModel(2,  "testl"))
-        newList.add(NewsListAdminViewModel(3,  "testl"))
-        newList.add(NewsListAdminViewModel(4,  "testl"))
-        newList.add(NewsListAdminViewModel(5, "testl"))
-        newList.add(NewsListAdminViewModel(6, "testl"))
-
-
-        adapter = NewsListAdminAdapterTest(newList)
-        recyclerView.adapter = adapter
-
-
-        adapter.onItemClick = {
-            val preferences = this.requireActivity().getSharedPreferences("pass", Context.MODE_PRIVATE)
-            val editor =preferences.edit()
-
-            editor.putString("id",it.id.toString())
-            editor.putString("tittle" , it.title.toString())
-            editor.apply()
-            editor.commit()
-
-            findNavController().navigate(NewsList_adminDirections.actionNewsListAdminToUpdateNewsAdmin())
-        }
 
         binding.floatingBtnNewsListBtn.setOnClickListener{createNews_admin(it)}
 
@@ -75,8 +45,27 @@ class NewsList_admin : Fragment() {
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        viewModel = ViewModelProvider(this).get(NewsListAdminViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(NewsListAdminViewModel::class.java)
         // TODO: Use the ViewModel
+        viewModel.news.observe(viewLifecycleOwner,Observer{ it ->
+            recyclerView = binding.recyclerViewNewsListAdmin
+            recyclerView.setHasFixedSize(true)
+            recyclerView.layoutManager  = LinearLayoutManager(this.requireContext())
+            adapter = NewsListAdminAdapterTest(it)
+            recyclerView.adapter = adapter
+
+            adapter.onItemClick = {
+                val preferences = this.requireActivity().getSharedPreferences("pass", Context.MODE_PRIVATE)
+                val editor =preferences.edit()
+
+                editor.putString("id",it.newsID.toString())
+                editor.putString("tittle" , it.title.toString())
+                editor.apply()
+                editor.commit()
+
+                findNavController().navigate(NewsList_adminDirections.actionNewsListAdminToUpdateNewsAdmin())
+            }
+        })
     }
 
 }

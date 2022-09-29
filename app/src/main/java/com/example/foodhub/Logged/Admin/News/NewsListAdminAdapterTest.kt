@@ -6,12 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodhub.R
+import com.example.foodhub.database.News
 import java.util.ArrayList
 
-class NewsListAdminAdapterTest (private val newsListAdminViewModel: ArrayList<NewsListAdminViewModel>)
+class NewsListAdminAdapterTest (private val newsListAdminViewModel: List<News>)
     : RecyclerView.Adapter<NewsListAdminAdapterTest.NewsAdminListViewHolder>(){
 
-    var onItemClick: ((NewsListAdminViewModel)-> Unit)? = null
+    var onItemClick: ((News)-> Unit)? = null
 
     class NewsAdminListViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
         val fieldDonorIdDFLCL : TextView = itemView.findViewById(R.id.newsList_admin_title)
@@ -25,7 +26,7 @@ class NewsListAdminAdapterTest (private val newsListAdminViewModel: ArrayList<Ne
 
     override fun onBindViewHolder(holder: NewsAdminListViewHolder, position: Int) {
        val news = newsListAdminViewModel[position]
-        holder.fieldDonorIdDFLCL.setText(news.id.toString())
+        holder.fieldDonorIdDFLCL.setText(news.newsID.toString())
         holder.fieldDonationFormIdDFLCL.setText(news.title)
 
         holder.itemView.setOnClickListener{
