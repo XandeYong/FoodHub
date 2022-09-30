@@ -58,7 +58,7 @@ class ProfileFragment : Fragment() {
 
             //Get Age from DOB
             val ageFormat = SimpleDateFormat("yyyy")
-            binding.textAge.text = (Calendar.getInstance().get(Calendar.YEAR).toInt() - ageFormat.format(account.dob).toInt()).toString()
+            binding.textAge.text = (Calendar.getInstance().get(Calendar.YEAR) - ageFormat.format(account.dob).toInt()).toString()
 
             //Setup Gender
             if(account.gender == "M"){

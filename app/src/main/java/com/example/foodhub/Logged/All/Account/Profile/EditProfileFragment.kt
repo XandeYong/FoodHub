@@ -75,7 +75,6 @@ class EditProfileFragment : Fragment() {
             var account = db.accountDao.getLatest()
 
             //User's basic credentials
-            userEmail = account.email.toString()
             userPassword = account.password.toString()
 
             //Profile Image
@@ -84,6 +83,14 @@ class EditProfileFragment : Fragment() {
 
             //Profile name//
             binding.nameEditText.setText(account.name.toString())
+
+            //Profile email//
+            userEmail = account.email.toString()
+            binding.emailText.setText(userEmail)
+
+            //Profile password//
+            userPassword = account.password.toString()
+            binding.passwordText.setText(userPassword)
 
             //Profile address//
             binding.addressText.setText(account.address.toString())
@@ -107,6 +114,8 @@ class EditProfileFragment : Fragment() {
             //Set birthday or Age//
             userBirthday = account.dob
             val dateFormat = SimpleDateFormat("MM-dd-yyyy")
+            val yearFormat = SimpleDateFormat("yyyy")
+
             binding.ageText.setText(dateFormat.format(userBirthday).toString())
 
             binding.buttonCalendar.setOnClickListener() {
@@ -116,8 +125,14 @@ class EditProfileFragment : Fragment() {
 
                 datePicker.show(childFragmentManager,"datePicker")
                 datePicker.addOnPositiveButtonClickListener {
-                    userBirthday = Date(it)
-                    binding.ageText.setText(dateFormat.format(userBirthday))
+
+                    //Validate birthday
+                    if((Calendar.getInstance().get(Calendar.YEAR) - yearFormat.format(it).toInt()) <= 0){
+                        Toast.makeText(requireContext(), "Invalid birthday date!",Toast.LENGTH_LONG).show();
+                    }else{
+                        userBirthday = Date(it)
+                        binding.ageText.setText(dateFormat.format(userBirthday))
+                    }
                 }
             }
 
@@ -139,45 +154,76 @@ class EditProfileFragment : Fragment() {
 
 
             binding.updateButton.setOnClickListener(){
+                //Important info validation
+                userName = binding.nameEditText.text.toString().trim()
+                userEmail = binding.emailText.text.toString().trim()
+                userPassword = binding.passwordText.text.toString().trim()
 
-                //Confirmation Dialog
-                val builder = AlertDialog.Builder(requireContext())
-                builder.setMessage("Confirm update ?")
-                    .setCancelable(false)
-                    .setPositiveButton("Update"){ dialog, id->
-                        //Passed data from Edit Text
-                        userName = binding.nameEditText.text.toString()
-                        userAddress = binding.addressText.text.toString()
-
-                        //Created Account Object for Update
-                        val userAccount = Account(account.accountID, userName, userImage, userAddress, null, userBirthday, userGender,
-                            userEmail, userPassword, account.accountType.toString(), account.createdAt, util.generateDate())
+                //Variables turns when done checking
+                var dataCheck: Boolean = true
 
 
-                        lifecycleScope.launch{
-                            //Update to DB
-                            db.accountDao.updateAt(userAccount)
+                //Validating Names
+                if(userName.toString().isNullOrBlank()){
+                    dataCheck = false
+                    Toast.makeText(requireContext(), "Please enter your name!",Toast.LENGTH_LONG).show();
+                }
 
-                            //Updated noti Snackbar
-                            Snackbar.make(requireActivity().findViewById(R.id.profileFragment),"Profile Updated!",Snackbar.LENGTH_LONG)
-                                .setAction("Dismiss"){
-                                    //Empty to dismiss Snack Bar
-                                }.show()
+                //Validating Email
+                val emailPatten: Regex = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+".toRegex()
 
-                            findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
+                if(!userEmail.matches(emailPatten)){
+                    dataCheck = false
+                    Toast.makeText(requireContext(), "Invalid email!",Toast.LENGTH_LONG).show();
+                }
+
+                //Validating Password
+                if(userPassword.toString().isNullOrBlank()){
+                    dataCheck = false
+                    Toast.makeText(requireContext(), "Please enter you password!",Toast.LENGTH_LONG).show();
+                }
+
+                //Prompts Confirmation Dialog after validating
+                if(dataCheck){
+                    //Confirmation Dialog
+                    val builder = AlertDialog.Builder(requireContext())
+                    builder.setMessage("Confirm update ?")
+                        .setCancelable(false)
+                        .setPositiveButton("Update"){ dialog, id->
+                            //Passed data from Edit Text
+                            userAddress = binding.addressText.text.toString().trim()
+
+                            //Created Account Object for Update
+                            val userAccount = Account(account.accountID, userName, userImage, userAddress, null, userBirthday, userGender,
+                                userEmail, userPassword, account.accountType.toString(), account.createdAt, util.generateDate())
+
+
+                            lifecycleScope.launch{
+                                //Update to DB
+                                db.accountDao.updateAt(userAccount)
+
+                                //Updated Snack Bar Notification
+                                Snackbar.make(requireActivity().findViewById(R.id.profileFragment),"Profile Updated!",Snackbar.LENGTH_LONG)
+                                    .setAction("Dismiss"){
+                                        //Empty to dismiss Snack Bar
+                                    }.show()
+
+                                //Redirect to Previous Activity
+                                findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
+                            }
                         }
-                    }
-                    .setNegativeButton("Cancel"){ dialog, id->
-                        //Dismiss dialog
-                        dialog.dismiss()
-                    }
+                        .setNegativeButton("Cancel"){ dialog, id->
+                            //Dismiss dialog
+                            dialog.dismiss()
+                        }
 
-                builder.create().show()
+                    //Show Dialog Box
+                    builder.create().show()
+                }
+
             }
 
         }
-
-
 
         return binding.root
     }

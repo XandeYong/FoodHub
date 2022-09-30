@@ -7,21 +7,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodhub.R
+import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentViewCategoryBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.switchmaterial.SwitchMaterial
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class ViewCategoryFragment : Fragment() {
 
     companion object {
         fun newInstance() = ViewCategoryFragment()
     }
-
-    //Delete Components
-    private lateinit var deleteModeSwitch: SwitchMaterial
+    //Mutable List
+    private lateinit var categoryList: MutableList<String>
 
     //Add Components
     private lateinit var addButton: FloatingActionButton
@@ -31,7 +35,7 @@ class ViewCategoryFragment : Fragment() {
     private lateinit var binding: FragmentViewCategoryBinding
     private lateinit var viewModel: ViewCategoryViewModel
     private lateinit var layoutManager: RecyclerView.LayoutManager
-    private lateinit var adapter: RecyclerView.Adapter<CategoryListAdapter.ViewHolder>
+    private lateinit var adapter: CategoryListAdapter
 
 
     override fun onCreateView(
@@ -40,42 +44,73 @@ class ViewCategoryFragment : Fragment() {
     ): View? {
         binding = FragmentViewCategoryBinding.inflate(inflater)
 
-        //Add to RecycleView
-        recycleView = binding.viewCategoryRecycleView
-        recycleView.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(context)
-        recycleView.layoutManager = layoutManager
-        adapter = CategoryListAdapter()
-        recycleView.adapter = adapter
+        //Initialized List
+        categoryList = mutableListOf<String>()
 
-        //Switch Control
-        deleteModeSwitch = binding.deleteModeSwitch
-        deleteModeSwitch.setOnCheckedChangeListener{ _, _ ->
+        lifecycleScope.launch() {
+            //Initiate DB
+            val db = FoodHubDatabase.getInstance(requireContext())
 
-            if(deleteModeSwitch.isChecked){
+            //Get category from DB
+            categoryList = db.categoryDao.getAllCategoryList() as MutableList<String>
 
-                (adapter as CategoryListAdapter).deleteToggle(true)
-            }else{
-                (adapter as CategoryListAdapter).deleteToggle(false)
+            recycleView = binding.viewCategoryRecycleView
+            recycleView.setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            recycleView.layoutManager = layoutManager
+            adapter = CategoryListAdapter(requireContext(), categoryList)
+            recycleView.adapter = adapter
+
+
+            //Add Button with Dialog
+            addButton = binding.floatingAddButton
+
+            addButton.setOnClickListener() {
+
+                //Add category buttons
+                addCategory()
             }
-
         }
-
-        //Add Button with Dialog
-        addButton = binding.floatingAddButton
-        val builder = AlertDialog.Builder(context)
-
-
-        addButton.setOnClickListener(){
-            var dialog = AddDialogFragment()
-
-            dialog.show(childFragmentManager, "addCategoryDialog")
-        }
-
-
-
 
         return binding.root
+    }
+
+    //Add category dialog layout
+    private fun addCategory() {
+        val inflater = LayoutInflater.from(context)
+        val v = inflater.inflate(R.layout.add_category_dialog_layout, null)
+        val addDialog = AlertDialog.Builder(context)
+        val categoryEditText = v.findViewById<EditText>(R.id.categoryAddText)
+
+        addDialog.setView(v)
+        addDialog.setPositiveButton("Add"){
+                dialog, _ ->
+            val categoryName = categoryEditText.text.toString()
+            categoryList.add(categoryName)
+
+            //Database Add
+            lifecycleScope.launch(){
+
+            }
+
+            //Reset recycle view
+            adapter.notifyDataSetChanged()
+
+            //Notify on category added
+            Snackbar.make(requireActivity().findViewById(R.id.viewCategoryFragment),"Category Added",
+                Snackbar.LENGTH_LONG)
+                .setAction("Dismiss"){
+                    //Empty to dismiss Snack Bar
+                }.show()
+
+            dialog.dismiss()
+        }
+        addDialog.setNegativeButton("Cancel"){
+                dialog, _ ->
+            dialog.dismiss()
+        }
+        addDialog.create()
+        addDialog.show()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -85,10 +120,4 @@ class ViewCategoryFragment : Fragment() {
 
 
     }
-
-
-
-
-
-
 }
