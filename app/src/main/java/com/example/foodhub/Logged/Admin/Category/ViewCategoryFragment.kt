@@ -1,6 +1,5 @@
 package com.example.foodhub.Logged.Admin.Category
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -15,7 +14,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +36,9 @@ class ViewCategoryFragment : Fragment() {
     //Mutable List
     private lateinit var categoryList: MutableList<String>
 
+    //Static Mutable List
+    private lateinit var staticList: MutableList<String>
+
     //Add Components
     private lateinit var addButton: FloatingActionButton
 
@@ -47,10 +48,6 @@ class ViewCategoryFragment : Fragment() {
     private lateinit var viewModel: ViewCategoryViewModel
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var adapter: CategoryListAdapter
-
-    //Static Mutable List
-    private lateinit var dummyList: MutableList<String>
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,8 +65,8 @@ class ViewCategoryFragment : Fragment() {
             //Get category from DB
             categoryList = db.categoryDao.getAllCategoryList() as MutableList<String>
 
-            //Pass to dummy
-            dummyList = categoryList
+            //Pass to static list
+            staticList = categoryList
 
             recycleView = binding.viewCategoryRecycleView
             recycleView.setHasFixedSize(true)
@@ -94,7 +91,7 @@ class ViewCategoryFragment : Fragment() {
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     if (s != null) {
                         if(s.isEmpty()){
-                            adapter = CategoryListAdapter(requireContext(), dummyList)
+                            adapter = CategoryListAdapter(requireContext(), staticList)
                             recycleView.adapter = adapter
                         }
                     }
