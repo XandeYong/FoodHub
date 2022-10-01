@@ -47,7 +47,7 @@
 
     </LinearLayout>
 
-    
+
     <LinearLayout
         android:id="@+id/viewCategoryLinearLayout"
         android:layout_width="match_parent"

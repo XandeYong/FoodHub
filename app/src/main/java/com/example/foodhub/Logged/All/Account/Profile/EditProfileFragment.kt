@@ -54,6 +54,9 @@ class EditProfileFragment : Fragment() {
     private var userBirthday: Date? = null
     private var userGender: String = ""
 
+    //Account Class Dummy
+    private lateinit var accountClass: Account
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,28 +75,28 @@ class EditProfileFragment : Fragment() {
             val db = FoodHubDatabase.getInstance(requireContext())
 
             //Get account from DB
-            var account = db.accountDao.getLatest()
+            accountClass = db.accountDao.getLatest()
 
             //User's basic credentials
-            userPassword = account.password.toString()
+            userPassword = accountClass.password.toString()
 
             //Profile Image
-            userImage = account.image
+            userImage = accountClass.image
             binding.profileImage.setImageBitmap(userImage)
 
             //Profile name//
-            binding.nameEditText.setText(account.name.toString())
+            binding.nameEditText.setText(accountClass.name.toString())
 
             //Profile email//
-            userEmail = account.email.toString()
+            userEmail = accountClass.email.toString()
             binding.emailText.setText(userEmail)
 
             //Profile password//
-            userPassword = account.password.toString()
+            userPassword = accountClass.password.toString()
             binding.passwordText.setText(userPassword)
 
             //Profile address//
-            binding.addressText.setText(account.address.toString())
+            binding.addressText.setText(accountClass.address.toString())
 
             //Profile state//
             //State Drop down list
@@ -112,7 +115,7 @@ class EditProfileFragment : Fragment() {
             }
 
             //Set birthday or Age//
-            userBirthday = account.dob
+            userBirthday = accountClass.dob
             val dateFormat = SimpleDateFormat("MM-dd-yyyy")
             val yearFormat = SimpleDateFormat("yyyy")
 
@@ -137,7 +140,7 @@ class EditProfileFragment : Fragment() {
             }
 
             //Set gender//
-            userGender = account.gender.toString()
+            userGender = accountClass.gender.toString()
             if(userGender == "M"){
                 binding.radioMale.isChecked = true
             }else{
@@ -152,7 +155,6 @@ class EditProfileFragment : Fragment() {
                 }
             }
 
-
             binding.updateButton.setOnClickListener(){
                 //Important info validation
                 userName = binding.nameEditText.text.toString().trim()
@@ -164,7 +166,7 @@ class EditProfileFragment : Fragment() {
 
 
                 //Validating Names
-                if(userName.toString().isNullOrBlank()){
+                if(userName.isNullOrBlank()){
                     dataCheck = false
                     Toast.makeText(requireContext(), "Please enter your name!",Toast.LENGTH_LONG).show();
                 }
@@ -194,13 +196,13 @@ class EditProfileFragment : Fragment() {
                             userAddress = binding.addressText.text.toString().trim()
 
                             //Created Account Object for Update
-                            val userAccount = Account(account.accountID, userName, userImage, userAddress, null, userBirthday, userGender,
-                                userEmail, userPassword, account.accountType.toString(), account.createdAt, util.generateDate())
+                            accountClass = Account(accountClass.accountID, userName, userImage, userAddress, null, userBirthday, userGender,
+                                userEmail, userPassword, accountClass.accountType.toString(), accountClass.createdAt, util.generateDate())
 
 
                             lifecycleScope.launch{
                                 //Update to DB
-                                db.accountDao.updateAt(userAccount)
+                                db.accountDao.updateAt(accountClass)
 
                                 //Updated Snack Bar Notification
                                 Snackbar.make(requireActivity().findViewById(R.id.profileFragment),"Profile Updated!",Snackbar.LENGTH_LONG)
@@ -233,7 +235,6 @@ class EditProfileFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
 
     }
-
 
     //Function for accessing gallery
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

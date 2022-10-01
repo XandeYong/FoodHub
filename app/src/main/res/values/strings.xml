@@ -76,9 +76,6 @@
 
     <!--  States  -->
     <string-array name="states">
-        <item>Kuala Lumpur</item>
-        <item>Putrajaya</item>
-        <item>Labuan</item>
         <item>Perlis</item>
         <item>Kedah</item>
         <item>Terengganu</item>
