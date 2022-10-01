@@ -2,6 +2,8 @@ package com.example.foodhub.Logged.Donor
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -83,6 +85,39 @@ class DonationFormListFragment : Fragment() {
             it.hideKeyboard()
             search()
         }
+
+        binding.editSearchDFL.addTextChangedListener(object: TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s != null) {
+                    if(s.isEmpty()){
+                        lifecycleScope.launch {
+                            viewModel.getDonationFormList(requireContext(), donorID)
+                        }
+                        viewModel.donationFL.observe(viewLifecycleOwner, Observer { donationFL ->
+                            (myAdapter as DonationFormListAdapter).setData(donationFL)
+                            //set toast if empty list
+                            if (myAdapter.getItemCount() == 0)
+                            {
+                                Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                //TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                //TODO("Not yet implemented")
+            }
+        })
 
         return binding.root
     }

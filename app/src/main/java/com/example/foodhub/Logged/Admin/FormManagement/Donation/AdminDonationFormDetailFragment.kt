@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.DialogInterface
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,11 +19,9 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.foodhub.R
 import com.example.foodhub.databinding.FragmentAdminDonationFormDetailBinding
-import com.example.foodhub.ui.main.MainFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import java.lang.reflect.InvocationTargetException
 
 class AdminDonationFormDetailFragment : Fragment() {
 

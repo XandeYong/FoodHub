@@ -2,6 +2,8 @@ package com.example.foodhub.Logged.Donee
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -83,6 +85,39 @@ class RequestFormListFragment : Fragment() {
             it.hideKeyboard()
             searchReqFormID()
         }
+
+        binding.editSearchRFL.addTextChangedListener(object: TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s != null) {
+                    if(s.isEmpty()){
+                        lifecycleScope.launch {
+                            viewModel.getRequestFormList(requireContext(), doneeID)
+                        }
+                        viewModel.requestFL.observe(viewLifecycleOwner, Observer { requestFL ->
+                            (adapter as RequestFormListAdapter).setDataToAdapter(requestFL)
+                            //set toast if empty list
+                            if (adapter.getItemCount() == 0)
+                            {
+                                Toast.makeText(getActivity(), "No Request List Found!", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                //TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                //TODO("Not yet implemented")
+            }
+        })
 
         return binding.root
     }
