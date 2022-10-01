@@ -94,7 +94,7 @@ class DonationFormListFragment : Fragment() {
 
     fun search(){
         if(validateSearchInput()){
-            viewModel. searchDonationForm(requireContext(), donorID, binding.editSearchDFL.text.toString().uppercase().trim())
+            viewModel.searchDonationForm(requireContext(), donorID, binding.editSearchDFL.text.toString().uppercase().trim())
 
             viewModel.donationFL.observe(viewLifecycleOwner, Observer { donationFL ->
                 (myAdapter as DonationFormListAdapter).setData(donationFL)

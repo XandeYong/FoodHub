@@ -84,7 +84,7 @@ class AdminDonationFormListFragment : Fragment() {
 
     fun search(){
         if(validateSearchInput()){
-            viewModel. searchAdminDonationForm(requireContext(), binding.editSearchADFL.text.toString().uppercase().trim())
+            viewModel.searchAdminDonationForm(requireContext(), binding.editSearchADFL.text.toString().uppercase().trim())
 
             viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
                 (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)

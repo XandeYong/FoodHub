@@ -15,12 +15,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.foodhub.R
 import com.example.foodhub.database.Category
 import com.example.foodhub.databinding.FragmentDonationFormBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.json.JSONObject
 
 class DonationFormFragment : Fragment() {
 
@@ -143,16 +149,7 @@ class DonationFormFragment : Fragment() {
 
             withContext(Dispatchers.Main) {
                 if(value != 0 && value != null){
-                    Toast.makeText(requireContext(), "Create Success", Toast.LENGTH_SHORT).show()
-                    val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
-                    val editor =preferences.edit()
-                    editor.putString("donationFormID", viewModel.newDonationForm.donationFormID)
-                    editor.apply()
-                    editor.commit()
-
-                    //Go to Donation Form detail
-//                    findNavController().navigate(DonationFormFragmentDirections.actionDonationFormFragmentToDonationFormListFragment())
-
+                    insertFormInRemoteDB()
                 }else{
                     Toast.makeText(requireContext(), "Create Fail", Toast.LENGTH_SHORT).show()
                 }
@@ -164,6 +161,60 @@ class DonationFormFragment : Fragment() {
     fun View.hideKeyboard() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    //Insert into remote database
+    private fun insertFormInRemoteDB() {
+
+        var url: String = "http://10.0.2.2/foodhub_server/donation_form.php" //put server URL
+
+        val stringRequest: StringRequest = object : StringRequest(
+            Request.Method.POST, url,
+            Response.Listener { response ->
+
+                val jsonResponse = JSONObject(response)
+                val status = jsonResponse.getInt("status")
+
+                if (status == 0) {
+                    Toast.makeText(requireContext(), "Create Success", Toast.LENGTH_SHORT).show()
+                    val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
+                    val editor =preferences.edit()
+                    editor.putString("donationFormID", viewModel.newDonationForm.donationFormID)
+                    editor.apply()
+                    editor.commit()
+
+                    //Go to Donation Form detail
+//                    findNavController().navigate(DonationFormFragmentDirections.actionDonationFormFragmentToDonationFormListFragment())
+
+                }else {
+                    Toast.makeText(requireContext(), "Create Fail", Toast.LENGTH_SHORT).show()                }
+            },
+            Response.ErrorListener { error ->
+                Toast.makeText(
+                    requireContext(),
+                    error.toString().trim { it <= ' ' },
+                    Toast.LENGTH_SHORT
+                ).show()
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String>? {
+
+                val data: MutableMap<String, String> = HashMap()
+                data["Content-Type"] = "application/x-www-form-urlencoded"
+                data["request"] = "InsertNewForm"
+                data["donationFormID"] = viewModel.newDonationForm.donationFormID
+                data["categoryID"] = viewModel.newDonationForm.categoryID.toString()
+                data["food"] = viewModel.newDonationForm.food.toString()
+                data["quantity"] = viewModel.newDonationForm.quantity.toString()
+                data["status"] = viewModel.newDonationForm.status.toString()
+                data["accountID"] = viewModel.newDonationForm.accountID.toString()
+
+                return data
+            }
+        }
+        val requestQueue = Volley.newRequestQueue(requireContext())
+        requestQueue.add(stringRequest)
+
     }
 
 }

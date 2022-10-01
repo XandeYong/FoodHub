@@ -159,6 +159,7 @@ class AdminDonationFormDetailFragment : Fragment() {
                 data["request"] = "UpdateFormStatus"
                 data["donationFormID"] = viewModel.adminDF.donationFormID
                 data["status"] = binding.spinStatusADFD.selectedItem.toString()
+
                 return data
             }
         }
