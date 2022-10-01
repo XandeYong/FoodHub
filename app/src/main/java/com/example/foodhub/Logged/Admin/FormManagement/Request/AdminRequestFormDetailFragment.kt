@@ -12,10 +12,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.foodhub.R
 import com.example.foodhub.databinding.FragmentAdminRequestFormDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class AdminRequestFormDetailFragment : Fragment() {
 
@@ -78,7 +84,7 @@ class AdminRequestFormDetailFragment : Fragment() {
                 if (value == 0) {
                     Toast.makeText(getActivity(), "Update Failed!", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(getActivity(), "Update Success!", Toast.LENGTH_SHORT).show()
+                    updateStatusInRemoteDB()
                 }
             }
         }
@@ -99,5 +105,48 @@ class AdminRequestFormDetailFragment : Fragment() {
         alertDialogBuilder.show()
 
     }
+
+    //Update remote database
+    private fun updateStatusInRemoteDB() {
+
+        var url: String = "http://10.0.2.2/foodhub_server/request_form.php" //put server URL
+
+        val stringRequest: StringRequest = object : StringRequest(
+            Request.Method.POST, url,
+            Response.Listener { response ->
+
+                val jsonResponse = JSONObject(response)
+                val status = jsonResponse.getInt("status")
+
+                if (status == 0) {
+                    Toast.makeText(getActivity(), "Update Success!", Toast.LENGTH_SHORT).show()
+                }else {
+                    Toast.makeText(getActivity(), "Update Failed!", Toast.LENGTH_SHORT).show()
+                }
+
+            },
+            Response.ErrorListener { error ->
+                Toast.makeText(
+                    requireContext(),
+                    error.toString().trim { it <= ' ' },
+                    Toast.LENGTH_SHORT
+                ).show()
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String>? {
+
+                val data: MutableMap<String, String> = HashMap()
+                data["Content-Type"] = "application/x-www-form-urlencoded"
+                data["request"] = "UpdateFormStatus"
+                data["requestFormID"] = viewModel.adminRF.requestFormID
+                data["status"] = binding.spinStatusARFD.selectedItem.toString()
+                return data
+            }
+        }
+        val requestQueue = Volley.newRequestQueue(requireContext())
+        requestQueue.add(stringRequest)
+
+    }
+
 
 }

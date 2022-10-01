@@ -173,7 +173,7 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     abstract suspend fun clear()
 
 //add
-    @Query(" UPDATE donation_form_table SET status=:status WHERE donationFormID = :id")
+    @Query("UPDATE donation_form_table SET status=:status WHERE donationFormID = :id")
     abstract suspend fun updateStatus(status: String, id: String): Int
 
     @Query("SELECT * FROM donation_form_table WHERE accountID = :id AND status != :status ORDER BY createdAt DESC")
