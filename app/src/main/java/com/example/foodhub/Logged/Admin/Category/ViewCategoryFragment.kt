@@ -189,6 +189,9 @@ class ViewCategoryFragment : Fragment() {
                 //Add into remote DB
                 addCategoryInRemoteDB(latestId, categoryName)
 
+                //Log
+                Log.i("Category", "Category added to DB")
+
                 //Notify on category added
                 Snackbar.make(
                     requireActivity().findViewById(R.id.viewCategoryFragment), "Category Added",

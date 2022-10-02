@@ -16,6 +16,8 @@
         android:background="#FFD68A"
         android:gravity="center"
         android:orientation="horizontal"
+        android:paddingHorizontal="32dp"
+        android:paddingVertical="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,9 +26,6 @@
             android:id="@+id/edit_search_ARFL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:background="@color/white"
             android:ems="10"
@@ -38,12 +37,10 @@
             android:id="@+id/btn_search_ARFL"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:backgroundTint="#525252"
-            android:padding="13dp"
+            android:textSize="12sp"
+            android:paddingVertical="14dp"
             android:text="@string/btn_search" />
 
     </LinearLayout>

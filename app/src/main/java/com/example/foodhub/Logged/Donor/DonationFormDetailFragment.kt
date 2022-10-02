@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -53,6 +54,12 @@ class DonationFormDetailFragment : Fragment() {
             binding.fieldFoodDFD.text = viewModel.donationF.food
             binding.fieldQuantityDFD.text = viewModel.donationF.quantity.toString()
             binding.fieldStatusDFD.text = viewModel.donationF.status
+
+            if (viewModel.donationF.status == "Donated") {
+                binding.btnDeleteDFD.visibility = Button.GONE
+            } else {
+                binding.btnDeleteDFD.visibility = Button.VISIBLE
+            }
 
         }
 
