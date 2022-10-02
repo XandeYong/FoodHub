@@ -88,10 +88,10 @@ class EditProfileFragment : Fragment() {
             val db = FoodHubDatabase.getInstance(requireContext())
 
             //Get account from DB
-            accountClass =
-                Account("A1", "Odyssey", util.getBitmap("http://10.0.2.2/foodhub_server/image/account/A1.jpg", requireContext()),"PV15", "Sabah",
-                Date((Calendar.getInstance().get(Calendar.DATE)).toLong()),"M","adrain2000@live.com", "12345", "Admin", util.generateDate(), util.generateDate())
-            //db.accountDao.getLatest()
+//            accountClass =
+//                Account("A1", "Odyssey", util.getBitmap("http://10.0.2.2/foodhub_server/image/account/A1.jpg", requireContext()),"PV15", "Sabah",
+//                Date((Calendar.getInstance().get(Calendar.DATE)).toLong()),"M","adrain2000@live.com", "12345", "Admin", util.generateDate(), util.generateDate())
+            accountClass = db.accountDao.getLatest()
 
             //Profile account Id
             userId = accountClass.accountID

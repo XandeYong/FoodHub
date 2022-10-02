@@ -45,9 +45,9 @@ class ProfileFragment : Fragment() {
             val db = FoodHubDatabase.getInstance(requireContext())
 
             //Get account from DB
-            var account = Account("A1", "Odyssey", util.getBitmap("http://10.0.2.2/foodhub_server/image/account/A1.jpg", requireContext()),"PV15", "Sabah",
-                Date((Calendar.DATE).toLong()),"M","adrain2000@live.com", "12345", "Admin", util.generateDate(), util.generateDate())
-            //db.accountDao.getLatest()
+//            var account = Account("A1", "Odyssey", util.getBitmap("http://10.0.2.2/foodhub_server/image/account/A1.jpg", requireContext()),"PV15", "Sabah",
+//                Date((Calendar.DATE).toLong()),"M","adrain2000@live.com", "12345", "Admin", util.generateDate(), util.generateDate())
+            var account = db.accountDao.getLatest()
 
             //Setting up Profile
             binding.profileImage.load(account.image)
