@@ -67,6 +67,9 @@ class EditProfileFragment : Fragment() {
     private var userBirthday: Date? = null
     private var userGender: String = ""
 
+    //Upload Check
+    private var uploadCheck: Boolean = false
+
     //Account Class Dummy
     private lateinit var accountClass: Account
 
@@ -128,6 +131,7 @@ class EditProfileFragment : Fragment() {
             binding.stateDropDown.setOnItemClickListener { parent, _, position, _ ->
                 var selectedState = parent.getItemAtPosition(position).toString()
                 binding.stateDropDown.setText(selectedState,false)
+                userState = selectedState
             }
 
             //Set birthday or Age//
@@ -229,8 +233,17 @@ class EditProfileFragment : Fragment() {
                                         //Empty to dismiss Snack Bar
                                     }.show()
 
-                                //Upload to Remote DB
-                                UploadAccountImage(requireActivity()).uploadFile(imageUri!!,userId)
+                                if(uploadCheck){
+                                    //Upload to Remote DB
+                                    UploadAccountImage(requireActivity()).uploadFile(imageUri!!,userId)
+
+                                    //Log message
+                                    Log.i("ProfileImage", "Profile image added into remote DB")
+                                }else{
+                                    //Log message
+                                    Log.i("ProfileImage", "No image added into remote DB")
+                                }
+
 
                                 //Redirect to Previous Activity
                                 findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
@@ -336,6 +349,9 @@ class EditProfileFragment : Fragment() {
 
                 //Load bitmap image into via bitmap variable
                 binding.profileImage.setImageBitmap(userImage)
+
+                //Set uploadCheck to true
+                uploadCheck = true
 
                 //Log message
                 Log.i("ProfileImage", "Profile image added to local DB")
