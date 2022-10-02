@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -64,11 +65,10 @@ class DonationFormFragment : Fragment() {
 
                 })
 
-
-
         }
 
         binding.btnSubmitDF.setOnClickListener() {
+            it.hideKeyboard()
             if(binding.spinCategoryDF.getSelectedItem().toString().equals("No Category")){
                 Toast.makeText(context, "Cannot Submit Donation Form!", Toast.LENGTH_LONG).show()
             }else{
@@ -77,6 +77,7 @@ class DonationFormFragment : Fragment() {
         }
 
         binding.btnCancelDF.setOnClickListener() {
+            it.hideKeyboard()
             cancelAction()
         }
 
@@ -138,7 +139,7 @@ class DonationFormFragment : Fragment() {
         var value:Int = 0
         lifecycleScope.launch(Dispatchers.IO){
             viewModel.getSelectedCategoryID(binding.spinCategoryDF.selectedItem as Category)
-            value = viewModel.insetDonationFormToDB(requireContext())
+            value = viewModel.insertDonationFormToDB(requireContext())
 
             withContext(Dispatchers.Main) {
                 if(value != 0 && value != null){
@@ -150,7 +151,7 @@ class DonationFormFragment : Fragment() {
                     editor.commit()
 
                     //Go to Donation Form detail
-//                    findNavController().navigate(DonationFormFragmentDirections.ac())
+//                    findNavController().navigate(DonationFormFragmentDirections.actionDonationFormFragmentToDonationFormListFragment())
 
                 }else{
                     Toast.makeText(requireContext(), "Create Fail", Toast.LENGTH_SHORT).show()
@@ -160,6 +161,10 @@ class DonationFormFragment : Fragment() {
 
     }
 
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
 
 }
 

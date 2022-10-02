@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -78,12 +79,46 @@ class DonationFormListFragment : Fragment() {
             findNavController().navigate(DonationFormListFragmentDirections.actionDonationFormListFragmentToDonationFormFragment())
         }
 
+        binding.btnSearchDFL.setOnClickListener() {
+            it.hideKeyboard()
+            search()
+        }
+
         return binding.root
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
+
+    fun search(){
+        if(validateSearchInput()){
+            viewModel. searchDonationForm(requireContext(), donorID, binding.editSearchDFL.text.toString().uppercase().trim())
+
+            viewModel.donationFL.observe(viewLifecycleOwner, Observer { donationFL ->
+                (myAdapter as DonationFormListAdapter).setData(donationFL)
+                //set toast if empty list
+                if (myAdapter.getItemCount() == 0)
+                {
+                    Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }else{
+            Toast.makeText(getActivity(), "Search Field Is Empty!", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    fun validateSearchInput(): Boolean {
+        val status = binding.editSearchDFL.text.isNotEmpty()
+        return status
+    }
+
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }

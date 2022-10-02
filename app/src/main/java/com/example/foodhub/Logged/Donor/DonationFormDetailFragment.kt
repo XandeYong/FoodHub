@@ -33,7 +33,6 @@ class DonationFormDetailFragment : Fragment() {
         binding = FragmentDonationFormDetailBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(DonationFormDetailViewModel::class.java)
 
-
         val preferences = this.requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
         val donationFormID =  preferences.getString("donationFormID", null)
         //remove the sharedPref
@@ -70,7 +69,7 @@ class DonationFormDetailFragment : Fragment() {
     private fun displayAlertDialog(){
         //alert dialog
         val positiveButtonClick ={ dialog: DialogInterface, which: Int ->
-            deleteDonationForm(viewModel.donationF.donationFormID)
+            deleteDonationForm()
         }
         val negativeButtonClick ={ dialog: DialogInterface, which: Int ->
         }
@@ -83,8 +82,7 @@ class DonationFormDetailFragment : Fragment() {
 
     }
 
-    private fun deleteDonationForm(donationFormID: String){
-        //add action to change status only
+    private fun deleteDonationForm(){
 
         lifecycleScope.launch {
             val value = viewModel.updateStatusToDB(requireContext())

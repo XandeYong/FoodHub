@@ -18,6 +18,7 @@ class DonationFormListAdapter: RecyclerView.Adapter<DonationFormListAdapter.View
     interface onItemClickListener{
         fun onItemClick(position: Int)
     }
+
     fun setOnClickListener(listener: onItemClickListener){
         mListener = listener
     }

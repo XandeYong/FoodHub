@@ -88,7 +88,7 @@ class DonationFormViewModel : ViewModel() {
         newDonationForm.categoryID = category.categoryID
     }
 
-     fun insetDonationFormToDB(context: Context): Int{
+     fun insertDonationFormToDB(context: Context): Int{
         val db = FoodHubDatabase.getInstance(context)
         var value: Long = 0
 

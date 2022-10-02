@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -68,9 +69,12 @@ class AdminDonationFormListFragment : Fragment() {
                 findNavController().navigate(AdminDonationFormListFragmentDirections.actionAdminDonationFormListFragmentToAdminDonationFormDetailFragment())
             }
         })
+
         binding.btnSearchADFL.setOnClickListener() {
+            it.hideKeyboard()
             search()
         }
+
         return binding.root
     }
 
@@ -79,16 +83,32 @@ class AdminDonationFormListFragment : Fragment() {
     }
 
     fun search(){
-        viewModel. searchAdminDonationForm(requireContext(), "DF1")
+        if(validateSearchInput()){
+            viewModel. searchAdminDonationForm(requireContext(), binding.editSearchADFL.text.toString().uppercase().trim())
 
-        viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
-            (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
-            //set toast if empty list
-            if (myAdapter.getItemCount() == 0)
-            {
-                Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
-            }
-        })
+            viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
+                (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
+                //set toast if empty list
+                if (myAdapter.getItemCount() == 0)
+                {
+                    Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }else{
+            Toast.makeText(getActivity(), "Search Field Is Empty!", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    fun validateSearchInput(): Boolean {
+        val status = binding.editSearchADFL.text.isNotEmpty()
+        return status
+    }
+
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }

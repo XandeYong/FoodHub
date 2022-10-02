@@ -189,14 +189,16 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     abstract suspend fun updateStatus(status: String, id: String): Int
 
     @Query("SELECT * FROM donation_form_table WHERE accountID = :id AND status != :status ORDER BY createdAt DESC")
-    abstract fun getAllListByDonorID(id: String, status: String = "Deleted"):LiveData<List<DonationForm>>
+    abstract fun getAllListByDonorID(id: String, status: String = "Deleted"): LiveData<List<DonationForm>>
 
     @Insert
     abstract fun insertDonationForm(donationForm: DonationForm): Long
 
-    @Query("SELECT * FROM donation_form_table WHERE donationFormID = :id ORDER BY createdAt DESC")
-    abstract fun searchDF(id: String):LiveData<List<DonationForm>>
+    @Query("SELECT * FROM donation_form_table WHERE donationFormID LIKE :id ORDER BY createdAt DESC")
+    abstract fun searchDF(id: String): LiveData<List<DonationForm>>
 
+    @Query("SELECT * FROM donation_form_table WHERE accountID = :accountID AND donationFormID LIKE :dfID AND status != :status ORDER BY createdAt DESC")
+    abstract fun searchDFAvailable(accountID: String, dfID: String, status: String = "Deleted"): LiveData<List<DonationForm>>
 
 }
 
@@ -231,6 +233,18 @@ abstract class RequestFormDao: BaseDao<RequestForm> {
 //add
     @Query(" UPDATE request_form_table SET status=:status WHERE requestFormID = :id")
     abstract suspend fun updateStatus(status: String, id: String): Int
+
+    @Query("SELECT * FROM request_form_table WHERE requestFormID LIKE :id ORDER BY createdAt DESC")
+    abstract fun searchRF(id: String): LiveData<List<RequestForm>>
+
+    @Query("SELECT * FROM request_form_table WHERE accountID = :id AND status != :status ORDER BY createdAt DESC")
+    abstract fun getAllListByDoneeID(id: String, status: String = "Deleted"):LiveData<List<RequestForm>>
+
+    @Query("SELECT * FROM request_form_table WHERE accountID = :accountID AND requestFormID LIKE :rfID AND status != :status ORDER BY createdAt DESC")
+    abstract fun searchRFAvl(accountID: String, rfID: String, status: String = "Deleted"): LiveData<List<RequestForm>>
+
+    @Insert
+    abstract fun insertReqForm(reqForm: RequestForm): Long
 
 }
 
