@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,10 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.AuthFailureError
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.foodhub.R
 import com.example.foodhub.database.Category
 import com.example.foodhub.database.FoodHubDatabase
@@ -25,6 +30,7 @@ import com.example.foodhub.util.Util
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class ViewCategoryFragment : Fragment() {
 
@@ -180,6 +186,9 @@ class ViewCategoryFragment : Fragment() {
                 //Reset recycle view
                 adapter.notifyDataSetChanged()
 
+                //Add into remote DB
+                addCategoryInRemoteDB(latestId, categoryName)
+
                 //Notify on category added
                 Snackbar.make(
                     requireActivity().findViewById(R.id.viewCategoryFragment), "Category Added",
@@ -191,6 +200,8 @@ class ViewCategoryFragment : Fragment() {
 
                 dialog.dismiss()
             }
+
+
         }
         //Dismiss button
         addDialog.setNegativeButton("Cancel"){
@@ -206,6 +217,47 @@ class ViewCategoryFragment : Fragment() {
     private fun Context.hideKeyboard(view: View) {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    //Process add into Remote DB
+    private fun addCategoryInRemoteDB(catID: String, catName: String) {
+
+        //URL String
+        var url = "http://10.0.2.2/foodhub_server/category.php"
+
+        val stringRequest: StringRequest = object : StringRequest(
+            Method.POST, url, Response.Listener { response ->
+
+            val jsonResponse = JSONObject(response)
+            val status = jsonResponse.getInt("status")
+            val message = jsonResponse.getString("message")
+
+
+            if (status == 0) {
+                Log.i("RemoteRequest", message)
+            }else {
+                Log.i("RemoteRequest", message)
+            }
+
+        },
+            Response.ErrorListener { error ->
+                Log.i("RemoteError",error.toString().trim { it <= ' ' })
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String>? {
+
+                val data: MutableMap<String, String> = HashMap()
+                data["Content-Type"] = "application/x-www-form-urlencoded"
+                data["request"] = "AddCategory"
+                data["categoryID"] = catID
+                data["categoryName"] = catName
+
+                return data
+            }
+        }
+        val requestQueue = Volley.newRequestQueue(requireContext())
+        requestQueue.add(stringRequest)
+
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

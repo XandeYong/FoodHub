@@ -1,7 +1,7 @@
 package com.example.foodhub.Logged.Admin.Category
 
-import android.app.Activity
 import android.app.AlertDialog
+import android.app.DownloadManager.Request
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,19 +11,18 @@ import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.findViewTreeLifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.android.volley.AuthFailureError
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.foodhub.R
 import com.example.foodhub.database.Category
 import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.util.Util
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
@@ -96,6 +95,9 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
 
                                     //Update back into DB
                                     db.categoryDao.updateAt(Category(categoryClass!!.categoryID, updateCategory, categoryClass!!.createdAt,util.generateDate()))
+
+                                    //Update in remote DB
+                                    updateCategoryInRemoteDB(categoryClass!!.categoryID, updateCategory)
                                 }.start()
 
                                 //Display category Updated
@@ -138,10 +140,14 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
                             Thread{
                                 categoryClass = db.categoryDao.getAllCategory()[categoryPosition]
 
-                                //Update back into DB
+                                //Delete from DB
                                 db.categoryDao.deleteAt(categoryClass!!)
+
+                                //Delete from Remote DB
+                                deleteCategoryInRemoteDB(categoryClass!!.categoryID)
                             }.start()
 
+                            //Display Snack bar
                             Snackbar.make(v,"Category deleted!", Snackbar.LENGTH_LONG)
                                 .setAction("Dismiss"){
                                     //Empty to dismiss Snack Bar
@@ -172,6 +178,86 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
             menu.javaClass.getDeclaredMethod("setForceShowIcon", Boolean::class.java)
                 .invoke(menu,true)
         }
+
+        //Process update in Remote DB
+        private fun updateCategoryInRemoteDB(catID: String, catName: String) {
+
+            //URL String
+            var url = "http://10.0.2.2/foodhub_server/category.php"
+
+            val stringRequest: StringRequest = object : StringRequest(Method.POST, url, Response.Listener { response ->
+
+                    val jsonResponse = JSONObject(response)
+                    val status = jsonResponse.getInt("status")
+                    val message = jsonResponse.getString("message")
+
+
+                    if (status == 0) {
+                        Log.i("RemoteRequest", message)
+                    }else {
+                        Log.i("RemoteRequest", message)
+                    }
+
+                },
+                Response.ErrorListener { error ->
+                    Log.i("RemoteError",error.toString().trim { it <= ' ' })
+                }) {
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+
+                    val data: MutableMap<String, String> = HashMap()
+                    data["Content-Type"] = "application/x-www-form-urlencoded"
+                    data["request"] = "UpdateCategory"
+                    data["categoryID"] = catID
+                    data["categoryName"] = catName
+
+                    return data
+                }
+            }
+            val requestQueue = Volley.newRequestQueue(c)
+            requestQueue.add(stringRequest)
+
+        }
+
+        //Process delete in Remote DB
+        private fun deleteCategoryInRemoteDB(catID: String) {
+
+            //URL String
+            var url = "http://10.0.2.2/foodhub_server/category.php"
+
+            val stringRequest: StringRequest = object : StringRequest(Method.POST, url, Response.Listener { response ->
+
+                val jsonResponse = JSONObject(response)
+                val status = jsonResponse.getInt("status")
+                val message = jsonResponse.getString("message")
+
+
+                if (status == 0) {
+                    Log.i("RemoteRequest", message)
+                }else {
+                    Log.i("RemoteRequest", message)
+                }
+
+            },
+                Response.ErrorListener { error ->
+                    Log.i("RemoteError",error.toString().trim { it <= ' ' })
+                }) {
+                @Throws(AuthFailureError::class)
+                override fun getParams(): Map<String, String>? {
+
+                    val data: MutableMap<String, String> = HashMap()
+                    data["Content-Type"] = "application/x-www-form-urlencoded"
+                    data["request"] = "DeleteCategory"
+                    data["categoryID"] = catID
+
+                    return data
+                }
+            }
+            val requestQueue = Volley.newRequestQueue(c)
+            requestQueue.add(stringRequest)
+
+        }
+
     }
 
 }

@@ -5,9 +5,12 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64.encodeToString
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +20,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.android.volley.AuthFailureError
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.foodhub.R
 import com.example.foodhub.database.Account
 import com.example.foodhub.database.FoodHubDatabase
@@ -25,6 +32,8 @@ import com.example.foodhub.util.Util
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -191,18 +200,21 @@ class EditProfileFragment : Fragment() {
                     val builder = AlertDialog.Builder(requireContext())
                     builder.setMessage("Confirm update ?")
                         .setCancelable(false)
-                        .setPositiveButton("Update"){ dialog, id->
+                        .setPositiveButton("Update"){ _, _->
                             //Passed data from Edit Text
                             userAddress = binding.addressText.text.toString().trim()
 
                             //Created Account Object for Update
-                            accountClass = Account(accountClass.accountID, userName, userImage, userAddress, null, userBirthday, userGender,
+                            accountClass = Account(accountClass.accountID, userName, userImage, userAddress, "S12", userBirthday, userGender,
                                 userEmail, userPassword, accountClass.accountType.toString(), accountClass.createdAt, util.generateDate())
 
 
                             lifecycleScope.launch{
                                 //Update to DB
                                 db.accountDao.updateAt(accountClass)
+
+                                //Update into remote DB
+                                updateProfileInRemoteDB(accountClass)
 
                                 //Updated Snack Bar Notification
                                 Snackbar.make(requireActivity().findViewById(R.id.profileFragment),"Profile Updated!",Snackbar.LENGTH_LONG)
@@ -232,8 +244,70 @@ class EditProfileFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(EditProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this)[EditProfileViewModel::class.java]
 
+    }
+
+    //Process update into Remote DB
+    private fun updateProfileInRemoteDB(account: Account) {
+
+        //URL String
+        var url = "http://10.0.2.2/foodhub_server/account.php"
+
+        val stringRequest: StringRequest = object : StringRequest(
+            Method.POST, url, Response.Listener { response ->
+
+                val jsonResponse = JSONObject(response)
+                val status = jsonResponse.getInt("status")
+                val message = jsonResponse.getString("message")
+
+
+                if (status == 0) {
+                    Log.i("RemoteRequest", message)
+                }else {
+                    Log.i("RemoteRequest", message)
+                }
+
+            },
+            Response.ErrorListener { error ->
+                Log.i("RemoteError",error.toString().trim { it <= ' ' })
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String>? {
+
+                val data: MutableMap<String, String> = HashMap()
+                data["Content-Type"] = "application/x-www-form-urlencoded"
+                data["request"] = "UpdateAccount"
+                data["accountID"] = account.accountID
+                data["accountName"] = account.name.toString()
+                data["accountImage"] = bitmapToString(account.image!!)
+                data["accountAddress"] = account.address.toString()
+                data["accountState"] = account.stateID.toString()
+                data["accountDOB"] = SimpleDateFormat("yyyy-MM-dd").format(account.dob).toString()
+                data["accountGender"] = account.gender.toString()
+                data["accountEmail"] = account.email.toString()
+                data["accountPassword"] = account.password.toString()
+                data["accountType"] = account.accountType.toString()
+
+                return data
+            }
+        }
+        val requestQueue = Volley.newRequestQueue(requireContext())
+        requestQueue.add(stringRequest)
+    }
+
+    //Bitmap to String Function
+    private fun bitmapToString(image: Bitmap): String{
+        val boas = ByteArrayOutputStream()
+        image.compress(Bitmap.CompressFormat.PNG, 100, boas)
+        val b = boas.toByteArray()
+        return Base64.getEncoder().encodeToString(b)
+    }
+
+    //String to Bitmap Function
+    private fun stringToBitmap(image: String): Bitmap{
+        val decodedString = Base64.getDecoder().decode(image)
+        return BitmapFactory.decodeByteArray(decodedString,0,decodedString.size)
     }
 
     //Function for accessing gallery
