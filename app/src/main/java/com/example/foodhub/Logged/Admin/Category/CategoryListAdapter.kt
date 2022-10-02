@@ -1,7 +1,6 @@
 package com.example.foodhub.Logged.Admin.Category
 
 import android.app.AlertDialog
-import android.app.DownloadManager.Request
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.android.volley.AuthFailureError
+import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
@@ -27,7 +27,6 @@ import org.json.JSONObject
 class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
     val util = Util()
-    var categoryPosition: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryListAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -64,8 +63,8 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
             val popupMenu = PopupMenu(c,v)
             popupMenu.inflate(R.menu.show_category_menu)
             popupMenu.setOnMenuItemClickListener {
-                when(it.itemId){
-                    R.id.editButton->{
+                when(it.itemId) {
+                    R.id.editButton -> {
                         val v = LayoutInflater.from(c).inflate(R.layout.update_category_dialog_layout, null)
                         val categoryName = v.findViewById<TextInputEditText>(R.id.categoryUpdateText)
                         AlertDialog.Builder(c)
@@ -76,12 +75,6 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
                                 //New name
                                 var updateCategory = categoryName.text.toString()
 
-                                //Get targeted list position
-                                categoryPosition = absoluteAdapterPosition
-
-                                //Reflect update on Recycle View
-                                categoryList[categoryPosition] = updateCategory
-
                                 //Initiate DB
                                 val db = FoodHubDatabase.getInstance(c)
 
@@ -90,7 +83,7 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
 
                                 //Split thread to execute Query
                                 Thread{
-                                    categoryClass = db.categoryDao.getAllCategory()[categoryPosition]
+                                    categoryClass = db.categoryDao.getAllCategory()[absoluteAdapterPosition]
 
                                     //Update back into DB
                                     db.categoryDao.updateAt(Category(categoryClass!!.categoryID, updateCategory, categoryClass!!.createdAt,util.generateDate()))
@@ -140,13 +133,14 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
                             var categoryClass: Category? = null
 
                             Thread{
-                                categoryClass = db.categoryDao.getAllCategory()[categoryPosition]
+                                categoryClass = db.categoryDao.getAllCategory()[absoluteAdapterPosition]
 
                                 //Delete from DB
                                 db.categoryDao.deleteAt(categoryClass!!)
 
                                 //Delete from Remote DB
-                                deleteCategoryInRemoteDB(categoryClass!!.categoryID)
+                                Log.i("cateClass", categoryClass!!.categoryID)
+                                deleteCategoryInRemoteDB(v.context, categoryClass!!.categoryID)
 
                                 //Log
                                 Log.i("Category", "Category added to DB")
@@ -225,20 +219,23 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
         }
 
         //Process delete in Remote DB
-        private fun deleteCategoryInRemoteDB(catID: String) {
+        private fun deleteCategoryInRemoteDB(context: Context, catID: String) {
 
             //URL String
             var url = "http://10.0.2.2/foodhub_server/category.php"
 
-            val stringRequest: StringRequest = object : StringRequest(Method.POST, url, Response.Listener { response ->
+            val stringRequest: StringRequest = object : StringRequest(Request.Method.POST, url, Response.Listener { response ->
 
                 val jsonResponse = JSONObject(response)
                 val status = jsonResponse.getInt("status")
                 val message = jsonResponse.getString("message")
 
 
+
                 if (status == 0) {
                     Log.i("RemoteRequest", message)
+                } else if(status == -3) {
+                    Toast.makeText(context, "Unable to delete from remote db, This category has been linked by one or more form", Toast.LENGTH_SHORT).show()
                 }else {
                     Log.i("RemoteRequest", message)
                 }
