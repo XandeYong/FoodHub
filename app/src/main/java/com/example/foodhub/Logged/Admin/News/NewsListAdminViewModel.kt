@@ -10,7 +10,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.foodhub.R
 import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.database.News
-import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.launch
 
 class NewsListAdminViewModel() : ViewModel() {

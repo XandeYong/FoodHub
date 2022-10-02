@@ -1,5 +1,6 @@
 package com.example.foodhub.database
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.room.*
 

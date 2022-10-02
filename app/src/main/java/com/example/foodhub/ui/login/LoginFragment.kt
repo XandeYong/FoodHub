@@ -20,13 +20,8 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.foodhub.R
-import com.example.foodhub.database.Account
-import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentLoginBinding
 import com.example.foodhub.ui.main.MainFragmentDirections
-import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.coroutines.launch
 import org.json.JSONObject
 import kotlin.collections.HashMap
 import kotlin.collections.Map

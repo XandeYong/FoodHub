@@ -1,6 +1,5 @@
 package com.example.foodhub.Logged.All.Account
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.foodhub.R
 import com.example.foodhub.database.FoodHubDatabase
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.coroutines.launch
 
 class LogoutFragment : Fragment() {
@@ -42,7 +39,7 @@ class LogoutFragment : Fragment() {
             requireActivity().supportFragmentManager.popBackStack()
         }
 
-        return inflater.inflate(null, container, false)
+        return inflater.inflate(R.layout.fragment_logout, container, false)
     }
 
 }

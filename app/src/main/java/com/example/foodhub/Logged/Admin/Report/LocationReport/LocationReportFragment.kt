@@ -188,28 +188,28 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
     private fun getData(type: String?) {
         val locationReportLiveData = db.locationReportDao.getAll()
 
-        locationReportLiveData.observe(viewLifecycleOwner) { locationReports ->
+        val url = "http://10.0.2.2/foodhub_server/account.php?request=locationReport"
+        val accounts: MutableList<Account> = mutableListOf()
 
-            val url = "http://10.0.2.2/foodhub_server/account.php?request=locationReport"
-            val accounts: MutableList<Account> = mutableListOf()
+        val request = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                Log.d("response_start", "Response received location report")
+                val jsonArray = response.getJSONArray("data")
 
-            val request = JsonObjectRequest(
-                Request.Method.GET, url, null,
-                { response ->
-                    Log.d("response_start", "Response received location report")
-                    val jsonArray = response.getJSONArray("data")
+                for (i in 0 until jsonArray.length()) {
+                    val jsonObj = jsonArray.getJSONObject(i)
+                    val jsonState = jsonObj.getString("state")
+                    val jsonAccountType = jsonObj.getString("account_type")
 
-                    for (i in 0 until jsonArray.length()) {
-                        val jsonObj = jsonArray.getJSONObject(i)
-                        val jsonState = jsonObj.getString("state")
-                        val jsonAccountType = jsonObj.getString("account_type")
+                    val account = Account()
+                    account.state = jsonState
+                    account.accountType = jsonAccountType
 
-                        val account = Account()
-                        account.state = jsonState
-                        account.accountType = jsonAccountType
+                    accounts.add(account)
+                }
 
-                        accounts.add(account)
-                    }
+                locationReportLiveData.observe(viewLifecycleOwner) { locationReports ->
 
                     for (i in 0 until locationReports!!.size) {
                         locationReports[i].totalDonor = 0
@@ -227,13 +227,16 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
                             if (state == lState) {
                                 when (accountType) {
                                     "donor" -> {
-                                        locationReports[j].totalDonor = locationReports[j].totalDonor!!.plus(1)
+                                        locationReports[j].totalDonor =
+                                            locationReports[j].totalDonor!!.plus(1)
                                     }
                                     "donee" -> {
-                                        locationReports[j].totalDonee = locationReports[j].totalDonee!!.plus(1)
+                                        locationReports[j].totalDonee =
+                                            locationReports[j].totalDonee!!.plus(1)
                                     }
                                 }
-                                locationReports[j].totalUser = locationReports[j].totalUser!!.plus(1)
+                                locationReports[j].totalUser =
+                                    locationReports[j].totalUser!!.plus(1)
                             }
                         }
                     }
@@ -242,25 +245,28 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
 
                     when (type) {
                         "all" -> {
-                            lLocationReport = locationReports.toMutableList().sortedByDescending { it.totalUser }
+                            lLocationReport = locationReports.toMutableList()
+                                .sortedByDescending { it.totalUser }
                         }
                         "donor" -> {
-                            lLocationReport = locationReports.toMutableList().sortedByDescending { it.totalDonor }
+                            lLocationReport = locationReports.toMutableList()
+                                .sortedByDescending { it.totalDonor }
                         }
                         "donee" -> {
-                            lLocationReport = locationReports.toMutableList().sortedByDescending { it.totalDonee }
+                            lLocationReport = locationReports.toMutableList()
+                                .sortedByDescending { it.totalDonee }
                         }
                     }
                     updateUI(type)
-
-                }, { error ->
-                    Log.d("response", error.toString())
                 }
-            )
-            val requestQueue = Volley.newRequestQueue(view?.context)
-            requestQueue.add(request)
 
-        }
+            }, { error ->
+                Log.d("response", error.toString())
+            }
+        )
+        val requestQueue = Volley.newRequestQueue(requireContext())
+        requestQueue.add(request)
+
     }
 
 
@@ -272,7 +278,7 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
                 db.locationReportDao.update(locationReports[i])
             }
 
-            postData()
+            //postData()
         }
     }
 

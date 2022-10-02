@@ -60,7 +60,7 @@ class createNews_admin : Fragment() {
             if(!binding.textViewTypeSomethings.text.toString().isNullOrEmpty() && imageUri.toString() != "null"
                 && !binding.txtWebsiteUrl.text.toString().isNullOrEmpty()){
                store()
-                findNavController().navigate(createNews_adminDirections.actionCreateNewsAdminToNewsListAdmin())
+                findNavController().navigate(createNews_adminDirections.actionCreateNewsAdminToNewsListAdminFragment())
             }else {
                 Log.i("CheckImage" , imageUri.toString())
                 if(binding.textViewTypeSomethings.text.toString().isNullOrEmpty()){

@@ -112,7 +112,7 @@
             app:popUpTo="@id/donationFormListFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_donationFormFragment_to_donationFormDetailFragment2"
+            android:id="@+id/action_donationFormFragment_to_donationFormDetailFragment"
             app:destination="@id/donationFormDetailFragment"
             app:popUpTo="@id/donationFormDetailFragment"
             app:popUpToInclusive="true" />
@@ -244,17 +244,17 @@
 
     <!--  News  -->
     <fragment
-        android:id="@+id/newsList_admin"
-        android:name="com.example.foodhub.Logged.Admin.News.NewsList_admin"
-        android:label="News List"
+        android:id="@+id/newsListAdminFragment"
+        android:name="com.example.foodhub.Logged.Admin.News.NewsListAdminFragment"
+        android:label="NewsListAdminFragment"
         tools:layout="@layout/fragment_news_list_admin" >
         <action
-            android:id="@+id/action_newsList_admin_to_createNews_admin"
+            android:id="@+id/action_newsListAdminFragment_to_createNews_admin"
             app:destination="@id/createNews_admin"
             app:popUpTo="@id/createNews_admin"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_newsList_admin_to_updateNews_admin"
+            android:id="@+id/action_newsListAdminFragment_to_updateNews_admin"
             app:destination="@id/updateNews_admin"
             app:popUpTo="@id/updateNews_admin"
             app:popUpToInclusive="true" />
@@ -265,9 +265,9 @@
         android:label="Create News"
         tools:layout="@layout/fragment_create_news_admin" >
         <action
-            android:id="@+id/action_createNews_admin_to_newsList_admin"
-            app:destination="@id/newsList_admin"
-            app:popUpTo="@id/newsList_admin"
+            android:id="@+id/action_createNews_admin_to_newsListAdminFragment"
+            app:destination="@id/newsListAdminFragment"
+            app:popUpTo="@id/newsListAdminFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -276,9 +276,9 @@
         android:label="Update News"
         tools:layout="@layout/fragment_update_news_admin" >
         <action
-            android:id="@+id/action_updateNews_admin_to_newsList_admin"
-            app:destination="@id/newsList_admin"
-            app:popUpTo="@id/newsList_admin"
+            android:id="@+id/action_updateNews_admin_to_newsListAdminFragment"
+            app:destination="@id/newsListAdminFragment"
+            app:popUpTo="@id/newsListAdminFragment"
             app:popUpToInclusive="true" />
     </fragment>
 
