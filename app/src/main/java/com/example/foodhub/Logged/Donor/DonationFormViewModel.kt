@@ -35,10 +35,10 @@ class DonationFormViewModel : ViewModel() {
     fun generateNewDonationFormID(){
         var newID: String = "DF1"
         if(latestDF != null) {
-            val value: Int=  latestDF.donationFromID.substring(2).toInt() + 1
+            val value: Int=  latestDF.donationFormID.substring(2).toInt() + 1
             newID = "DF" + value.toString()
         }
-        newDonationForm.donationFromID = newID
+        newDonationForm.donationFormID = newID
         newDonationForm.status = "Pending"
         newDonationForm.accountID = latestDF.accountID
     }
@@ -88,7 +88,7 @@ class DonationFormViewModel : ViewModel() {
         newDonationForm.categoryID = category.categoryID
     }
 
-     fun insetDonationFormToDB(context: Context): Int{
+     fun insertDonationFormToDB(context: Context): Int{
         val db = FoodHubDatabase.getInstance(context)
         var value: Long = 0
 

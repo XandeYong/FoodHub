@@ -12,14 +12,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.foodhub.database.Account
+import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentLoginBinding
 import com.example.foodhub.ui.main.MainFragmentDirections
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import kotlin.collections.HashMap
 import kotlin.collections.Map
@@ -91,12 +95,15 @@ class LoginFragment : Fragment() {
         }
 
         binding.txtSignUp.setOnClickListener() {
-            findNavController().navigate(MainFragmentDirections.actionMainFragmentToRegisterFragment()) // not working
+            findNavController().navigate(MainFragmentDirections.actionMainFragmentToRegisterFragment())
 
         }
 
         return binding.root
     }
+
+
+
 
     fun LoginCheck(): Boolean {
         var status = false;
@@ -115,6 +122,12 @@ class LoginFragment : Fragment() {
                     dbEmail = myobject.get("email").toString()
                     dbPassword = myobject.get("password").toString()
                     dbAccountType = myobject.get("account_type").toString()
+
+//                    val db = FoodHubDatabase.getInstance(requireContext())
+//                    val account: Account = Account(dbId,dbName, )
+//                    lifecycleScope.launch {
+//                        db.accountDao.insert(account)
+//                    }
                 }
                 // need local db 
                 if (password == dbPassword) {

@@ -3,10 +3,13 @@ package com.example.foodhub.Logged.Admin.FormManagement.Donation
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -62,15 +65,51 @@ class AdminDonationFormListFragment : Fragment() {
             override fun onItemClick(position: Int) {
                 val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
                 val editor =preferences.edit()
-                editor.putString("donationFromID",  (myAdapter as AdminDonationFormListAdapter).adminDonationFormList[position].donationFromID)
+                editor.putString("donationFormID",  (myAdapter as AdminDonationFormListAdapter).adminDonationFormList[position].donationFormID)
                 editor.apply()
                 editor.commit()
                 findNavController().navigate(AdminDonationFormListFragmentDirections.actionAdminDonationFormListFragmentToAdminDonationFormDetailFragment())
             }
         })
+
         binding.btnSearchADFL.setOnClickListener() {
+            it.hideKeyboard()
             search()
         }
+
+        binding.editSearchADFL.addTextChangedListener(object: TextWatcher{
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s != null) {
+                    if(s.isEmpty()){
+                        lifecycleScope.launch {
+                            viewModel.getAdminDonationFormList(requireContext())
+                        }
+                        viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
+                            (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
+                            //set toast if empty list
+                            if (myAdapter.getItemCount() == 0)
+                            {
+                                Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                //TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                //TODO("Not yet implemented")
+            }
+        })
+
         return binding.root
     }
 
@@ -79,16 +118,32 @@ class AdminDonationFormListFragment : Fragment() {
     }
 
     fun search(){
-        viewModel. searchAdminDonationForm(requireContext(), "DF1")
+        if(validateSearchInput()){
+            viewModel.searchAdminDonationForm(requireContext(), binding.editSearchADFL.text.toString().uppercase().trim())
 
-        viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
-            (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
-            //set toast if empty list
-            if (myAdapter.getItemCount() == 0)
-            {
-                Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
-            }
-        })
+            viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
+                (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
+                //set toast if empty list
+                if (myAdapter.getItemCount() == 0)
+                {
+                    Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }else{
+            Toast.makeText(getActivity(), "Search Field Is Empty!", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    fun validateSearchInput(): Boolean {
+        val status = binding.editSearchADFL.text.isNotEmpty()
+        return status
+    }
+
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }

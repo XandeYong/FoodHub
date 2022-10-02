@@ -34,7 +34,7 @@ class AdminDonationFormListViewModel : ViewModel() {
         val db = FoodHubDatabase.getInstance(context)
 
         viewModelScope.launch {
-            var search = db.donationFormDao.searchDF(id)
+            var search = db.donationFormDao.searchDF("%$id%")
             adminDFL = search
         }
     }

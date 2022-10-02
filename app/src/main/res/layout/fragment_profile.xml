@@ -30,46 +30,47 @@
         android:id="@+id/profile_image"
         android:layout_width="139dp"
         android:layout_height="136dp"
-        android:layout_marginTop="164dp"
-        android:src="@drawable/profile"
+        android:layout_marginTop="110dp"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID: "
-        android:textAlignment="textStart"
-        android:textSize="8sp"
-        app:layout_constraintEnd_toStartOf="@+id/idText"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/idText" />
-
-    <TextView
-        android:id="@+id/idText"
+    <LinearLayout
+        android:id="@+id/linearLayout6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="DE202208051"
-        android:textAlignment="textStart"
-        android:textSize="8sp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/id"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_image">
+
+        <TextView
+            android:id="@+id/id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID:"
+            android:paddingRight="2dp"
+            android:textAlignment="textStart"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/idText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="textStart"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/username"
+        android:layout_marginTop="26dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="24sp"
@@ -83,9 +84,10 @@
         android:id="@+id/profileDetailLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="70dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.59"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameText">
 
@@ -115,7 +117,6 @@
                 android:layout_width="223dp"
                 android:layout_height="64dp"
                 android:lineSpacingMultiplier="1.2"
-                android:text="Bukit Lagong, 68100 Batu Caves, Selangor"
                 app:layout_constraintBottom_toTopOf="@+id/textAge"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="0dp" />
@@ -147,7 +148,6 @@
                 android:id="@+id/textAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="16"
                 app:layout_constraintBottom_toTopOf="@+id/textGender"
                 app:layout_constraintTop_toBottomOf="@+id/textAddress"
                 tools:layout_editor_absoluteX="167dp" />
@@ -178,7 +178,6 @@
                 android:id="@+id/textGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Female"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textAge"
                 tools:layout_editor_absoluteX="158dp" />

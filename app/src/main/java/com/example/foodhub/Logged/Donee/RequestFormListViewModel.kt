@@ -1,10 +1,18 @@
 package com.example.foodhub.Logged.Donee
 
+import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.foodhub.database.FoodHubDatabase
+import com.example.foodhub.database.RequestForm
+import kotlinx.coroutines.launch
 
 class RequestFormListViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+
+    lateinit var requestFL: LiveData<List<RequestForm>>
+
     init {
         Log.i("RequestFormVM", "Request Form View Model has been Created!")
     }
@@ -13,4 +21,23 @@ class RequestFormListViewModel : ViewModel() {
         Log.i("RequestFormVM","Request Form View Model has been Destroyed!")
         super.onCleared()
     }
+
+    fun getRequestFormList(context: Context, doneeID: String){
+        val db = FoodHubDatabase.getInstance(context)
+
+        viewModelScope.launch {
+            var rfl = db.requestFormDao.getAllListByDoneeID(doneeID)
+            requestFL = rfl
+        }
+    }
+
+    fun searchRF(context: Context, doneeID: String, rfID: String){
+        val db = FoodHubDatabase.getInstance(context)
+
+        viewModelScope.launch {
+            var result = db.requestFormDao.searchRFAvl(doneeID,"%$rfID%")
+            requestFL = result
+        }
+    }
+
 }

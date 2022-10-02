@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
                     navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
                 }
             }
+
         } else {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }
@@ -101,12 +102,15 @@ class MainActivity : AppCompatActivity() {
     private fun handleNestedFragmentsBackStack(): Boolean {
         val navHostChildFragmentManager = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment)?.childFragmentManager
+        Log.d("backstack-Start", navHostChildFragmentManager?.backStackEntryCount.toString())
 
         return if (navHostChildFragmentManager?.backStackEntryCount!! > 0) {
+            Log.d("backstack-if", navHostChildFragmentManager.backStackEntryCount.toString())
             val navController = findNavController(R.id.nav_host_fragment)
             navController.navigateUp() || super.onSupportNavigateUp()
             false
         } else {
+            Log.d("backstack-else", navHostChildFragmentManager.backStackEntryCount.toString())
             if (drawerLayout.isOpen) {
                 drawerLayout.close()
             } else {

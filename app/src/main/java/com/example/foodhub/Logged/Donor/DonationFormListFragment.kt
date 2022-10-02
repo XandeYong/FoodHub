@@ -2,9 +2,12 @@ package com.example.foodhub.Logged.Donor
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -67,7 +70,7 @@ class DonationFormListFragment : Fragment() {
 
                 val preferences = requireActivity().getSharedPreferences("sharePref", Context.MODE_PRIVATE)
                 val editor =preferences.edit()
-                editor.putString("donationFromID",  (myAdapter as DonationFormListAdapter).donationFormList[position].donationFromID)
+                editor.putString("donationFormID",  (myAdapter as DonationFormListAdapter).donationFormList[position].donationFormID)
                 editor.apply()
                 editor.commit()
                 findNavController().navigate(DonationFormListFragmentDirections.actionDonationFormListFragmentToDonationFormDetailFragment())
@@ -78,12 +81,79 @@ class DonationFormListFragment : Fragment() {
             findNavController().navigate(DonationFormListFragmentDirections.actionDonationFormListFragmentToDonationFormFragment())
         }
 
+        binding.btnSearchDFL.setOnClickListener() {
+            it.hideKeyboard()
+            search()
+        }
+
+        binding.editSearchDFL.addTextChangedListener(object: TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s != null) {
+                    if(s.isEmpty()){
+                        lifecycleScope.launch {
+                            viewModel.getDonationFormList(requireContext(), donorID)
+                        }
+                        viewModel.donationFL.observe(viewLifecycleOwner, Observer { donationFL ->
+                            (myAdapter as DonationFormListAdapter).setData(donationFL)
+                            //set toast if empty list
+                            if (myAdapter.getItemCount() == 0)
+                            {
+                                Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                //TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                //TODO("Not yet implemented")
+            }
+        })
+
         return binding.root
     }
 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
+
+    fun search(){
+        if(validateSearchInput()){
+            viewModel.searchDonationForm(requireContext(), donorID, binding.editSearchDFL.text.toString().uppercase().trim())
+
+            viewModel.donationFL.observe(viewLifecycleOwner, Observer { donationFL ->
+                (myAdapter as DonationFormListAdapter).setData(donationFL)
+                //set toast if empty list
+                if (myAdapter.getItemCount() == 0)
+                {
+                    Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }else{
+            Toast.makeText(getActivity(), "Search Field Is Empty!", Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    fun validateSearchInput(): Boolean {
+        val status = binding.editSearchDFL.text.isNotEmpty()
+        return status
+    }
+
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }

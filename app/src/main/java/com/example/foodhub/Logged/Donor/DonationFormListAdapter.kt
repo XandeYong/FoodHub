@@ -18,6 +18,7 @@ class DonationFormListAdapter: RecyclerView.Adapter<DonationFormListAdapter.View
     interface onItemClickListener{
         fun onItemClick(position: Int)
     }
+
     fun setOnClickListener(listener: onItemClickListener){
         mListener = listener
     }
@@ -34,7 +35,7 @@ class DonationFormListAdapter: RecyclerView.Adapter<DonationFormListAdapter.View
 
     override fun onBindViewHolder(holder: DonationFormListAdapter.ViewHolder, position: Int) {
         val donationForm: DonationForm = donationFormList[position]
-        holder.fieldDonationFormIdDFLCL.text = donationForm.donationFromID
+        holder.fieldDonationFormIdDFLCL.text = donationForm.donationFormID
     }
 
     inner class ViewHolder(itemView: View, listener: onItemClickListener): RecyclerView.ViewHolder(itemView){

@@ -58,6 +58,9 @@ abstract class AccountDao: BaseDao<Account> {
         account.updatedAt = generateDate()
     }
 
+    @Update
+    abstract suspend fun updateAt(account: Account)
+
     @Query("SELECT * FROM account_table WHERE accountID = :id")
     abstract suspend fun get(id: String): Account
 
@@ -66,6 +69,9 @@ abstract class AccountDao: BaseDao<Account> {
 
     @Query("SELECT * FROM account_table ORDER BY createdAt DESC LIMIT 1")
     abstract suspend fun getLatest(): Account
+
+    @Query("DELETE FROM account_table WHERE accountID = :id")
+    abstract suspend fun deleteAt(id: String)
 
     @Query("DELETE FROM account_table")
     abstract suspend fun clear()
@@ -124,6 +130,9 @@ abstract class CategoryDao: BaseDao<Category> {
         category.updatedAt = generateDate()
     }
 
+    @Update
+    abstract fun updateAt(category: Category)
+
     @Transaction
     open suspend fun syncWithServer(category: MutableList<Category>) {
         clear()
@@ -141,6 +150,19 @@ abstract class CategoryDao: BaseDao<Category> {
 
     @Query("DELETE FROM category_table")
     abstract suspend fun clear()
+
+//Add
+    @Delete
+    abstract fun deleteAt(category: Category)
+
+    @Query("SELECT name FROM category_table ORDER BY createdAt DESC")
+    abstract suspend fun getAllCategoryList(): List<String>
+
+    @Query("SELECT * FROM category_table ORDER BY createdAt DESC")
+    abstract fun getAllCategory():List<Category>
+
+    @Query("SELECT name FROM category_table WHERE name LIKE :name ORDER BY createdAt DESC")
+    abstract suspend fun searchCategory(name: String): List<String>
 
 }
 
@@ -160,7 +182,7 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
         insert(donationForm)
     }
 
-    @Query("SELECT * FROM donation_form_table WHERE donationFromID = :id")
+    @Query("SELECT * FROM donation_form_table WHERE donationFormID = :id")
     abstract suspend fun get(id: String): DonationForm
 
     @Query("SELECT * FROM donation_form_table ORDER BY createdAt DESC")
@@ -176,18 +198,20 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     abstract suspend fun clear()
 
 //add
-    @Query(" UPDATE donation_form_table SET status=:status WHERE donationFromID = :id")
+    @Query("UPDATE donation_form_table SET status=:status WHERE donationFormID = :id")
     abstract suspend fun updateStatus(status: String, id: String): Int
 
     @Query("SELECT * FROM donation_form_table WHERE accountID = :id AND status != :status ORDER BY createdAt DESC")
-    abstract fun getAllListByDonorID(id: String, status: String = "Deleted"):LiveData<List<DonationForm>>
+    abstract fun getAllListByDonorID(id: String, status: String = "Deleted"): LiveData<List<DonationForm>>
 
     @Insert
     abstract fun insertDonationForm(donationForm: DonationForm): Long
 
-    @Query("SELECT * FROM donation_form_table WHERE donationFromID = :id ORDER BY createdAt DESC")
-    abstract fun searchDF(id: String):LiveData<List<DonationForm>>
+    @Query("SELECT * FROM donation_form_table WHERE donationFormID LIKE :id ORDER BY createdAt DESC")
+    abstract fun searchDF(id: String): LiveData<List<DonationForm>>
 
+    @Query("SELECT * FROM donation_form_table WHERE accountID = :accountID AND donationFormID LIKE :dfID AND status != :status ORDER BY createdAt DESC")
+    abstract fun searchDFAvailable(accountID: String, dfID: String, status: String = "Deleted"): LiveData<List<DonationForm>>
 
 }
 
@@ -222,6 +246,18 @@ abstract class RequestFormDao: BaseDao<RequestForm> {
 //add
     @Query(" UPDATE request_form_table SET status=:status WHERE requestFormID = :id")
     abstract suspend fun updateStatus(status: String, id: String): Int
+
+    @Query("SELECT * FROM request_form_table WHERE requestFormID LIKE :id ORDER BY createdAt DESC")
+    abstract fun searchRF(id: String): LiveData<List<RequestForm>>
+
+    @Query("SELECT * FROM request_form_table WHERE accountID = :id AND status != :status ORDER BY createdAt DESC")
+    abstract fun getAllListByDoneeID(id: String, status: String = "Deleted"):LiveData<List<RequestForm>>
+
+    @Query("SELECT * FROM request_form_table WHERE accountID = :accountID AND requestFormID LIKE :rfID AND status != :status ORDER BY createdAt DESC")
+    abstract fun searchRFAvl(accountID: String, rfID: String, status: String = "Deleted"): LiveData<List<RequestForm>>
+
+    @Insert
+    abstract fun insertReqForm(reqForm: RequestForm): Long
 
 }
 
