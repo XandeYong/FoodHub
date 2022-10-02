@@ -111,7 +111,7 @@ class LoginFragment : Fragment() {
                 val jsonResponse = JSONObject(response)
                 val myObjAsString = jsonResponse.getJSONArray("data")
 
-                if (myObjAsString.length() > 0) {
+                if (jsonResponse.getInt("status") == 0) {
                     myobject = myObjAsString.getJSONObject(0)
                     dbId = myobject.get("account_id").toString()
                     dbName = myobject.get("name").toString()
@@ -119,14 +119,9 @@ class LoginFragment : Fragment() {
                     dbPassword = myobject.get("password").toString()
                     dbAccountType = myobject.get("account_type").toString()
 
-//                    val db = FoodHubDatabase.getInstance(requireContext())
-//                    val account: Account = Account(dbId,dbName, )
-//                    lifecycleScope.launch {
-//                        db.accountDao.insert(account)
-//                    }
 
                 }
-                // need local db 
+
                 if (password == dbPassword) {
                     val preferences =
                         activity?.getSharedPreferences("login_S", Context.MODE_PRIVATE)

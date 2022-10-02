@@ -72,6 +72,9 @@ abstract class NewsDao: BaseDao<News> {
     @Query("UPDATE news_table SET title=:title,image=:image,url=:url ,updatedAt=:updatedAt WHERE newsID=:id")
     abstract suspend fun updateNews(title: String, image: Bitmap, url:String, id:String ,updatedAt: String =generateDate()): Int
 
+    @Query("UPDATE news_table SET title=:title,url=:url ,updatedAt=:updatedAt WHERE newsID=:id")
+    abstract suspend fun updateNews(title: String, url:String, id:String ,updatedAt: String =generateDate()): Int
+
     @Query("DELETE FROM news_table WHERE newsID = :id")
     abstract suspend fun clearSpecificNews(id: String)
 

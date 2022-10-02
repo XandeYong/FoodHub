@@ -46,6 +46,8 @@ class createNews_admin : Fragment() {
     private var imageUri: Uri? = null
     private var imageToString: String? = null
 
+    var objectStatus : Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -60,7 +62,6 @@ class createNews_admin : Fragment() {
             if(!binding.textViewTypeSomethings.text.toString().isNullOrEmpty() && imageUri.toString() != "null"
                 && !binding.txtWebsiteUrl.text.toString().isNullOrEmpty()){
                store()
-                findNavController().navigate(createNews_adminDirections.actionCreateNewsAdminToNewsListAdminFragment())
             }else {
                 Log.i("CheckImage" , imageUri.toString())
                 if(binding.textViewTypeSomethings.text.toString().isNullOrEmpty()){
@@ -70,7 +71,7 @@ class createNews_admin : Fragment() {
                     binding.textView3.setError("Image Cannot Be Empty")
                 }
                 if(binding.txtWebsiteUrl.text.toString().isNullOrEmpty()){
-                    binding.textView3.setError("Website URL Cannot Be Empty")
+                    binding.txtWebsiteUrl.setError("Website URL Cannot Be Empty")
                 }
             }
 
@@ -79,29 +80,31 @@ class createNews_admin : Fragment() {
     }
 
     fun store() {
+        Log.i("YES123" , "did i enter?")
         var text = binding.textViewTypeSomethings.text.toString()
         var url = binding.txtWebsiteUrl.text.toString()
         var bitmap = (binding.imageView.drawable as BitmapDrawable).bitmap
 
-        val pathFromUri = URIPathHelper().getPath(requireActivity(),imageUri!!)
+        var fileName :String = ""
 
+        lifecycleScope.launch{
+            val db = FoodHubDatabase.getInstance(requireContext())
+            var allnews = db.newsDao.getLatest()
+            var id = generateNewsId(allnews.newsID)
+            fileName  = id
+            Log.i("YES123" ,fileName)
+            db.newsDao.createSpecificNews(id,text,bitmap,url)
+            createToRemoteNews(id,text,url)
+            UploadImageClass(requireActivity()).uploadFile(imageUri!!,fileName)
 
-        if(isImageFile(pathFromUri)){
-            var fileName :String = ""
+            if (objectStatus == 0) {
+                Toast.makeText(requireContext(), "Insert Successfully", Toast.LENGTH_SHORT).show()
 
-            lifecycleScope.launch{
-                val db = FoodHubDatabase.getInstance(requireActivity())
-                var allnews = db.newsDao.getLatest()
-                var id = generateNewsId(allnews.newsID)
-                fileName  = id
-
-                db.newsDao.createSpecificNews(id,text,bitmap,url)
-                createToRemoteNews(id,text,url)
-                UploadImageClass(requireActivity()).uploadFile(imageUri!!,fileName)
+            }else {
+                Toast.makeText(requireContext(), "There was Something Wrong!", Toast.LENGTH_SHORT).show()
             }
 
-        }else {
-            binding.textView3.setError("Is not image file")
+            findNavController().navigate(createNews_adminDirections.actionCreateNewsAdminToNewsListAdminFragment())
         }
 
     }
@@ -111,14 +114,8 @@ class createNews_admin : Fragment() {
             Request.Method.POST, URL,
             Response.Listener { response ->
                 val jsonResponse = JSONObject(response)
-                var objectStatus = jsonResponse.getInt("status")
+                objectStatus = jsonResponse.getInt("status")
 
-                if (objectStatus == 0) {
-                    Toast.makeText(context, "Insert Successfully", Toast.LENGTH_SHORT).show()
-
-                }else {
-                    Toast.makeText(context, "There was Something Wrong!", Toast.LENGTH_SHORT).show()
-                }
             },
             Response.ErrorListener { error ->
                 Log.d("ErrorInExceptiom" ,error.toString())
