@@ -27,7 +27,6 @@ import org.json.JSONObject
 class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
     val util = Util()
-    var categoryPosition: Int = 0
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryListAdapter.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -76,11 +75,8 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
                                 //New name
                                 var updateCategory = categoryName.text.toString()
 
-                                //Get targeted list position
-                                categoryPosition = absoluteAdapterPosition
-
                                 //Reflect update on Recycle View
-                                categoryList[categoryPosition] = updateCategory
+                                categoryList[absoluteAdapterPosition] = updateCategory
 
                                 //Initiate DB
                                 val db = FoodHubDatabase.getInstance(c)
@@ -90,7 +86,7 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
 
                                 //Split thread to execute Query
                                 Thread{
-                                    categoryClass = db.categoryDao.getAllCategory()[categoryPosition]
+                                    categoryClass = db.categoryDao.getAllCategory()[absoluteAdapterPosition]
 
                                     //Update back into DB
                                     db.categoryDao.updateAt(Category(categoryClass!!.categoryID, updateCategory, categoryClass!!.createdAt,util.generateDate()))
@@ -140,7 +136,9 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
                             var categoryClass: Category? = null
 
                             Thread{
-                                categoryClass = db.categoryDao.getAllCategory()[categoryPosition]
+                                categoryClass = db.categoryDao.getAllCategory()[absoluteAdapterPosition]
+
+                                Log.i("Category", categoryClass!!.categoryID)
 
                                 //Delete from DB
                                 db.categoryDao.deleteAt(categoryClass!!)
@@ -149,7 +147,8 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
                                 deleteCategoryInRemoteDB(categoryClass!!.categoryID)
 
                                 //Log
-                                Log.i("Category", "Category added to DB")
+                                Log.i("Category", "Category deleted from DB")
+
                             }.start()
 
                             //Display Snack bar
