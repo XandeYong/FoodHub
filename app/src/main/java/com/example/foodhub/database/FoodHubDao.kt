@@ -67,12 +67,27 @@ abstract class NewsDao: BaseDao<News> {
     @Query("DELETE FROM news_table")
     abstract suspend fun clear()
 
+    // update
+    @Query("UPDATE news_table SET title=:title,image=:image,url=:url ,updatedAt=:updatedAt WHERE newsID=:id")
+    abstract suspend fun updateNews(title: String, image: Bitmap, url:String, id:String ,updatedAt: String =generateDate()): Int
+
+    @Query("DELETE FROM news_table WHERE newsID = :id")
+    abstract suspend fun clearSpecificNews(id: String)
+
+    @Query("INSERT INTO news_table(newsID, title, image, url, createdAt, updatedAt) VALUES  (:id, :title, :image, :url, :createdAt, :updatedAt)")
+    abstract suspend fun createSpecificNews(id:String,title: String,image: Bitmap,url: String,createdAt: String =generateDate(),updatedAt: String =generateDate())
+
+    @Query("SELECT * FROM news_table WHERE title LIKE :searchTitle ORDER BY createdAt DESC")
+    abstract fun searchNews(searchTitle: String): LiveData<List<News>>
 }
 
 
 
 @Dao
 abstract class CategoryDao: BaseDao<Category> {
+
+    @Update
+    abstract fun updateAt(category: Category)
 
     @Transaction
     open suspend fun syncWithServer(category: MutableList<Category>) {
@@ -92,9 +107,18 @@ abstract class CategoryDao: BaseDao<Category> {
     @Query("DELETE FROM category_table")
     abstract suspend fun clear()
 
-//add
+//Add
+    @Delete
+    abstract fun deleteAt(category: Category)
+
     @Query("SELECT name FROM category_table ORDER BY createdAt DESC")
     abstract suspend fun getAllCategoryList(): List<String>
+
+    @Query("SELECT * FROM category_table ORDER BY createdAt DESC")
+    abstract fun getAllCategory():List<Category>
+
+    @Query("SELECT name FROM category_table WHERE name LIKE :name ORDER BY createdAt DESC")
+    abstract suspend fun searchCategory(name: String): List<String>
 
 }
 
@@ -125,7 +149,7 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     abstract suspend fun clear()
 
 //add
-    @Query(" UPDATE donation_form_table SET status=:status WHERE donationFormID = :id")
+    @Query("UPDATE donation_form_table SET status=:status WHERE donationFormID = :id")
     abstract suspend fun updateStatus(status: String, id: String): Int
 
     @Query("SELECT * FROM donation_form_table WHERE accountID = :id AND status != :status ORDER BY createdAt DESC")

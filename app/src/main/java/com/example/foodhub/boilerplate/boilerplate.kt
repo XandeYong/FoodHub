@@ -1,17 +1,11 @@
 package com.example.foodhub.boilerplate
 
-import android.graphics.Bitmap
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import coil.ImageLoader
-import coil.request.ImageRequest
-import coil.request.SuccessResult
 import com.example.foodhub.R
 import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.ui.news.NewsFragment

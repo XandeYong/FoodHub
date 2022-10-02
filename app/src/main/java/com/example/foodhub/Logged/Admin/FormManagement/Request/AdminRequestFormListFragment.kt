@@ -2,6 +2,8 @@ package com.example.foodhub.Logged.Admin.FormManagement.Request
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,6 +75,39 @@ class AdminRequestFormListFragment : Fragment() {
             it.hideKeyboard()
             search()
         }
+
+        binding.editSearchARFL.addTextChangedListener(object: TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s != null) {
+                    if(s.isEmpty()){
+                        lifecycleScope.launch {
+                            viewModel.getAdminRequestFormList(requireContext())
+                        }
+                        viewModel.adminRFL.observe(viewLifecycleOwner, Observer { adminRFL ->
+                            (myAdapter as AdminRequestFormListAdapter).setData(adminRFL)
+                            //set toast if empty list
+                            if (myAdapter.getItemCount() == 0)
+                            {
+                                Toast.makeText(getActivity(), "No Request List Found!", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                //TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                //TODO("Not yet implemented")
+            }
+        })
 
         return binding.root
     }

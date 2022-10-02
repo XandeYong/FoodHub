@@ -1,21 +1,35 @@
 package com.example.foodhub.Logged.Admin.News
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.android.volley.AuthFailureError
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentCreateNewsAdminBinding
+import com.example.foodhub.ui.register.RegisterFragmentDirections
+import com.example.foodhub.util.URIPathHelper
+import com.example.foodhub.util.UploadImageClass
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
-import java.util.*
+import java.net.URLConnection
 
 
 class createNews_admin : Fragment() {
@@ -24,6 +38,7 @@ class createNews_admin : Fragment() {
         fun newInstance() = createNews_admin()
     }
 
+    private val URL: String = "http://10.0.2.2/foodhub_server/news.php"
     private lateinit var viewModel: CreateNewsAdminViewModel
     private lateinit var binding: FragmentCreateNewsAdminBinding
 
@@ -41,20 +56,96 @@ class createNews_admin : Fragment() {
         startActivityForResult(gallery, pickImage)
 
     }
-        binding.createnewsBtnAdmin.setOnClickListener{store()}
+        binding.createnewsBtnAdmin.setOnClickListener{
+            if(!binding.textViewTypeSomethings.text.toString().isNullOrEmpty() && imageUri.toString() != "null"
+                && !binding.txtWebsiteUrl.text.toString().isNullOrEmpty()){
+               store()
+                findNavController().navigate(createNews_adminDirections.actionCreateNewsAdminToNewsListAdmin())
+            }else {
+                Log.i("CheckImage" , imageUri.toString())
+                if(binding.textViewTypeSomethings.text.toString().isNullOrEmpty()){
+                    binding.textViewTypeSomethings.setError("Cannot Be Empty")
+                }
+                if(imageUri.toString() == "null"){
+                    binding.textView3.setError("Image Cannot Be Empty")
+                }
+                if(binding.txtWebsiteUrl.text.toString().isNullOrEmpty()){
+                    binding.textView3.setError("Website URL Cannot Be Empty")
+                }
+            }
+
+        }
         return binding.root
     }
 
     fun store() {
-        val preferences = this.requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
-        val test =  preferences.getString("user_name", null)
-        binding.textView3.text = test
+        var text = binding.textViewTypeSomethings.text.toString()
+        var url = binding.txtWebsiteUrl.text.toString()
+        var bitmap = (binding.imageView.drawable as BitmapDrawable).bitmap
 
-//      binding.textViewCreateNewsAdminErrorMsg.visibility = View.VISIBLE
-        binding.textViewTypeSomethings.error = "Cannot Be Enpty"
+        val pathFromUri = URIPathHelper().getPath(requireActivity(),imageUri!!)
 
-//        findNavController().navigate(createNews_adminDirections.actionCreateNewsAdminToNewsListAdmin())
-//        Toast.makeText(context, "Successfully created", Toast.LENGTH_LONG).show()
+
+        if(isImageFile(pathFromUri)){
+            var fileName :String = ""
+
+            lifecycleScope.launch{
+                val db = FoodHubDatabase.getInstance(requireActivity())
+                var allnews = db.newsDao.getLatest()
+                var id = generateNewsId(allnews.newsID)
+                fileName  = id
+
+                db.newsDao.createSpecificNews(id,text,bitmap,url)
+                createToRemoteNews(id,text,url)
+                UploadImageClass(requireActivity()).uploadFile(imageUri!!,fileName)
+            }
+
+        }else {
+            binding.textView3.setError("Is not image file")
+        }
+
+    }
+
+    fun createToRemoteNews(id: String, title:String, url: String){
+        val stringRequest: StringRequest = object : StringRequest(
+            Request.Method.POST, URL,
+            Response.Listener { response ->
+                val jsonResponse = JSONObject(response)
+                var objectStatus = jsonResponse.getInt("status")
+
+                if (objectStatus == 0) {
+                    Toast.makeText(context, "Insert Successfully", Toast.LENGTH_SHORT).show()
+
+                }else {
+                    Toast.makeText(context, "There was Something Wrong!", Toast.LENGTH_SHORT).show()
+                }
+            },
+            Response.ErrorListener { error ->
+                Log.d("ErrorInExceptiom" ,error.toString())
+            }) {
+            @Throws(AuthFailureError::class)
+            override fun getParams(): Map<String, String>? {
+
+                val data: MutableMap<String, String> = HashMap()
+                data["Content-Type"] = "application/x-www-form-urlencoded"
+                data["request"] = "createNews"
+                data["id"] = id
+                data["title"] = title
+                data["url"] = url
+                return data
+            }
+        }
+        val requestQueue = Volley.newRequestQueue(requireContext())
+        requestQueue.add(stringRequest)
+    }
+
+    fun generateNewsId(id:String): String {
+        var newsID: String = "N1"
+        if(id != null) {
+            val value: Int=  id.substring(1).toInt() + 1
+            newsID = "N" + value.toString()
+        }
+        return newsID
     }
 
 
@@ -62,26 +153,16 @@ class createNews_admin : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == pickImage) {
             imageUri = data?.data
-
-            try {
-                val bitmap = MediaStore.Images.Media.getBitmap(context?.contentResolver , imageUri)
-                // initialize byte stream
-                val stream = ByteArrayOutputStream()
-                // compress Bitmap
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-                // Initialize byte array
-                val bytes: ByteArray = stream.toByteArray()
-                // get base64 encoded string
-                var encodedString: String = android.util.Base64.encodeToString(bytes, DEFAULT_BUFFER_SIZE)
-
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
             binding.imageView.setImageURI(imageUri)
             binding.buttonLoadPicture.alpha = 0.2F
+            binding.textView3.setError(null)
 
         }
 
+    }
+
+    fun isImageFile(path: String?): Boolean {
+        val mimeType: String = URLConnection.guessContentTypeFromName(path)
+        return mimeType != null && mimeType.startsWith("image")
     }
 }

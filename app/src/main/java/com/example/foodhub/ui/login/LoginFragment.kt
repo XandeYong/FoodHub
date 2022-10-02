@@ -67,7 +67,8 @@ class LoginFragment : Fragment() {
         if(!passEmail.isNullOrEmpty()){
             binding.txtEmail.setText("$passEmail")
             binding.txtPasswordLogin.setText("$passPassword")
-            sharedPref.edit().clear().commit();
+            sharedPref.edit().remove("email").commit()
+            sharedPref.edit().remove("password").commit()
 
         }else {
             binding.txtEmail.setText("")
@@ -113,8 +114,8 @@ class LoginFragment : Fragment() {
         val stringRequest: StringRequest = object : StringRequest(
             Request.Method.POST, URL,
             Response.Listener { response ->
-                val jsonResponse = JSONObject(response)
                 val myobject: JSONObject
+                val jsonResponse = JSONObject(response)
                 val myObjAsString = jsonResponse.getJSONArray("data")
 
                 if (myObjAsString.length() > 0) {
@@ -132,6 +133,7 @@ class LoginFragment : Fragment() {
 //                    }
 
                 }
+                // need local db 
                 if (password == dbPassword) {
                     val preferences =
                         activity?.getSharedPreferences("login_S", Context.MODE_PRIVATE)

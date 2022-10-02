@@ -3,6 +3,8 @@ package com.example.foodhub.Logged.Admin.FormManagement.Donation
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.content.Context
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -75,6 +77,39 @@ class AdminDonationFormListFragment : Fragment() {
             search()
         }
 
+        binding.editSearchADFL.addTextChangedListener(object: TextWatcher{
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if (s != null) {
+                    if(s.isEmpty()){
+                        lifecycleScope.launch {
+                            viewModel.getAdminDonationFormList(requireContext())
+                        }
+                        viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
+                            (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)
+                            //set toast if empty list
+                            if (myAdapter.getItemCount() == 0)
+                            {
+                                Toast.makeText(getActivity(), "No Donation List Found!", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                }
+            }
+
+            override fun beforeTextChanged(
+                s: CharSequence?,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+                //TODO("Not yet implemented")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                //TODO("Not yet implemented")
+            }
+        })
+
         return binding.root
     }
 
@@ -84,7 +119,7 @@ class AdminDonationFormListFragment : Fragment() {
 
     fun search(){
         if(validateSearchInput()){
-            viewModel. searchAdminDonationForm(requireContext(), binding.editSearchADFL.text.toString().uppercase().trim())
+            viewModel.searchAdminDonationForm(requireContext(), binding.editSearchADFL.text.toString().uppercase().trim())
 
             viewModel.adminDFL.observe(viewLifecycleOwner, Observer { adminDFL ->
                 (myAdapter as AdminDonationFormListAdapter).setData(adminDFL)

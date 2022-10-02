@@ -34,16 +34,36 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/lbl_tittle"
+                android:id="@+id/lbl_tittle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tittle"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+
+                <EditText
+                    android:id="@+id/txt_updateSomethings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tittle"
+                    android:drawableStart="@drawable/ic_baseline_create_24"
+                    android:ems="10"
+                    android:hint="Type Something"
+                    android:textColorHint="@color/black"
+                    android:inputType="textLongMessage"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/lbl_websiteUrl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Website URL"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
 
                 <EditText
-                    android:id="@+id/txt_updateSomethings"
+                    android:id="@+id/txt_websiteUrl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_baseline_create_24"
@@ -111,6 +131,7 @@
                         android:padding="16dp"
                         android:text="Image"
                         android:textColor="@color/black"
+                        style="@android:style/Widget.EditText"
                         android:textSize="20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

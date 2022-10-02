@@ -19,15 +19,16 @@
        >
 
         <TextView
-            android:id="@+id/newsList_admin_title"
+            android:id="@+id/lbl_newsList_admin_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
             android:paddingLeft="16dp"
             android:paddingTop="16dp"
+            android:paddingRight="16dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:textColor="?attr/colorOnSurface"
-            app:layout_constraintBottom_toTopOf="@+id/newsList_admin_subtitle"
+            app:layout_constraintBottom_toTopOf="@+id/lbl_createDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,7 +36,7 @@
             tools:text="Title" />
 
         <TextView
-            android:id="@+id/newsList_admin_subtitle"
+            android:id="@+id/lbl_createDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
@@ -43,6 +44,7 @@
             android:textSize="16sp"
             android:paddingLeft="16dp"
             android:paddingTop="16dp"
+            android:paddingBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

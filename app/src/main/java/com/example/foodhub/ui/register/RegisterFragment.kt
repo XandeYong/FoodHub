@@ -114,6 +114,11 @@ class RegisterFragment : Fragment() {
     fun generateNewAccountID(id: String): String {
         var valueID: String = ""
         var newID: String = ""
+        if (binding.btnDonee.isChecked) {
+            newID = "DE1"
+        } else {
+            newID = "DO1"
+        }
         if (id != null) {
 
             if (binding.btnDonee.isChecked) {
@@ -150,11 +155,10 @@ class RegisterFragment : Fragment() {
                     ToLoginDataStore?.apply()
                     ToLoginDataStore?.commit()
 
-                    Log.i("GOTSHARE" , ToLoginDataStore.toString())
 
                     Toast.makeText(context, "Register Successfully", Toast.LENGTH_LONG).show()
-                    findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
-                } else {
+                    findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToMainFragment())
+                }else {
                     Toast.makeText(context, "This Email Account Was Registered, Try Again!", Toast.LENGTH_LONG).show()
                 }
             },

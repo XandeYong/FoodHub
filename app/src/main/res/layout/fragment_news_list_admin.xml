@@ -8,40 +8,42 @@
 
 
     <LinearLayout
-        android:id="@+id/linear_newsList_admin"
+        android:id="@+id/linear_layout_news_list_admin"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
         android:background="#FFD68A"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/serach_newsList_admin"
+            android:id="@+id/edit_search_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:background="@color/white"
-            android:inputType="textPersonName"
-            android:layout_marginLeft="40dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:hint="Search a donation" />
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:ems="10"
+            android:hint="@string/hint_search_request_id"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
 
         <Button
-            android:id="@+id/btnSearch_newsList_admin"
+            android:id="@+id/btn_search_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:padding="12dp"
-            android:text="Search"
-            android:backgroundTint="#525252" />
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#525252"
+            android:padding="13dp"
+            android:text="@string/btn_search" />
 
     </LinearLayout>
 
@@ -54,27 +56,27 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_newsList_admin">
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_news_list_admin">
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_newsList_admin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:listitem="@layout/one_news_item_list_admin"
             android:clipToPadding="false"
             android:orientation="vertical"
-
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
             app:spanCount="1"
+            tools:listitem="@layout/one_news_item_list_admin"
 
             />
-<!--        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"-->
+        <!--        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"-->
     </LinearLayout>
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingBtn_newsListBtn"
+        android:id="@+id/createNewsBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"

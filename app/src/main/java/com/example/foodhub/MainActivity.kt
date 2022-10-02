@@ -36,74 +36,52 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
-    private lateinit var sharedPref:SharedPreferences
-    private lateinit var accountType: String
-    private lateinit var accountID: String
-
+    var loginCredential: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val sharedPref = getSharedPreferences("login_S", MODE_PRIVATE)
+        val accountType =sharedPref.getString("accountType" , null)
+        val accountID =sharedPref.getString("accountID" , null)
+
+
+        loginCredential = true
+        if(!accountID.isNullOrEmpty()) {
+            loginCredential = true
+            Log.i("true1234", accountID)
+        }
         val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
         val db = FoodHubDatabase.getInstance(applicationContext)
-
-        /*
-        *
-        * start application
-        *   -> get account_table from local db
-        *   -> check login credential (email, password) with remote server
-        *
-        *   if
-        *       -> save into sharePref
-        *   else
-        *       -> clear account_table from local db
-        *       -> clear sharePref
-        *
-        * */
 
         lifecycleScope.launch { syncData(viewGroup.rootView, applicationContext) }
         navSetup()
 
-    }
-
-    override fun onResume() {
-        super.onResume()
-        sharedPref = getSharedPreferences("login_S", MODE_PRIVATE)
-        accountType = sharedPref.getString("accountType" , null).toString()
-        accountID = sharedPref.getString("accountID" , null).toString()
-
-        Log.d("resumeMainActivity", "resume!")
-        if (accountID.trim() != "null") {
+        var login = loginCredential
+        if (login) {
             navDrawerSetup()
-            Log.d("resumeMainActivity", accountID)
 
-            val account = accountType
+            var account = accountType.toString()
             when(account) {
                 "donee" -> {
-                    navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
-                    navigationView.menu.setGroupVisible(R.id.donee_module_group, true)
                     navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
                 }
                 "donor" -> {
-                    navigationView.menu.setGroupVisible(R.id.donor_module_group, true)
-                    navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
                     navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
                 }
                 "admin" -> {
                     navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
                     navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
-                    navigationView.menu.setGroupVisible(R.id.admin_module_group, true)
-                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
             }
 
-
         } else {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-
         }
+
     }
 
 
@@ -167,11 +145,6 @@ class MainActivity : AppCompatActivity() {
         navigationView.inflateMenu(R.menu.navigation_drawer)
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
-
-        navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
-        navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
-        navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
 
