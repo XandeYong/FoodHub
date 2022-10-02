@@ -61,7 +61,12 @@ class createNews_admin : Fragment() {
         binding.createnewsBtnAdmin.setOnClickListener{
             if(!binding.textViewTypeSomethings.text.toString().isNullOrEmpty() && imageUri.toString() != "null"
                 && !binding.txtWebsiteUrl.text.toString().isNullOrEmpty()){
-               store()
+                if(!binding.txtWebsiteUrl.text.toString().startsWith("http")){
+                binding.txtWebsiteUrl.setError("Website URL format not correct")
+            }else {
+                    store()
+            }
+
             }else {
                 Log.i("CheckImage" , imageUri.toString())
                 if(binding.textViewTypeSomethings.text.toString().isNullOrEmpty()){
@@ -73,6 +78,7 @@ class createNews_admin : Fragment() {
                 if(binding.txtWebsiteUrl.text.toString().isNullOrEmpty()){
                     binding.txtWebsiteUrl.setError("Website URL Cannot Be Empty")
                 }
+
             }
 
         }
