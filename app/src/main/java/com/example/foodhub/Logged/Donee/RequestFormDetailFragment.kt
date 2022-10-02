@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -50,6 +51,12 @@ class RequestFormDetailFragment : Fragment() {
             binding.fieldCategoryRFD.text = viewModel.ctg.name
             binding.fieldQuantityRFD.text = viewModel.requestForm.quantity.toString()
             binding.fieldStatusRFD.text = viewModel.requestForm.status
+
+            if (viewModel.requestForm.status == "Fulfill") {
+                binding.btnDeleteRFD.visibility = Button.GONE
+            } else {
+                binding.btnDeleteRFD.visibility = Button.VISIBLE
+            }
         }
 
         binding.btnDeleteRFD.setOnClickListener() {

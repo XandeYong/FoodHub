@@ -7,6 +7,7 @@ import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import coil.load
@@ -42,6 +43,7 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentMainBinding.inflate(inflater)
+        Log.i("mainFragment", "ui/main onCreateView")
 
         replaceFragment(NewsFragment())
         binding.bottomNavigation.setOnNavigationItemSelectedListener() {
@@ -58,6 +60,7 @@ class MainFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         replaceFragment(newsFragment)
+        Log.i("mainFragment", "ui/main onCreate")
     }
 
     private fun replaceFragment(fragment: Fragment) {
@@ -75,7 +78,7 @@ class MainFragment : Fragment() {
         var mainActivity = requireActivity() as MainActivity
         var navigationView = mainActivity.navigationView
         var drawerLayout = mainActivity.drawerLayout
-        var actionBar = mainActivity.actionBarDrawerToggle
+        var actionBar = mainActivity.supportActionBar
 
         sharedPref = requireActivity().getSharedPreferences("login_S", AppCompatActivity.MODE_PRIVATE)
         accountType = sharedPref.getString("accountType" , null).toString()
@@ -84,6 +87,9 @@ class MainFragment : Fragment() {
         if (accountID.toString() != "null") {
             Log.i("mainFragment", "not null:" + accountID.toString())
             binding.bottomNavigation.visibility = BottomNavigationView.GONE
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            actionBar!!.setDisplayHomeAsUpEnabled(true)
+            actionBar!!.setHomeButtonEnabled(true)
 
             when(accountType) {
                 "donee" -> {
@@ -116,6 +122,9 @@ class MainFragment : Fragment() {
         } else {
             binding.bottomNavigation.visibility = BottomNavigationView.VISIBLE
             mainActivity.onSupportNavigateUp()
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            actionBar!!.setDisplayHomeAsUpEnabled(false)
+            actionBar!!.setHomeButtonEnabled(false)
         }
 
     }
