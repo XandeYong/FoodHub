@@ -36,7 +36,9 @@
                     android:layout_height="wrap_content"
                     android:text="Login"
                     android:textColor="@color/black"
-                    android:textSize="36sp" />
+                    android:textSize="36sp"
+
+                    />
 
                 <LinearLayout
                     android:id="@+id/linearLayout_email"
