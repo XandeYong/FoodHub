@@ -65,8 +65,14 @@ class updateNews_admin : Fragment() {
 
             if(!binding.txtUpdateSomethings.text.toString().isNullOrEmpty()  && !imageUri.toString().isNullOrEmpty()
                 && !binding.txtWebsiteUrl.text.toString().isNullOrEmpty() ){
-                updateNewsDialog()
-//                Handler().postDelayed(Runnable { doSomething() }, 5000)
+
+                if(!binding.txtWebsiteUrl.text.toString().startsWith("http")){
+                    binding.txtWebsiteUrl.setError("Website URL format not correct")
+                }else {
+                    updateNewsDialog()
+                }
+
+
             }else {
                 if(binding.txtUpdateSomethings.text.toString().isNullOrEmpty()){
                     binding.txtUpdateSomethings.setError("Cannot Be Empty")

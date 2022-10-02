@@ -12,6 +12,7 @@ import androidx.annotation.RawRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
@@ -98,6 +99,10 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
             map.moveCamera(CameraUpdateFactory.newLatLng(westMalaysia))
             map.setMinZoomPreference(zoomLevelWest)
             map.setMaxZoomPreference(zoomLevelWest)
+        }
+
+        binding.btnClose.setOnClickListener {
+            findNavController().navigate(LocationReportFragmentDirections.actionLocationReportFragmentToReportListFragment())
         }
 
 

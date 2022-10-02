@@ -59,33 +59,6 @@ class MainActivity : AppCompatActivity() {
         accountType = sharedPref.getString("accountType" , null).toString()
         accountID = sharedPref.getString("accountID" , null).toString()
 
-        loginCredential = false
-        if(accountID.toString() != "null") {
-            loginCredential = true
-
-            Log.i("mainFragment", accountID)
-
-            var account = accountType.toString()
-            Log.i("mainFragment", accountType)
-            when(account) {
-                "donee" -> {
-                    navigationView.menu.setGroupVisible(R.id.account_group, true)
-                    navigationView.menu.setGroupVisible(R.id.donee_module_group, true)
-                }
-                "donor" -> {
-                    navigationView.menu.setGroupVisible(R.id.account_group, true)
-                    navigationView.menu.setGroupVisible(R.id.donor_module_group, true)
-                }
-                "admin" -> {
-                    navigationView.menu.setGroupVisible(R.id.admin_module_group, true)
-                }
-            }
-
-        } else {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-            supportActionBar!!.setHomeButtonEnabled(false)
-        }
-
     }
 
 
