@@ -82,7 +82,7 @@ class RequestFormDetailFragment : Fragment() {
         val negativeButtonClick ={ dialog: DialogInterface, which: Int ->
         }
         val alertDialogBuilder= AlertDialog.Builder(getActivity())
-        alertDialogBuilder.setTitle("Confirm Submit")
+        alertDialogBuilder.setTitle("Confirm Delete")
         alertDialogBuilder.setMessage("Are you sure you want to delete this form?")
         alertDialogBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener(function = positiveButtonClick))
         alertDialogBuilder.setNegativeButton("No", DialogInterface.OnClickListener(function = negativeButtonClick))

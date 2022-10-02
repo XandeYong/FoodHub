@@ -50,7 +50,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.foodhub.ui.login.LoginFragment"
-        android:label="fragment_login"
+        android:label="Login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_newsFragment"
@@ -109,7 +109,7 @@
     <fragment
         android:id="@+id/donationFormFragment"
         android:name="com.example.foodhub.Logged.Donor.DonationFormFragment"
-        android:label="fragment_donation_form"
+        android:label="Create Donation Form"
         tools:layout="@layout/fragment_donation_form" >
         <action
             android:id="@+id/action_donationFormFragment_to_donationFormListFragment"
@@ -125,7 +125,7 @@
     <fragment
         android:id="@+id/donationFormDetailFragment"
         android:name="com.example.foodhub.Logged.Donor.DonationFormDetailFragment"
-        android:label="fragment_donation_form_detail"
+        android:label="Donation Form Detail"
         tools:layout="@layout/fragment_donation_form_detail" >
         <action
             android:id="@+id/action_donationFormDetailFragment_to_donationFormListFragment"
@@ -136,7 +136,7 @@
     <fragment
         android:id="@+id/donationFormListFragment"
         android:name="com.example.foodhub.Logged.Donor.DonationFormListFragment"
-        android:label="fragment_donation_form_list"
+        android:label="Donation Form List"
         tools:layout="@layout/fragment_donation_form_list" >
         <action
             android:id="@+id/action_donationFormListFragment_to_donationFormDetailFragment"

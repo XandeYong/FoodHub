@@ -168,6 +168,8 @@ class LoginFragment : Fragment() {
                             Toast.makeText(requireContext(), "Invalid Password.", Toast.LENGTH_LONG).show()
                         }
                     }
+                }else {
+                    Toast.makeText(requireContext(), "No Email Found", Toast.LENGTH_LONG).show()
                 }
             },
             Response.ErrorListener { error ->
