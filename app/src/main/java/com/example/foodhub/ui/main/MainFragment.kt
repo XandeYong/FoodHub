@@ -4,14 +4,21 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import coil.load
 import com.example.foodhub.MainActivity
 import com.example.foodhub.R
+import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentMainBinding
 import com.example.foodhub.ui.login.LoginFragment
 import com.example.foodhub.ui.news.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 
 
 class MainFragment : Fragment() {
@@ -91,6 +98,20 @@ class MainFragment : Fragment() {
                     navigationView.menu.setGroupVisible(R.id.admin_module_group, true)
                 }
             }
+
+            val db = FoodHubDatabase.getInstance(requireContext())
+            lifecycleScope.launch {
+                var account = db.accountDao.getLatest()
+                navigationView.getHeaderView(0)
+                    .findViewById<ImageView>(R.id.profile_image_header_navigation_drawer).load(account.image)
+
+                navigationView.getHeaderView(0)
+                    .findViewById<TextView>(R.id.username).text = account.name
+
+                navigationView.getHeaderView(0)
+                    .findViewById<TextView>(R.id.account_type).text = account.accountType
+            }
+
 
         } else {
             binding.bottomNavigation.visibility = BottomNavigationView.VISIBLE
