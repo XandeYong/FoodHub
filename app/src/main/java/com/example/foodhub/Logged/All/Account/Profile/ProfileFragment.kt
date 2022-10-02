@@ -51,7 +51,13 @@ class ProfileFragment : Fragment() {
             binding.profileImage.load(account.image)
             binding.idText.text = account.accountID
             binding.nameText.text = account.name.toString()
-            binding.textAddress.text = account.address.toString()
+
+            if(account.address.toString().isNullOrEmpty() || account.address.toString() == "null"){
+                binding.textAddress.text = ""
+            }else{
+                binding.textAddress.text = account.address.toString()
+            }
+
 
             //Get Age from DOB
             val ageFormat = SimpleDateFormat("yyyy")

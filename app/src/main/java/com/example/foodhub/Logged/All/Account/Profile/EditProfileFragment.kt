@@ -115,7 +115,12 @@ class EditProfileFragment : Fragment() {
             binding.passwordText.setText(userPassword)
 
             //Profile address//
-            binding.addressText.setText(accountClass.address.toString())
+            userAddress = accountClass.address.toString()
+            if(userAddress.toString().isNullOrEmpty() || userAddress.toString() == "null"){
+                binding.addressText.setText("")
+            }else{
+                binding.addressText.setText(userAddress)
+            }
 
             //Profile state//
             //State Drop down list
@@ -125,7 +130,12 @@ class EditProfileFragment : Fragment() {
 
             //Set default value
             userState = accountClass.state.toString()
-            binding.stateDropDown.setText(userState,false)
+
+            if(userState.toString().isNullOrEmpty() || userState.toString() == "null"){
+                binding.stateDropDown.setText("",false)
+            }else{
+                binding.stateDropDown.setText(userState,false)
+            }
 
             //Set on click
             binding.stateDropDown.setOnItemClickListener { parent, _, position, _ ->
