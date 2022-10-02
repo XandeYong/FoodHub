@@ -108,14 +108,30 @@ class MainFragment : Fragment() {
             val db = FoodHubDatabase.getInstance(requireContext())
             lifecycleScope.launch {
                 var account = db.accountDao.getLatest()
-                navigationView.getHeaderView(0)
-                    .findViewById<ImageView>(R.id.profile_image_header_navigation_drawer).load(account.image)
+                if (account != null) {
 
-                navigationView.getHeaderView(0)
-                    .findViewById<TextView>(R.id.username).text = account.name
+                    navigationView.getHeaderView(0)
+                        .findViewById<ImageView>(R.id.profile_image_header_navigation_drawer).load(account.image)
 
-                navigationView.getHeaderView(0)
-                    .findViewById<TextView>(R.id.account_type).text = account.accountType
+                    navigationView.getHeaderView(0)
+                        .findViewById<TextView>(R.id.username).text = account.name
+
+                    navigationView.getHeaderView(0)
+                        .findViewById<TextView>(R.id.account_type).text = account.accountType
+                } else {
+                    sharedPref.edit().clear().apply()
+                    db.accountDao.clear()
+
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    actionBar!!.setDisplayHomeAsUpEnabled(false)
+                    actionBar!!.setHomeButtonEnabled(false)
+                    binding.bottomNavigation.visibility = BottomNavigationView.VISIBLE
+
+                    navigationView.menu.setGroupVisible(R.id.account_group, false)
+                    navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
+                    navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
+                    navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
+                }
             }
 
 
