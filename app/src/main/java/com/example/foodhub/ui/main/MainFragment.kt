@@ -1,7 +1,9 @@
 package com.example.foodhub.ui.main
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.foodhub.R
@@ -22,7 +24,7 @@ class MainFragment : Fragment() {
 
     private val newsFragment = NewsFragment()
     private val loginFragment = LoginFragment()
-
+    var loginCredential = false
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,8 +39,16 @@ class MainFragment : Fragment() {
             }
             true
         }
+        val sharedPref = requireActivity().getSharedPreferences("login_S", AppCompatActivity.MODE_PRIVATE)
+        val accountType =sharedPref.getString("accountType" , null)
+        val accountID =sharedPref.getString("accountID" , null)
 
-        var login = false
+        if(!accountID.isNullOrEmpty()) {
+            loginCredential = true
+            Log.i("true1234", accountID)
+        }
+
+        var login = loginCredential
         if (login) {
             binding.bottomNavigation.visibility = BottomNavigationView.GONE
 

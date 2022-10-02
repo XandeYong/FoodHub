@@ -12,9 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="10dp"
         >
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view_AllUser"
                 android:layout_width="match_parent"
@@ -25,10 +24,7 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 app:spanCount="1"
                 tools:listitem="@layout/one_new_list_item">
-
-
             </androidx.recyclerview.widget.RecyclerView>
-
 
     </LinearLayout>
 

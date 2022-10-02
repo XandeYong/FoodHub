@@ -47,9 +47,10 @@ class MainActivity : AppCompatActivity() {
 
 
         loginCredential = true
-//        if(accountID.toString().trim() != "null") {
-//            loginCredential = true
-//        }
+        if(!accountID.isNullOrEmpty()) {
+            loginCredential = true
+            Log.i("true1234", accountID)
+        }
         val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
         val db = FoodHubDatabase.getInstance(applicationContext)
 
@@ -75,7 +76,6 @@ class MainActivity : AppCompatActivity() {
                     navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
                 }
             }
-
         } else {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         }

@@ -36,8 +36,17 @@
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/menu/top_app_bar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2265" />
         <entry key="..\:/Users/ILLEGEAR/AndroidStudioProjects/FoodHub/app/src/main/res/xml/network_security_config.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_admin_donation_form_detail.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_admin_request_form_list.xml" value="0.1" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_create_news_admin.xml" value="0.2" />
         <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_login.xml" value="0.129981884057971" />
         <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_news.xml" value="0.12183383991894631" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_news_list_admin.xml" value="0.264" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_register.xml" value="0.13677536231884058" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_request_form.xml" value="0.13677536231884058" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_request_form_list.xml" value="0.264" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/fragment_update_news_admin.xml" value="0.2" />
+        <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/one_new_list_item.xml" value="0.264" />
         <entry key="..\:/Users/darre/Documents/Mobile Development_2/FoodHub/app/src/main/res/layout/one_news_item_list_admin.xml" value="0.2" />
       </map>
     </option>

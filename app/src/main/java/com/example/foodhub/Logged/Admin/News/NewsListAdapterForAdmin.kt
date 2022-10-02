@@ -7,16 +7,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodhub.R
 import com.example.foodhub.database.News
-import java.util.ArrayList
 
-class NewsListAdminAdapterTest (private val newsListAdminViewModel: List<News>)
-    : RecyclerView.Adapter<NewsListAdminAdapterTest.NewsAdminListViewHolder>(){
+class NewsListAdapterForAdmin (private var newsListAdminViewModel: List<News>)
+    : RecyclerView.Adapter<NewsListAdapterForAdmin.NewsAdminListViewHolder>(){
 
     var onItemClick: ((News)-> Unit)? = null
 
     class NewsAdminListViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
-        val fieldDonorIdDFLCL : TextView = itemView.findViewById(R.id.newsList_admin_title)
-        val fieldDonationFormIdDFLCL : TextView = itemView.findViewById(R.id.newsList_admin_subtitle)
+        val title : TextView = itemView.findViewById(R.id.lbl_newsList_admin_title)
+        val date : TextView = itemView.findViewById(R.id.lbl_createDate)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsAdminListViewHolder {
@@ -26,8 +25,9 @@ class NewsListAdminAdapterTest (private val newsListAdminViewModel: List<News>)
 
     override fun onBindViewHolder(holder: NewsAdminListViewHolder, position: Int) {
        val news = newsListAdminViewModel[position]
-        holder.fieldDonorIdDFLCL.setText(news.newsID.toString())
-        holder.fieldDonationFormIdDFLCL.setText(news.title)
+        holder.title.setText(news.title.toString())
+        var newCreatedDate = news.createdAt.toString().subSequence(0,10)
+        holder.date.setText(newCreatedDate)
 
         holder.itemView.setOnClickListener{
             onItemClick?.invoke(news)
@@ -39,5 +39,9 @@ class NewsListAdminAdapterTest (private val newsListAdminViewModel: List<News>)
         return newsListAdminViewModel.size
     }
 
+    fun setDataToAdapter(reqFormList: List<News>) {
+        newsListAdminViewModel = reqFormList as MutableList<News>
+        notifyDataSetChanged()
+    }
 
 }

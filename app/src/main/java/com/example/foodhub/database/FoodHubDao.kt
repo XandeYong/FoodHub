@@ -1,5 +1,6 @@
 package com.example.foodhub.database
 
+import android.graphics.Bitmap
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
@@ -99,6 +100,18 @@ abstract class NewsDao: BaseDao<News> {
     @Query("DELETE FROM news_table")
     abstract suspend fun clear()
 
+    // update
+    @Query("UPDATE news_table SET title=:title,image=:image,url=:url ,updatedAt=:updatedAt WHERE newsID=:id")
+    abstract suspend fun updateNews(title: String, image: Bitmap, url:String, id:String ,updatedAt: String =generateDate()): Int
+
+    @Query("DELETE FROM news_table WHERE newsID = :id")
+    abstract suspend fun clearSpecificNews(id: String)
+
+    @Query("INSERT INTO news_table(newsID, title, image, url, createdAt, updatedAt) VALUES  (:id, :title, :image, :url, :createdAt, :updatedAt)")
+    abstract suspend fun createSpecificNews(id:String,title: String,image: Bitmap,url: String,createdAt: String =generateDate(),updatedAt: String =generateDate())
+
+    @Query("SELECT * FROM news_table WHERE title LIKE :searchTitle ORDER BY createdAt DESC")
+    abstract fun searchNews(searchTitle: String): LiveData<List<News>>
 }
 
 

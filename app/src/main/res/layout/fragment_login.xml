@@ -98,7 +98,7 @@
                         android:ems="10"
                         android:inputType="textPassword"
                         android:text=""
-
+                        android:maxLength="30"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.51"

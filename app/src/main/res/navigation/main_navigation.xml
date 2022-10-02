@@ -200,7 +200,7 @@
         tools:layout="@layout/fragment_view_category" />
     <fragment
         android:id="@+id/newsList_admin"
-        android:name="com.example.foodhub.Logged.Admin.News.NewsList_admin"
+        android:name="com.example.foodhub.Logged.Admin.News.NewsListAdminFragment"
         android:label="NewsList_admin"
         tools:layout="@layout/fragment_news_list_admin" >
         <action
