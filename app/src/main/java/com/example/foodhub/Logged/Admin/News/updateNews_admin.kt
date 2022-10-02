@@ -62,12 +62,12 @@ class updateNews_admin : Fragment() {
         preferences.edit().remove("id").commit()
 
         binding.btnUpdate.setOnClickListener {
-            action = 0
+
             if(!binding.txtUpdateSomethings.text.toString().isNullOrEmpty()  && !imageUri.toString().isNullOrEmpty()
                 && !binding.txtWebsiteUrl.text.toString().isNullOrEmpty() ){
-                confirmDialogBox(action)
+                updateNewsDialog()
+
             }else {
-                Log.i("Why123",imageUri.toString())
                 if(binding.txtUpdateSomethings.text.toString().isNullOrEmpty()){
                     binding.txtUpdateSomethings.setError("Cannot Be Empty")
                 }
@@ -75,15 +75,12 @@ class updateNews_admin : Fragment() {
 
                     binding.textView3.setError("Image Cannot Be Empty")
                 }
-                if(binding.txtWebsiteUrl.text.toString().isNullOrEmpty()){
-                    binding.textView3.setError("Website URL Cannot Be Empty")
-                }
             }
-
         }
+
         binding.btnDelete.setOnClickListener{
-            action =1
-            confirmDialogBox(action)
+
+            deleteNewsDialog()
         }
 
         binding.btnUpdateImage.setOnClickListener {
@@ -99,28 +96,33 @@ class updateNews_admin : Fragment() {
         var text = binding.txtUpdateSomethings.text.toString()
         var url = binding.txtWebsiteUrl.text.toString()
 
-        val pathFromUri = URIPathHelper().getPath(requireActivity(),imageUri!!)
-
-
-        if( isImageFile(pathFromUri)){
+        if(imageUri == null){
             lifecycleScope.launch{
-                val db = FoodHubDatabase.getInstance(requireActivity())
-                // need get database and generate url
-
-                db.newsDao.updateNews(text,bitmap,url,id)
-                updateToRemoteNews(id, text , url)
+                val db = FoodHubDatabase.getInstance(requireContext())
+                db.newsDao.updateNews(text,url,id)
             }
-            var fileName :String = ""
-            fileName  = id
-            UploadImageClass(requireActivity()).uploadFile(imageUri!!,fileName)
+            updateToRemoteNews(id, text , url)
         }else {
-            binding.textView3.setError("Is not image file")
+           val pathFromUri = URIPathHelper().getPath(requireContext(),imageUri!!)
+            if( isImageFile(pathFromUri)){
+                lifecycleScope.launch{
+                    val db = FoodHubDatabase.getInstance(requireActivity())
+                    // need get database and generate url
+
+                    db.newsDao.updateNews(text,bitmap,url,id)
+                    updateToRemoteNews(id, text , url)
+
+                }
+                var fileName :String = ""
+                fileName  = id
+                UploadImageClass(requireActivity()).uploadFile(imageUri!!,fileName)
+
+            }else {
+                binding.textView3.setError("Is not image file")
+            }
         }
-
-
-
-
     }
+
     fun deleteNews(id: String){
         val stringRequest: StringRequest = object : StringRequest(
             Request.Method.POST, URL,
@@ -129,12 +131,11 @@ class updateNews_admin : Fragment() {
                 val jsonResponse = JSONObject(response)
                 var objectStatus = jsonResponse.getInt("status")
 
-//                if (objectStatus == 0) {
-//                    Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show()
-//                    findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToMainFragment())
-//                }else {
-//                    Toast.makeText(context, "There was Something Wrong!", Toast.LENGTH_SHORT).show()
-//                }
+                if (objectStatus == 0) {
+                    Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show()
+                }else {
+                    Toast.makeText(context, "There was Something Wrong!", Toast.LENGTH_SHORT).show()
+                }
             },
             Response.ErrorListener { error ->
                 Log.d("ErrorInExceptiom" ,error.toString())
@@ -161,12 +162,12 @@ class updateNews_admin : Fragment() {
                 val jsonResponse = JSONObject(response)
                 var objectStatus = jsonResponse.getInt("status")
 
-//                if (objectStatus == 0) {
-//                    Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show()
-//                    findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToMainFragment())
-//                }else {
-//                    Toast.makeText(context, "There was Something Wrong!", Toast.LENGTH_SHORT).show()
-//                }
+                if (objectStatus == 0) {
+                    Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show()
+                }else {
+                    Toast.makeText(context, "There was Something Wrong!", Toast.LENGTH_SHORT).show()
+                }
+
             },
             Response.ErrorListener { error ->
                 Log.d("ErrorInExceptiom" ,error.toString())
@@ -188,58 +189,14 @@ class updateNews_admin : Fragment() {
     }
 
     fun deleteNews() {
-        var bitmap = (binding.updateImageView.drawable as BitmapDrawable).bitmap
-        var text = binding.txtUpdateSomethings.text.toString()
+
         lifecycleScope.launch{
             val db = FoodHubDatabase.getInstance(requireActivity())
             db.newsDao.clearSpecificNews(id)
             // need get database and generate url
-            deleteNews(id)
+
         }
-    }
-
-    fun confirmDialogBox(actionNum :Int) {
-        var actionString:String = ""
-        var buidle = AlertDialog.Builder(context)
-        if(actionNum == 0){
-             actionString = "update"
-
-            buidle.setTitle("Confirm Update")
-            buidle.setMessage("Do you want to update this news ?")
-            buidle.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
-                updateNews()
-                Toast.makeText(requireContext(), "Update Successfully", Toast.LENGTH_LONG).show()
-                dialog.cancel()
-                findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdminFragment())
-            })
-            buidle.setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
-
-                Toast.makeText(requireContext(), "No Change", Toast.LENGTH_LONG).show()
-                dialog.cancel()
-
-            })
-        }else {
-
-            buidle.setTitle("Confirm Delete")
-            buidle.setMessage("Do you want to delete this news ?")
-            buidle.setPositiveButton("Yes", DialogInterface.OnClickListener { dialog, id ->
-
-                deleteNews()
-                Toast.makeText(requireContext(), "Delete Successfully", Toast.LENGTH_LONG).show()
-                dialog.cancel()
-                findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdminFragment())
-                // need navigate back to the receiver
-            })
-            buidle.setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
-
-                Toast.makeText(requireContext(), "No Change", Toast.LENGTH_LONG).show()
-                dialog.cancel()
-
-            })
-        }
-        var alert = buidle.create()
-        alert.show()
-        // need navigate back to the receiver
+        deleteNews(id)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -250,6 +207,7 @@ class updateNews_admin : Fragment() {
             viewModel.getSpecificNewData(requireContext(), id.toString())
             binding.txtUpdateSomethings.setText(viewModel.news.title.toString())
             binding.updateImageView.load(viewModel.news.image)
+            binding.txtWebsiteUrl.setText(viewModel.news.url)
             binding.btnUpdateImage.alpha = 0.2F
             url = viewModel.news.url.toString()
         }
@@ -269,5 +227,37 @@ class updateNews_admin : Fragment() {
     fun isImageFile(path: String?): Boolean {
         val mimeType: String = URLConnection.guessContentTypeFromName(path)
         return mimeType != null && mimeType.startsWith("image")
+    }
+
+
+    private fun updateNewsDialog(){
+        //alert dialog
+        val positiveButtonClick ={ dialog: DialogInterface, which: Int ->
+            updateNews()
+        }
+        val negativeButtonClick ={ dialog: DialogInterface, which: Int ->
+        }
+        val alertDialogBuilder= AlertDialog.Builder(context)
+        alertDialogBuilder.setTitle("Confirm Submit")
+        alertDialogBuilder.setMessage("Are you sure you want to update this news?")
+        alertDialogBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener(function = positiveButtonClick))
+        alertDialogBuilder.setNegativeButton("No", DialogInterface.OnClickListener(function = negativeButtonClick))
+        alertDialogBuilder.show()
+
+    }
+    private fun deleteNewsDialog(){
+        //alert dialog
+        val positiveButtonClick ={ dialog: DialogInterface, which: Int ->
+            deleteNews()
+        }
+        val negativeButtonClick ={ dialog: DialogInterface, which: Int ->
+        }
+        val alertDialogBuilder= AlertDialog.Builder(context)
+        alertDialogBuilder.setTitle("Confirm Submit")
+        alertDialogBuilder.setMessage("Are you sure you want to delete this news?")
+        alertDialogBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener(function = positiveButtonClick))
+        alertDialogBuilder.setNegativeButton("No", DialogInterface.OnClickListener(function = negativeButtonClick))
+        alertDialogBuilder.show()
+
     }
 }

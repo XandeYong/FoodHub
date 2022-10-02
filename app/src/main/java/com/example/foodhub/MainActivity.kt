@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -30,11 +31,16 @@ class MainActivity : AppCompatActivity() {
 
     var util = Util()
 
-    private lateinit var navController: NavController
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var drawerLayout: DrawerLayout
-    private lateinit var navigationView: NavigationView
-    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    lateinit var navController: NavController
+    lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var navigationView: NavigationView
+    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+
+    private lateinit var sharedPref: SharedPreferences
+    private var accountType = ""
+    private var accountID = ""
+
 
     var loginCredential: Boolean = false
 
@@ -42,48 +48,45 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sharedPref = getSharedPreferences("login_S", MODE_PRIVATE)
-        val accountType =sharedPref.getString("accountType" , null)
-        val accountID =sharedPref.getString("accountID" , null)
-
-
-        loginCredential = true
-        if(!accountID.isNullOrEmpty()) {
-            loginCredential = true
-            Log.i("true1234", accountID)
-        }
         val viewGroup = (findViewById<View>(android.R.id.content) as ViewGroup).getChildAt(0) as ViewGroup
         val db = FoodHubDatabase.getInstance(applicationContext)
 
         lifecycleScope.launch { syncData(viewGroup.rootView, applicationContext) }
         navSetup()
+        navDrawerSetup()
 
-        var login = loginCredential
-        if (login) {
-            navDrawerSetup()
+        sharedPref = getSharedPreferences("login_S", MODE_PRIVATE)
+        accountType = sharedPref.getString("accountType" , null).toString()
+        accountID = sharedPref.getString("accountID" , null).toString()
+
+        loginCredential = false
+        if(accountID.toString() != "null") {
+            loginCredential = true
+
+            Log.i("mainFragment", accountID)
 
             var account = accountType.toString()
+            Log.i("mainFragment", accountType)
             when(account) {
                 "donee" -> {
-                    navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
-                    navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
+                    navigationView.menu.setGroupVisible(R.id.account_group, true)
+                    navigationView.menu.setGroupVisible(R.id.donee_module_group, true)
                 }
                 "donor" -> {
-                    navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
-                    navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
+                    navigationView.menu.setGroupVisible(R.id.account_group, true)
+                    navigationView.menu.setGroupVisible(R.id.donor_module_group, true)
                 }
                 "admin" -> {
-                    navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
-                    navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
+                    navigationView.menu.setGroupVisible(R.id.admin_module_group, true)
                 }
             }
 
         } else {
-            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+            supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+            supportActionBar!!.setHomeButtonEnabled(false)
         }
 
     }
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -101,6 +104,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleNestedFragmentsBackStack(): Boolean {
+        accountType = sharedPref.getString("accountType" , null).toString()
+        accountID = sharedPref.getString("accountID" , null).toString()
+
         val navHostChildFragmentManager = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment)?.childFragmentManager
         Log.d("backstack-Start", navHostChildFragmentManager?.backStackEntryCount.toString())
@@ -114,14 +120,14 @@ class MainActivity : AppCompatActivity() {
             Log.d("backstack-else", navHostChildFragmentManager.backStackEntryCount.toString())
             if (drawerLayout.isOpen) {
                 drawerLayout.close()
-            } else {
+            } else if (accountID.toString() != "null") {
                 drawerLayout.open()
             }
             false
         }
     }
 
-    private fun navSetup() {
+    fun navSetup() {
         navigationView = findViewById(R.id.navigationView)
         navController = findNavController(R.id.nav_host_fragment)
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -130,7 +136,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupActionBarWithNavController(this, navController)
     }
 
-    private fun navDrawerSetup() {
+    fun navDrawerSetup() {
         actionBarDrawerToggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
@@ -145,6 +151,11 @@ class MainActivity : AppCompatActivity() {
         navigationView.inflateMenu(R.menu.navigation_drawer)
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+
+        navigationView.menu.setGroupVisible(R.id.account_group, false)
+        navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
+        navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
+        navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
     }
 
 
