@@ -166,7 +166,7 @@ class RequestFormFragment : Fragment() {
                     editor.commit()
 
                     //Go to Request Form detail
-//                    findNavController().navigate(RequestFormFragmentDirections.actionDonationFormFragmentToDonationFormListFragment())
+                    findNavController().navigate(RequestFormFragmentDirections.actionRequestFormFragmentToRequestFormDetailFragment())
 
                 }else {
                     Toast.makeText(requireContext(), "Create Fail", Toast.LENGTH_SHORT).show()                }
