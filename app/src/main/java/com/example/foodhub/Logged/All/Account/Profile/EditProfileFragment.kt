@@ -229,6 +229,9 @@ class EditProfileFragment : Fragment() {
                                         //Empty to dismiss Snack Bar
                                     }.show()
 
+                                //Upload to Remote DB
+                                UploadAccountImage(requireActivity()).uploadFile(imageUri!!,userId)
+
                                 //Redirect to Previous Activity
                                 findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
                             }
@@ -334,11 +337,8 @@ class EditProfileFragment : Fragment() {
                 //Load bitmap image into via bitmap variable
                 binding.profileImage.setImageBitmap(userImage)
 
-                //Upload to Remote DB
-                UploadAccountImage(requireActivity()).uploadFile(imageUri!!,userId)
-
                 //Log message
-                Log.i("ProfileImage", "Profile image successfully uploaded to Remote DB")
+                Log.i("ProfileImage", "Profile image added to local DB")
 
             }else{
                 //Log message
