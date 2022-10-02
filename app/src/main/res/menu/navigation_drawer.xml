@@ -77,7 +77,7 @@
                     android:checked="true" />
 
                 <item
-                    android:id="@+id/newsList_admin"
+                    android:id="@+id/newsListAdminFragment"
                     android:icon="@drawable/ic_baseline_newspaper_24"
                     android:title="News List"
                     android:checked="true" />

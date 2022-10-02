@@ -246,7 +246,7 @@
     <fragment
         android:id="@+id/newsListAdminFragment"
         android:name="com.example.foodhub.Logged.Admin.News.NewsListAdminFragment"
-        android:label="NewsListAdminFragment"
+        android:label="News List"
         tools:layout="@layout/fragment_news_list_admin" >
         <action
             android:id="@+id/action_newsListAdminFragment_to_createNews_admin"
