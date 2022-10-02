@@ -248,7 +248,7 @@ class updateNews_admin : Fragment() {
         val negativeButtonClick ={ dialog: DialogInterface, which: Int ->
         }
         val alertDialogBuilder= AlertDialog.Builder(context)
-        alertDialogBuilder.setTitle("Confirm Submit")
+        alertDialogBuilder.setTitle("Confirm Update")
         alertDialogBuilder.setMessage("Are you sure you want to update this news?")
         alertDialogBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener(function = positiveButtonClick))
         alertDialogBuilder.setNegativeButton("No", DialogInterface.OnClickListener(function = negativeButtonClick))
@@ -263,7 +263,7 @@ class updateNews_admin : Fragment() {
         val negativeButtonClick ={ dialog: DialogInterface, which: Int ->
         }
         val alertDialogBuilder= AlertDialog.Builder(context)
-        alertDialogBuilder.setTitle("Confirm Submit")
+        alertDialogBuilder.setTitle("Confirm Delete")
         alertDialogBuilder.setMessage("Are you sure you want to delete this news?")
         alertDialogBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener(function = positiveButtonClick))
         alertDialogBuilder.setNegativeButton("No", DialogInterface.OnClickListener(function = negativeButtonClick))

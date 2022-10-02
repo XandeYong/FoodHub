@@ -108,7 +108,7 @@ class AdminDonationFormDetailFragment : Fragment() {
         val negativeButtonClick = { dialog: DialogInterface, which: Int ->
         }
         val alertDialogBuilder = AlertDialog.Builder(getActivity())
-        alertDialogBuilder.setTitle("Confirm Submit")
+        alertDialogBuilder.setTitle("Confirm Update")
         alertDialogBuilder.setMessage("Are you sure you want to update the status?")
         alertDialogBuilder.setPositiveButton(
             "Yes",
