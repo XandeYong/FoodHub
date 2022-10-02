@@ -141,6 +141,7 @@ class LoginFragment : Fragment() {
                     dbAccountType = myobject.get("account_type").toString()
 
                     var date = SimpleDateFormat("yyyy-mm-dd").parse(dbDob)
+                    Log.i("dateParse", "date: " + date.toString())
 
                     val db = FoodHubDatabase.getInstance(requireContext())
                     lifecycleScope.launch {

@@ -193,7 +193,6 @@ class RegisterFragment : Fragment() {
         val formatted = current.format(formatter)
         genenteName = id.substring(2)
         genenteName += formatted.toString()
-        Log.i("12345", genenteName)
         return genenteName
     }
 

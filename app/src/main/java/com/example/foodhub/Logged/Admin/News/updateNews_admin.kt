@@ -30,11 +30,8 @@ import com.example.foodhub.util.URIPathHelper
 import com.example.foodhub.util.UploadImageClass
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import java.io.File
 import java.net.URLConnection
 import java.util.*
-import kotlin.collections.HashMap
-import kotlin.concurrent.schedule
 
 class updateNews_admin : Fragment() {
 
@@ -69,7 +66,7 @@ class updateNews_admin : Fragment() {
             if(!binding.txtUpdateSomethings.text.toString().isNullOrEmpty()  && !imageUri.toString().isNullOrEmpty()
                 && !binding.txtWebsiteUrl.text.toString().isNullOrEmpty() ){
                 updateNewsDialog()
-
+//                Handler().postDelayed(Runnable { doSomething() }, 5000)
             }else {
                 if(binding.txtUpdateSomethings.text.toString().isNullOrEmpty()){
                     binding.txtUpdateSomethings.setError("Cannot Be Empty")
@@ -84,6 +81,7 @@ class updateNews_admin : Fragment() {
         binding.btnDelete.setOnClickListener{
 
             deleteNewsDialog()
+
         }
 
         binding.btnUpdateImage.setOnClickListener {
@@ -136,6 +134,7 @@ class updateNews_admin : Fragment() {
 
                 if (objectStatus == 0) {
                     Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdminFragment())
                 }else {
                     Toast.makeText(context, "There was Something Wrong!", Toast.LENGTH_SHORT).show()
                 }
@@ -167,6 +166,8 @@ class updateNews_admin : Fragment() {
 
                 if (objectStatus == 0) {
                     Toast.makeText(context, "Update Successfully", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdminFragment())
+
                 }else {
                     Toast.makeText(context, "There was Something Wrong!", Toast.LENGTH_SHORT).show()
                 }
@@ -261,11 +262,6 @@ class updateNews_admin : Fragment() {
         alertDialogBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener(function = positiveButtonClick))
         alertDialogBuilder.setNegativeButton("No", DialogInterface.OnClickListener(function = negativeButtonClick))
         alertDialogBuilder.show()
-
-    }
-
-    fun doSomething(){
-        findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdminFragment())
 
     }
 }
