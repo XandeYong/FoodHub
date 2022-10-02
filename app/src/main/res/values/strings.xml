@@ -93,6 +93,7 @@
     <string name="text_state">state</string>
     <string name="tag_label">label</string>
     <string name="tag_value">value</string>
+    <string name="SearchNews">Search News</string>
 
     <!--  States  -->
     <string-array name="states">
