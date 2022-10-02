@@ -41,7 +41,7 @@ class NewsListAdminFragment : Fragment() {
         binding = FragmentNewsListAdminBinding.inflate(inflater)
 
         binding.createNewsBtn.setOnClickListener{
-            findNavController().navigate(NewsListAdminFragmentDirections.actionNewsListAdminToCreateNewsAdmin())
+            findNavController().navigate(NewsListAdminFragmentDirections.actionNewsListAdminFragmentToCreateNewsAdmin())
         }
         binding.btnSearchNews.setOnClickListener() {
             searchReqFormID()
@@ -104,7 +104,7 @@ class NewsListAdminFragment : Fragment() {
                 editor.apply()
                 editor.commit()
 
-                findNavController().navigate(NewsListAdminFragmentDirections.actionNewsListAdminToUpdateNewsAdmin())
+                findNavController().navigate(NewsListAdminFragmentDirections.actionNewsListAdminFragmentToUpdateNewsAdmin())
             }
         })
 

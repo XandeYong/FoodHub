@@ -71,7 +71,7 @@
                     android:checked="true" />
 
                 <item
-                    android:id="@+id/reportFragment"
+                    android:id="@+id/reportListFragment"
                     android:icon="@drawable/ic_baseline_list_alt_24"
                     android:title="Report List"
                     android:checked="true" />
@@ -102,7 +102,7 @@
         android:checkableBehavior="single">
 
         <item
-            android:id="@+id/logout"
+            android:id="@+id/logoutFragment"
             android:icon="@drawable/ic_baseline_logout_24"
             android:title="Log out"
             android:checked="true" />

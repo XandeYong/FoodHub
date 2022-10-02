@@ -282,7 +282,7 @@ class EditProfileFragment : Fragment() {
                 data["accountName"] = account.name.toString()
                 data["accountImage"] = bitmapToString(account.image!!)
                 data["accountAddress"] = account.address.toString()
-                data["accountState"] = account.stateID.toString()
+                data["accountState"] = account.state.toString()
                 data["accountDOB"] = SimpleDateFormat("yyyy-MM-dd").format(account.dob).toString()
                 data["accountGender"] = account.gender.toString()
                 data["accountEmail"] = account.email.toString()

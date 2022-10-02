@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
 }
 
@@ -88,4 +87,8 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:28.0.0'
     implementation 'com.squareup.okhttp3:okhttp:4.7.2'
+
+    // Heatmap
+    implementation 'com.google.maps.android:android-maps-utils:2.3.0'
+    implementation 'com.google.maps.android:maps-utils-ktx:3.4.0'
 }

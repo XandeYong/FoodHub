@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -49,8 +50,10 @@ class DonationFormListFragment : Fragment() {
         myAdapter = DonationFormListAdapter()
         recyclerView.adapter = myAdapter
 
-        //Set Donor ID get from darren
-        donorID = "DO2"
+
+        val sharedPref = requireActivity().getSharedPreferences("login_S", AppCompatActivity.MODE_PRIVATE)
+        val accountID =sharedPref.getString("accountID" , null)
+        donorID = accountID.toString()
 
         lifecycleScope.launch {
             viewModel.getDonationFormList(requireContext(), donorID)

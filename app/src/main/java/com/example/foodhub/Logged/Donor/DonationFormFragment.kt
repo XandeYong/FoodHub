@@ -184,7 +184,7 @@ class DonationFormFragment : Fragment() {
                     editor.commit()
 
                     //Go to Donation Form detail
-//                    findNavController().navigate(DonationFormFragmentDirections.actionDonationFormFragmentToDonationFormListFragment())
+                    findNavController().navigate(DonationFormFragmentDirections.actionDonationFormFragmentToDonationFormDetailFragment())
 
                 }else {
                     Toast.makeText(requireContext(), "Create Fail", Toast.LENGTH_SHORT).show()                }

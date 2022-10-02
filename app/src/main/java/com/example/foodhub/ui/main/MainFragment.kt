@@ -5,13 +5,11 @@ import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import com.example.foodhub.R
 import com.example.foodhub.databinding.FragmentMainBinding
 import com.example.foodhub.ui.login.LoginFragment
 import com.example.foodhub.ui.news.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlin.reflect.KClass
 
 
 class MainFragment : Fragment() {
@@ -68,13 +66,6 @@ class MainFragment : Fragment() {
             transaction?.replace(R.id.fragment_container, fragment)
             transaction?.disallowAddToBackStack()
             transaction?.commit()
-        }
-    }
-
-    private fun <T: Any> addFragmentToBackStack(kClass: KClass<T>, fragment: Fragment) {
-        parentFragmentManager.commit {
-            replace(com.example.foodhub.R.id.nav_host_fragment, fragment)
-            addToBackStack(kClass.java.name)
         }
     }
 

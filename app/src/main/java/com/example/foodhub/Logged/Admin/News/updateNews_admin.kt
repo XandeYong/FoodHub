@@ -210,7 +210,7 @@ class updateNews_admin : Fragment() {
                 updateNews()
                 Toast.makeText(requireContext(), "Update Successfully", Toast.LENGTH_LONG).show()
                 dialog.cancel()
-                findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdmin())
+                findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdminFragment())
             })
             buidle.setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->
 
@@ -227,7 +227,7 @@ class updateNews_admin : Fragment() {
                 deleteNews()
                 Toast.makeText(requireContext(), "Delete Successfully", Toast.LENGTH_LONG).show()
                 dialog.cancel()
-                findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdmin())
+                findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdminFragment())
                 // need navigate back to the receiver
             })
             buidle.setNegativeButton("No", DialogInterface.OnClickListener { dialog, id ->

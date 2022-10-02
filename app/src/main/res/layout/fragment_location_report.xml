@@ -1,274 +1,488 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".Logged.Admin.Report.LocationReport.LocationReportFragment" >
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Logged.Admin.Report.LocationReportFragment">
+    android:orientation="vertical"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0">
 
-    <!--  push top  -->
-    <LinearLayout
-        android:id="@+id/linear_layout_temp_LR"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:orientation="vertical"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:id="@+id/scroll_view_LR"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_temp_LR" >
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/linear_layout_main_LR"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingHorizontal="28dp"
+            android:paddingVertical="18dp"
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linear_layout_button_LR"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="70dp"
-                android:gravity="center"
+                android:layout_height="match_parent"
                 android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:gravity="center_horizontal"
+                android:paddingVertical="12dp" >
 
                 <Button
-                    android:id="@+id/btn_all_user_LR"
+                    android:id="@+id/btn_all_user"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#525252"
-                    android:padding="2dp"
-                    android:text="@string/btn_all_user"
-                    android:textAllCaps="false" />
+                    android:text="@string/text_all_user" />
 
                 <Button
-                    android:id="@+id/btn_donor_LR"
+                    android:id="@+id/btn_donor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#525252"
-                    android:padding="2dp"
-                    android:text="@string/btn_donor"
-                    android:textAllCaps="false" />
+                    android:layout_marginHorizontal="8dp"
+                    android:text="@string/text_donor" />
 
                 <Button
-                    android:id="@+id/btn_donee_LR"
+                    android:id="@+id/btn_donee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:backgroundTint="#525252"
-                    android:padding="2dp"
-                    android:text="@string/btn_donee"
-                    android:textAllCaps="false" />
-
+                    android:text="@string/text_donee" />
             </LinearLayout>
 
 
             <LinearLayout
-                android:id="@+id/linear_layout_LR"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="20dp"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/linear_layout_button_LR">
+                android:gravity="center_horizontal"
+                android:layout_marginVertical="12dp" >
 
-
-                <ImageView
-                    android:id="@+id/image_view_LR"
+                <fragment
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:map="http://schemas.android.com/apk/res-auto"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:id="@+id/map"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/image_border"
-                    tools:src="@tools:sample/avatars" />
-
-                <TableLayout
-                    android:id="@+id/table_layout_location_report"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/border" >
-
-
-                    <TableRow android:padding="15dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/lbl_total_donor"
-                            android:textAlignment="textStart" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="372"
-                            android:textAlignment="textEnd" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/holo_orange_dark" />
-
-                    <TableRow android:padding="15dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/lbl_total_donee"
-                            android:textAlignment="textStart" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="500"
-                            android:textAlignment="textEnd" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/holo_orange_dark" />
-
-                    <TableRow android:padding="15dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/lbl_total_user"
-                            android:textAlignment="textStart" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="872"
-                            android:textAlignment="textEnd" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/holo_orange_dark" />
-
-                    <TableRow android:padding="15dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/lbl_total_donation"
-                            android:textAlignment="textStart" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="791"
-                            android:textAlignment="textEnd" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/holo_orange_dark" />
-
-                    <TableRow android:padding="15dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/lbl_total_request"
-                            android:textAlignment="textStart" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="1024"
-                            android:textAlignment="textEnd" />
-                    </TableRow>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/holo_orange_dark" />
-
-                    <TableRow
-                        android:layout_height="97dp"
-                        android:padding="15dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/lbl_total_news"
-                            android:textAlignment="textStart" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="32"
-                            android:textAlignment="textEnd" />
-                    </TableRow>
-
-                </TableLayout>
-
+                    android:layout_height="300dp"/>
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_close_R"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingVertical="12dp"
+                android:paddingHorizontal="8dp">
+
+                <Button
+                    android:id="@+id/btn_west_malaysia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:text="@string/text_west_malaysia" />
+
+                <Button
+                    android:id="@+id/btn_east_malaysia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/text_east_malaysia" />
+            </LinearLayout>
+
+            <TableLayout
+                android:id="@+id/table_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="60dp"
-                android:layout_marginBottom="30dp"
-                android:backgroundTint="#FFB52E"
-                android:text="@string/btn_close"
-                android:textColor="#4E342E"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:layout_marginVertical="12dp"
+                android:background="@drawable/border">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_1_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_1_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="100" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_item_1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_2_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_2_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_3_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_3_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="100" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_item_1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_4_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_4_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_5_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_5_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="100" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_item_1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_6_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_6_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_7_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_7_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_item_1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_8_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_8_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_9_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_9_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_item_1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_10_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_10_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_11_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_11_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_item_1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_12_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_12_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_state_13_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_state"
+                        android:tag="@string/tag_label"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_state_13_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+            </TableLayout>
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/holo_orange_light"
+                    android:text="@string/btn_close"
+                    android:textColor="@color/black" />
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
 
-
+</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

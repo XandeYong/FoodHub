@@ -20,43 +20,10 @@ interface BaseDao<T> {
 
 }
 
-@Dao
-abstract class StateDao: BaseDao<State> {
-
-    @Update
-    override suspend fun update(state: State) {
-        state.updatedAt = generateDate()
-    }
-
-    @Transaction
-    open suspend fun syncWithServer(states: MutableList<State>) {
-        clear()
-        insert(states)
-    }
-
-    @Query("SELECT * FROM state_table WHERE stateID = :id")
-    abstract suspend fun get(id: String): State
-
-    @Query("SELECT * FROM state_table ORDER BY createdAt DESC")
-    abstract fun getAll():LiveData<List<State>>
-
-    @Query("SELECT * FROM state_table ORDER BY createdAt DESC LIMIT 1")
-    abstract suspend fun getLatest(): State
-
-    @Query("DELETE FROM state_table")
-    abstract suspend fun clear()
-
-}
-
 
 
 @Dao
 abstract class AccountDao: BaseDao<Account> {
-
-    @Update
-    override suspend fun update(account: Account) {
-        account.updatedAt = generateDate()
-    }
 
     @Update
     abstract suspend fun updateAt(account: Account)
@@ -82,11 +49,6 @@ abstract class AccountDao: BaseDao<Account> {
 
 @Dao
 abstract class NewsDao: BaseDao<News> {
-
-    @Update
-    override suspend fun update(news: News) {
-        news.updatedAt = generateDate()
-    }
 
     @Transaction
     open suspend fun syncWithServer(news: MutableList<News>) {
@@ -124,11 +86,6 @@ abstract class NewsDao: BaseDao<News> {
 
 @Dao
 abstract class CategoryDao: BaseDao<Category> {
-
-    @Update
-    override suspend fun update(category: Category) {
-        category.updatedAt = generateDate()
-    }
 
     @Update
     abstract fun updateAt(category: Category)
@@ -170,11 +127,6 @@ abstract class CategoryDao: BaseDao<Category> {
 
 @Dao
 abstract class DonationFormDao: BaseDao<DonationForm> {
-
-    @Update
-    override suspend fun update(donationForm: DonationForm) {
-        donationForm.updatedAt = generateDate()
-    }
 
     @Transaction
     open suspend fun syncWithServer(donationForm: MutableList<DonationForm>) {
@@ -220,11 +172,6 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
 @Dao
 abstract class RequestFormDao: BaseDao<RequestForm> {
 
-    @Update
-    override suspend fun update(requestForm: RequestForm) {
-        requestForm.updatedAt = generateDate()
-    }
-
     @Transaction
     open suspend fun syncWithServer(requestForm: MutableList<RequestForm>) {
         clear()
@@ -266,11 +213,6 @@ abstract class RequestFormDao: BaseDao<RequestForm> {
 @Dao
 abstract class AnalysisReportDao: BaseDao<AnalysisReport> {
 
-    @Update
-    override suspend fun update(analysisReport: AnalysisReport) {
-        analysisReport.updatedAt = generateDate()
-    }
-
     @Transaction
     open suspend fun syncWithServer(analysisReport: MutableList<AnalysisReport>) {
         clear()
@@ -295,11 +237,6 @@ abstract class AnalysisReportDao: BaseDao<AnalysisReport> {
 
 @Dao
 abstract class LocationReportDao: BaseDao<LocationReport> {
-
-    @Update
-    override suspend fun update(locationReport: LocationReport) {
-        locationReport.updatedAt = generateDate()
-    }
 
     @Transaction
     open suspend fun syncWithServer(locationReport: MutableList<LocationReport>) {
