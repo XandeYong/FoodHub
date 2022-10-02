@@ -14,7 +14,6 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.example.foodhub.R
 import com.example.foodhub.database.FoodHubDatabase
-import com.example.foodhub.database.State
 import com.example.foodhub.ui.news.NewsFragment
 import com.example.foodhub.util.Util
 import kotlinx.coroutines.launch
@@ -37,15 +36,6 @@ class boilerplate: Fragment() {
         }
 
         return view
-    }
-
-    //interact with room database
-    private suspend fun databaseInteraction() {
-        var db = FoodHubDatabase.getInstance(requireContext())
-        var state = State()
-        lifecycleScope.launch {
-            state = db.stateDao.getLatest()
-        }
     }
 
 }

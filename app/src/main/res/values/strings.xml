@@ -21,12 +21,14 @@
     <string name="lbl_food">Food :</string>
     <string name="lbl_quantity">Quantity :</string>
     <string name="lbl_status">Status :</string>
+<!--  delete  -->
     <string name="lbl_total_donor">Total Donor</string>
     <string name="lbl_total_donee">Total Donee</string>
     <string name="lbl_total_user">Total User</string>
     <string name="lbl_total_donation">Total Donation</string>
     <string name="lbl_total_request">Total Request</string>
     <string name="lbl_total_news">Total News</string>
+    <!--  end delete  -->
     <string name="btn_submit">Submit</string>
     <string name="btn_cancel">Cancel</string>
     <string name="btn_update">Update</string>
@@ -73,12 +75,27 @@
 
 <!--  Adrian  -->
     <string name="username">Odyssey45</string>
+    <string name="text_analysis_report_button">Analysis Report</string>
+    <string name="text_location_report_button">Location Report</string>
+
+
+    <string name="text_total_donor">Total Donor</string>
+    <string name="text_total_donee">Total Donee</string>
+    <string name="text_total_user">Total User</string>
+    <string name="text_total_donation">Total Donation</string>
+    <string name="text_total_request">Total Request</string>
+    <string name="text_total_news">Total News</string>
+    <string name="text_all_user">All User</string>
+    <string name="text_donor">Donor</string>
+    <string name="text_donee">Donee</string>
+    <string name="text_east_malaysia">East Malaysia</string>
+    <string name="text_west_malaysia">West Malaysia</string>
+    <string name="text_state">state</string>
+    <string name="tag_label">label</string>
+    <string name="tag_value">value</string>
 
     <!--  States  -->
     <string-array name="states">
-        <item>Kuala Lumpur</item>
-        <item>Putrajaya</item>
-        <item>Labuan</item>
         <item>Perlis</item>
         <item>Kedah</item>
         <item>Terengganu</item>

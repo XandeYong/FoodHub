@@ -5,23 +5,34 @@
     android:id="@+id/main_navigation"
     app:startDestination="@id/mainFragment" >
 
-
+<!--  Public  -->
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.foodhub.ui.main.MainFragment"
-        android:label="MainFragment"
+        android:label="FoodHub"
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_mainFragment_self"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.example.foodhub.ui.news.NewsFragment"
+        android:label="News"
+        tools:layout="@layout/fragment_news" />
+
+    <!--  Register  -->
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.example.foodhub.ui.register.RegisterFragment"
-        android:label="fragment_register"
+        android:label="Register Account"
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_mainFragment"
@@ -30,44 +41,66 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!--  Login  -->
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.foodhub.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_newsFragment"
+            app:destination="@id/newsFragment"
+            app:popUpTo="@id/newsFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/adminDonationFormDetailFragment"
-        android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormDetailFragment"
-        android:label="fragment_admin_donation_form_detail"
-        tools:layout="@layout/fragment_admin_donation_form_detail" >
+        android:id="@+id/logoutFragment"
+        android:name="com.example.foodhub.Logged.All.Account.LogoutFragment"
+        android:label="Logout" >
         <action
-            android:id="@+id/action_adminDonationFormDetailFragment_to_adminDonationFormListFragment"
-            app:destination="@id/adminDonationFormListFragment" />
+            android:id="@+id/action_logoutFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/logoutFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!--  Account  -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.foodhub.Logged.All.Account.Profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment"
+            app:popUpTo="@id/editProfileFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/adminDonationFormListFragment"
-        android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormListFragment"
-        android:label="fragment_admin_donation_form_list"
-        tools:layout="@layout/fragment_admin_donation_form_list" >
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.foodhub.Logged.All.Account.Profile.EditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/fragment_edit_profile" >
         <action
-            android:id="@+id/action_adminDonationFormListFragment_to_adminDonationFormDetailFragment"
-            app:destination="@id/adminDonationFormDetailFragment" />
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="true" />
     </fragment>
-    <fragment
-        android:id="@+id/adminRequestFormDetailFragment"
-        android:name="com.example.foodhub.Logged.Admin.FormManagement.Request.AdminRequestFormDetailFragment"
-        android:label="fragment_admin_request_form_detail"
-        tools:layout="@layout/fragment_admin_request_form_detail" >
-        <action
-            android:id="@+id/action_adminRequestFormDetailFragment_to_adminRequestFormListFragment"
-            app:destination="@id/adminRequestFormListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/adminRequestFormListFragment"
-        android:name="com.example.foodhub.Logged.Admin.FormManagement.Request.AdminRequestFormListFragment"
-        android:label="fragment_admin_request_form_list"
-        tools:layout="@layout/fragment_admin_request_form_list" >
-        <action
-            android:id="@+id/action_adminRequestFormListFragment_to_adminRequestFormDetailFragment"
-            app:destination="@id/adminRequestFormDetailFragment" />
-    </fragment>
+
+
+<!--  Donor  -->
+    <!--  Donation Form  -->
     <fragment
         android:id="@+id/donationFormFragment"
         android:name="com.example.foodhub.Logged.Donor.DonationFormFragment"
@@ -75,7 +108,14 @@
         tools:layout="@layout/fragment_donation_form" >
         <action
             android:id="@+id/action_donationFormFragment_to_donationFormListFragment"
-            app:destination="@id/donationFormListFragment" />
+            app:destination="@id/donationFormListFragment"
+            app:popUpTo="@id/donationFormListFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_donationFormFragment_to_donationFormDetailFragment2"
+            app:destination="@id/donationFormDetailFragment"
+            app:popUpTo="@id/donationFormDetailFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/donationFormDetailFragment"
@@ -84,7 +124,9 @@
         tools:layout="@layout/fragment_donation_form_detail" >
         <action
             android:id="@+id/action_donationFormDetailFragment_to_donationFormListFragment"
-            app:destination="@id/donationFormListFragment" />
+            app:destination="@id/donationFormListFragment"
+            app:popUpTo="@id/donationFormListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/donationFormListFragment"
@@ -93,121 +135,198 @@
         tools:layout="@layout/fragment_donation_form_list" >
         <action
             android:id="@+id/action_donationFormListFragment_to_donationFormDetailFragment"
-            app:destination="@id/donationFormDetailFragment" />
+            app:destination="@id/donationFormDetailFragment"
+            app:popUpTo="@id/donationFormDetailFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_donationFormListFragment_to_donationFormFragment"
-            app:destination="@id/donationFormFragment" />
+            app:destination="@id/donationFormFragment"
+            app:popUpTo="@id/donationFormFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+
+
+<!--  Donee  -->
+    <!--  Request Form  -->
     <fragment
-        android:id="@+id/locationReportFragment"
-        android:name="com.example.foodhub.Logged.Admin.Report.LocationReportFragment"
-        android:label="fragment_location_report"
-        tools:layout="@layout/fragment_location_report" />
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.foodhub.ui.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:id="@+id/requestFormListFragment"
+        android:name="com.example.foodhub.Logged.Donee.RequestFormListFragment"
+        android:label="Request Form List"
+        tools:layout="@layout/fragment_request_form_list" >
         <action
-            android:id="@+id/action_loginFragment_to_newsFragment2"
-            app:destination="@id/newsFragment" />
+            android:id="@+id/action_requestFormListFragment_to_requestFormDetailFragment"
+            app:destination="@id/requestFormDetailFragment"
+            app:popUpTo="@id/requestFormDetailFragment"
+            app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            android:id="@+id/action_requestFormListFragment_to_requestFormFragment"
+            app:destination="@id/requestFormFragment"
+            app:popUpTo="@id/requestFormFragment"
+            app:popUpToInclusive="true" />
     </fragment>
-    <fragment
-        android:id="@+id/reportFragment"
-        android:name="com.example.foodhub.Logged.Admin.Report.ReportFragment"
-        android:label="fragment_report"
-        tools:layout="@layout/fragment_report" />
     <fragment
         android:id="@+id/requestFormFragment"
         android:name="com.example.foodhub.Logged.Donee.RequestFormFragment"
-        android:label="fragment_request_form"
+        android:label="Create Request Form"
         tools:layout="@layout/fragment_request_form" >
         <action
             android:id="@+id/action_requestFormFragment_to_requestFormListFragment"
-            app:destination="@id/requestFormListFragment" />
+            app:destination="@id/requestFormListFragment"
+            app:popUpTo="@id/requestFormListFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_requestFormFragment_to_requestFormDetailFragment"
+            app:destination="@id/requestFormDetailFragment"
+            app:popUpTo="@id/requestFormDetailFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/requestFormDetailFragment"
         android:name="com.example.foodhub.Logged.Donee.RequestFormDetailFragment"
-        android:label="fragment_request_form_detail"
+        android:label="Request Form Detail"
         tools:layout="@layout/fragment_request_form_detail" >
         <action
             android:id="@+id/action_requestFormDetailFragment_to_requestFormListFragment"
-            app:destination="@id/requestFormListFragment" />
+            app:destination="@id/requestFormListFragment"
+            app:popUpTo="@id/requestFormListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+
+<!--  Admin  -->
+    <!--  Donation Form  -->
+    <fragment
+        android:id="@+id/adminDonationFormListFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormListFragment"
+        android:label="Donation Form List"
+        tools:layout="@layout/fragment_admin_donation_form_list" >
+        <action
+            android:id="@+id/action_adminDonationFormListFragment_to_adminDonationFormDetailFragment"
+            app:destination="@id/adminDonationFormDetailFragment"
+            app:popUpTo="@id/adminDonationFormDetailFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/requestFormListFragment"
-        android:name="com.example.foodhub.Logged.Donee.RequestFormListFragment"
-        android:label="fragment_request_form_list"
-        tools:layout="@layout/fragment_request_form_list" >
+        android:id="@+id/adminDonationFormDetailFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Donation.AdminDonationFormDetailFragment"
+        android:label="Donation Form Detail"
+        tools:layout="@layout/fragment_admin_donation_form_detail" >
         <action
-            android:id="@+id/action_requestFormListFragment_to_requestFormDetailFragment"
-            app:destination="@id/requestFormDetailFragment" />
+            android:id="@+id/action_adminDonationFormDetailFragment_to_adminDonationFormListFragment"
+            app:destination="@id/adminDonationFormListFragment"
+            app:popUpTo="@id/adminDonationFormListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!--  Request Form  -->
+    <fragment
+        android:id="@+id/adminRequestFormListFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Request.AdminRequestFormListFragment"
+        android:label="Request Form List"
+        tools:layout="@layout/fragment_admin_request_form_list" >
         <action
-            android:id="@+id/action_requestFormListFragment_to_requestFormFragment"
-            app:destination="@id/requestFormFragment" />
+            android:id="@+id/action_adminRequestFormListFragment_to_adminRequestFormDetailFragment"
+            app:destination="@id/adminRequestFormDetailFragment"
+            app:popUpTo="@id/adminRequestFormDetailFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminRequestFormDetailFragment"
+        android:name="com.example.foodhub.Logged.Admin.FormManagement.Request.AdminRequestFormDetailFragment"
+        android:label="Request Form Detail"
+        tools:layout="@layout/fragment_admin_request_form_detail" >
+        <action
+            android:id="@+id/action_adminRequestFormDetailFragment_to_adminRequestFormListFragment"
+            app:destination="@id/adminRequestFormListFragment"
+            app:popUpTo="@id/adminRequestFormListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <!--  News  -->
+    <fragment
+        android:id="@+id/newsList_admin"
+        android:name="com.example.foodhub.Logged.Admin.News.NewsList_admin"
+        android:label="News List"
+        tools:layout="@layout/fragment_news_list_admin" >
+        <action
+            android:id="@+id/action_newsList_admin_to_createNews_admin"
+            app:destination="@id/createNews_admin"
+            app:popUpTo="@id/createNews_admin"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_newsList_admin_to_updateNews_admin"
+            app:destination="@id/updateNews_admin"
+            app:popUpTo="@id/updateNews_admin"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/createNews_admin"
         android:name="com.example.foodhub.Logged.Admin.News.createNews_admin"
-        android:label="fragment_create_news_admin"
+        android:label="Create News"
         tools:layout="@layout/fragment_create_news_admin" >
         <action
             android:id="@+id/action_createNews_admin_to_newsList_admin"
-            app:destination="@id/newsList_admin" />
-    </fragment>
-    <fragment
-        android:id="@+id/editProfileFragment"
-        android:name="com.example.foodhub.Logged.All.Account.Profile.EditProfileFragment"
-        android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" >
-        <action
-            android:id="@+id/action_editProfileFragment_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
-    <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.example.foodhub.ui.news.NewsFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_news" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.foodhub.Logged.All.Account.Profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_editProfileFragment"
-            app:destination="@id/editProfileFragment"
-            app:popUpToInclusive="false" />
+            app:destination="@id/newsList_admin"
+            app:popUpTo="@id/newsList_admin"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/updateNews_admin"
         android:name="com.example.foodhub.Logged.Admin.News.updateNews_admin"
-        android:label="fragment_update_news_admin"
+        android:label="Update News"
         tools:layout="@layout/fragment_update_news_admin" >
         <action
             android:id="@+id/action_updateNews_admin_to_newsList_admin"
-            app:destination="@id/newsList_admin" />
+            app:destination="@id/newsList_admin"
+            app:popUpTo="@id/newsList_admin"
+            app:popUpToInclusive="true" />
     </fragment>
+
+    <!--  Category  -->
     <fragment
         android:id="@+id/viewCategoryFragment"
         android:name="com.example.foodhub.Logged.Admin.Category.ViewCategoryFragment"
-        android:label="fragment_view_category"
+        android:label="Category"
         tools:layout="@layout/fragment_view_category" />
+
+    <!--  Report  -->
     <fragment
-        android:id="@+id/newsList_admin"
-        android:name="com.example.foodhub.Logged.Admin.News.NewsList_admin"
-        android:label="NewsList_admin"
-        tools:layout="@layout/fragment_news_list_admin" >
+        android:id="@+id/reportListFragment"
+        android:name="com.example.foodhub.Logged.Admin.Report.ReportListFragment"
+        android:label="Report List"
+        tools:layout="@layout/fragment_report_list" >
         <action
-            android:id="@+id/action_newsList_admin_to_createNews_admin"
-            app:destination="@id/createNews_admin" />
+            android:id="@+id/action_reportListFragment_to_analysisReportFragment"
+            app:destination="@id/analysisReportFragment"
+            app:popUpTo="@id/analysisReportFragment"
+            app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_newsList_admin_to_updateNews_admin"
-            app:destination="@id/updateNews_admin" />
+            android:id="@+id/action_reportListFragment_to_locationReportFragment"
+            app:destination="@id/locationReportFragment"
+            app:popUpTo="@id/locationReportFragment"
+            app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/analysisReportFragment"
+        android:name="com.example.foodhub.Logged.Admin.Report.AnalysisReport.AnalysisReportFragment"
+        android:label="Analysis Report"
+        tools:layout="@layout/fragment_analysis_report" >
+        <action
+            android:id="@+id/action_analysisReportFragment_to_reportListFragment"
+            app:destination="@id/reportListFragment"
+            app:popUpTo="@id/reportListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationReportFragment"
+        android:name="com.example.foodhub.Logged.Admin.Report.LocationReport.LocationReportFragment"
+        android:label="Location Report"
+        tools:layout="@layout/fragment_location_report" >
+        <action
+            android:id="@+id/action_locationReportFragment_to_reportListFragment"
+            app:destination="@id/reportListFragment"
+            app:popUpTo="@id/reportListFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

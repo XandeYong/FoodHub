@@ -87,4 +87,8 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     //noinspection GradleCompatible
     implementation 'com.android.support:cardview-v7:28.0.0'
+
+    // Heatmap
+    implementation 'com.google.maps.android:android-maps-utils:2.3.0'
+    implementation 'com.google.maps.android:maps-utils-ktx:3.4.0'
 }

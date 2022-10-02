@@ -154,7 +154,7 @@ class RegisterFragment : Fragment() {
 
                     Toast.makeText(context, "Register Successfully", Toast.LENGTH_LONG).show()
                     findNavController().navigate(RegisterFragmentDirections.actionRegisterFragmentToLoginFragment())
-                }else {
+                } else {
                     Toast.makeText(context, "This Email Account Was Registered, Try Again!", Toast.LENGTH_LONG).show()
                 }
             },

@@ -1,6 +1,7 @@
 package com.example.foodhub
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
@@ -35,7 +36,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: NavigationView
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
 
-    var loginCredential: Boolean = false
+    private lateinit var sharedPref:SharedPreferences
+    private lateinit var accountType: String
+    private lateinit var accountID: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,45 +61,49 @@ class MainActivity : AppCompatActivity() {
         *
         * */
 
-        val sharedPref = getSharedPreferences("login_S", MODE_PRIVATE)
-        val accountType =sharedPref.getString("accountType" , null)
-        val accountID =sharedPref.getString("accountID" , null)
-
-
-        loginCredential = true
-//        if(accountID.toString().trim() != "null") {
-//            loginCredential = true
-//        }
-
-
         lifecycleScope.launch { syncData(viewGroup.rootView, applicationContext) }
         navSetup()
 
-        var login = loginCredential
-        if (login) {
-            navDrawerSetup()
+    }
 
-            var account = accountType.toString()
+    override fun onResume() {
+        super.onResume()
+        sharedPref = getSharedPreferences("login_S", MODE_PRIVATE)
+        accountType = sharedPref.getString("accountType" , null).toString()
+        accountID = sharedPref.getString("accountID" , null).toString()
+
+        Log.d("resumeMainActivity", "resume!")
+        if (accountID.trim() != "null") {
+            navDrawerSetup()
+            Log.d("resumeMainActivity", accountID)
+
+            val account = accountType
             when(account) {
                 "donee" -> {
-                    navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
                     navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
+                    navigationView.menu.setGroupVisible(R.id.donee_module_group, true)
+                    navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
                 "donor" -> {
-                    navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
+                    navigationView.menu.setGroupVisible(R.id.donor_module_group, true)
                     navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
+                    navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
                 "admin" -> {
                     navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
                     navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
+                    navigationView.menu.setGroupVisible(R.id.admin_module_group, true)
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
             }
+
 
         } else {
             drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         }
-
     }
 
 
@@ -159,6 +167,11 @@ class MainActivity : AppCompatActivity() {
         navigationView.inflateMenu(R.menu.navigation_drawer)
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+
+        navigationView.menu.setGroupVisible(R.id.donor_module_group, false)
+        navigationView.menu.setGroupVisible(R.id.donee_module_group, false)
+        navigationView.menu.setGroupVisible(R.id.admin_module_group, false)
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
     }
 
 
@@ -167,7 +180,6 @@ class MainActivity : AppCompatActivity() {
         val url = "http://10.0.2.2/foodhub_server/"
 
         Log.i("SyncData", "working: ")
-        stateSync(view, context, url)
         newsSync(view, context, url)
         categorySync(view, context, url)
         donationFormSync(view, context, url)
@@ -177,41 +189,6 @@ class MainActivity : AppCompatActivity() {
         delay(30000)
     }
 
-    private suspend fun stateSync(view: View?, context: Context, _url: String) {
-
-        val url = _url + "state.php?request=getAll"
-        val list: MutableList<State> = mutableListOf()
-
-        val request: JsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, url, null,
-            { response ->
-                Log.d("response_start", "Response received")
-                val jsonArray = response.getJSONArray("data")
-
-                for (i in 0 until jsonArray.length()) {
-                    val jsonObj = jsonArray.getJSONObject(i)
-                    val id = jsonObj.getString("state_id")
-                    val name = jsonObj.getString("name")
-                    val createdAt = jsonObj.getString("created_at")
-                    val updatedAt = jsonObj.getString("updated_at")
-
-                    val state: State = State(id, name, createdAt, updatedAt)
-                    list.add(state)
-                }
-
-                val db = FoodHubDatabase.getInstance(context)
-                lifecycleScope.launch {
-                    db.stateDao.syncWithServer(list)
-                }
-
-            }, { error ->
-                Log.d("response", error.toString())
-            }
-        )
-        val requestQueue = Volley.newRequestQueue(view?.context)
-        requestQueue.add(request)
-
-    }
 
     private suspend fun newsSync(view: View?, context: Context, _url: String) {
 
@@ -424,13 +401,16 @@ class MainActivity : AppCompatActivity() {
                 for (i in 0 until jsonArray.length()) {
                     val jsonObj = jsonArray.getJSONObject(i)
                     val id = jsonObj.getString("location_report_id")
-                    val stateID = jsonObj.getString("state_id")
+                    val state = jsonObj.getString("state")
+                    val latitude = jsonObj.getDouble("latitude")
+                    val longitude = jsonObj.getDouble("longitude")
                     val totalDonor = jsonObj.getInt("total_donor")
                     val totalDonee = jsonObj.getInt("total_donee")
+                    val totalUser = jsonObj.getInt("total_user")
                     val createdAt = jsonObj.getString("created_at")
                     val updatedAt = jsonObj.getString("updated_at")
 
-                    val locationReport: LocationReport = LocationReport(id, stateID, totalDonor, totalDonee, createdAt, updatedAt)
+                    val locationReport: LocationReport = LocationReport(id, state, latitude, longitude, totalDonor, totalDonee ,totalUser, createdAt, updatedAt)
                     list.add(locationReport)
                 }
 

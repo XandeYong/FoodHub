@@ -7,7 +7,6 @@ import java.util.*
 /*
 *
 * ID:
-*   State           = S1
 *   Account:
 *       Donor       = DO1
 *       Donee       = DE1
@@ -26,15 +25,6 @@ import java.util.*
 *
 * */
 
-@Entity(tableName = "state_table")
-data class State(
-    @PrimaryKey var stateID: String = "", //S1
-    @ColumnInfo(name = "name") var name: String? = "",
-    @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),
-    @ColumnInfo(name = "updatedAt") var updatedAt: String? = generateDate()
-)
-
-
 
 @Entity(tableName = "account_table")
 data class Account(
@@ -42,7 +32,7 @@ data class Account(
     @ColumnInfo(name = "name") var name: String? = "",
     @ColumnInfo(name = "image") var image: Bitmap? = null,
     @ColumnInfo(name = "address") var address: String? = "",
-    @ColumnInfo(name = "stateID") var stateID: String? = "",
+    @ColumnInfo(name = "state") var state: String? = "",
     @ColumnInfo(name = "dob") var dob: Date? = null,
     @ColumnInfo(name = "gender") var gender: String? = "",
     @ColumnInfo(name = "email") var email: String? = "",
@@ -85,7 +75,7 @@ data class DonationForm(
     @PrimaryKey var donationFormID: String = "", //DF1
     @ColumnInfo(name = "categoryID") var categoryID: String? = "",
     @ColumnInfo(name = "food") var food: String? = "",
-    @ColumnInfo(name = "quantity") var quantity: Int? = null,
+    @ColumnInfo(name = "quantity") var quantity: Int? = 0,
     @ColumnInfo(name = "status") var status: String? = "",
     @ColumnInfo(name = "accountID") var accountID: String? = "", //Foreign Key
     @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),
@@ -98,7 +88,7 @@ data class DonationForm(
 data class RequestForm(
     @PrimaryKey var requestFormID: String = "", //RF1
     @ColumnInfo(name = "categoryID") var categoryID: String? = "",
-    @ColumnInfo(name = "quantity") var quantity: Int? = null,
+    @ColumnInfo(name = "quantity") var quantity: Int? = 0,
     @ColumnInfo(name = "status") var status: String? = "",
     @ColumnInfo(name = "accountID") var accountID: String? = "", //Foreign Key
     @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),
@@ -110,12 +100,12 @@ data class RequestForm(
 @Entity(tableName = "analysis_report_table")
 data class AnalysisReport(
     @PrimaryKey var analysisReportID: String = "", //AR1
-    @ColumnInfo(name = "totalDonor") var totalDonor: Int? = null,
-    @ColumnInfo(name = "totalDonee") var totalDonee: Int? = null,
-    @ColumnInfo(name = "totalUser") var totalUser: Int? = null,
-    @ColumnInfo(name = "totalDonation") var totalDonation: Int? = null,
-    @ColumnInfo(name = "totalRequest") var totalRequest: Int? = null,
-    @ColumnInfo(name = "totalNews") var totalNews: Int? = null,
+    @ColumnInfo(name = "totalDonor") var totalDonor: Int? = 0,
+    @ColumnInfo(name = "totalDonee") var totalDonee: Int? = 0,
+    @ColumnInfo(name = "totalUser") var totalUser: Int? = 0,
+    @ColumnInfo(name = "totalDonation") var totalDonation: Int? = 0,
+    @ColumnInfo(name = "totalRequest") var totalRequest: Int? = 0,
+    @ColumnInfo(name = "totalNews") var totalNews: Int? = 0,
     @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),
     @ColumnInfo(name = "updatedAt") var updatedAt: String? = generateDate()
 )
@@ -125,9 +115,12 @@ data class AnalysisReport(
 @Entity(tableName = "location_report_table")
 data class LocationReport(
     @PrimaryKey var locationReportID: String = "", //LR1
-    @ColumnInfo(name = "stateID") var stateID: String? = "",
-    @ColumnInfo(name = "totalDonor") var totalDonor: Int? = null,
-    @ColumnInfo(name = "totalDonee") var totalDonee: Int? = null,
+    @ColumnInfo(name = "state") var state: String? = "",
+    @ColumnInfo(name = "latitude") var latitude: Double? = 0.0,
+    @ColumnInfo(name = "longitude") var longitude: Double? = 0.0,
+    @ColumnInfo(name = "totalDonor") var totalDonor: Int? = 0,
+    @ColumnInfo(name = "totalDonee") var totalDonee: Int? = 0,
+    @ColumnInfo(name = "totalUser") var totalUser: Int? = 0,
     @ColumnInfo(name = "createdAt") var createdAt: String? = generateDate(),
     @ColumnInfo(name = "updatedAt") var updatedAt: String? = generateDate()
 )

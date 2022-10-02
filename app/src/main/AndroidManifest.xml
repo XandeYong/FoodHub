@@ -17,6 +17,11 @@
         android:theme="@style/Theme.FoodHub"
         tools:targetApi="31"
         android:usesCleartextTraffic="true" >
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA7tafNxQhFifo8AcO71JB3qbdiIPCS7oA" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

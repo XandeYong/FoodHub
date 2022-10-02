@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Logged.Admin.Report.AnalysisReport.AnalysisReportFragment" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="40dp"
+            android:layout_marginVertical="48dp"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:id="@+id/analysis_report_table"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/border">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_total_donor_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_total_donor"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_donor_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="100" />
+                </TableRow>
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_item_1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_total_donee_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_total_donee"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_donee_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_total_user_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_total_user"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_user_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="100" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_item_1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_total_donation_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_total_donation"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_donation_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_total_request_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_total_request"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_request_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="100" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_item_end_1"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/tv_total_news_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/text_total_news"
+                        android:textAlignment="textStart"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total_news_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:tag="@string/tag_value"
+                        android:textAlignment="textEnd"
+                        android:textSize="16sp"
+                        tools:text="200" />
+                </TableRow>
+
+
+            </TableLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_close"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/holo_orange_light"
+                    android:text="@string/btn_close"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
