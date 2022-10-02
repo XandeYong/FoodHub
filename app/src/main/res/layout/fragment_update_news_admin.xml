@@ -170,7 +170,7 @@
                     android:layout_marginEnd="20dp"
                     android:text="@string/btn_update"
                     android:textColor="@color/white"
-                    android:backgroundTint="#ff0033" />
+                    android:backgroundTint="#00A300" />
 
                 <Button
                     android:id="@+id/btn_delete"
@@ -180,8 +180,8 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="20dp"
                     android:text="@string/btn_delete"
-                    android:textColor="#4E342E"
-                    android:backgroundTint="#FFB52E"  />
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#ff0033"  />
 
 
             </LinearLayout>
