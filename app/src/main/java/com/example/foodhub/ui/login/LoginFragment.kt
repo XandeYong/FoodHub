@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -104,6 +105,7 @@ class LoginFragment : Fragment() {
             } else {
                 LoginCheck()
             }
+            it.hideKeyboard()
         }
 
         binding.txtSignUp.setOnClickListener() {
@@ -168,11 +170,7 @@ class LoginFragment : Fragment() {
                 }
             },
             Response.ErrorListener { error ->
-                Toast.makeText(
-                    requireContext(),
-                    error.toString().trim { it <= ' ' },
-                    Toast.LENGTH_SHORT
-                ).show()
+                Log.d("ErrorInExceptiom" ,error.toString())
             }) {
             @Throws(AuthFailureError::class)
             override fun getParams(): Map<String, String>? {
@@ -197,6 +195,10 @@ class LoginFragment : Fragment() {
 
 
 
+    }
+    fun View.hideKeyboard() {
+        val im = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        im.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }
