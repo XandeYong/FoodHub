@@ -75,13 +75,13 @@ class UploadAccountImage(activity: Activity) {
 
 
 
-    fun showToast(message: String) {
+    private fun showToast(message: String) {
         activity.runOnUiThread {
             Toast.makeText( activity, message, Toast.LENGTH_LONG ).show()
         }
     }
 
-    fun toggleProgressDialog(show: Boolean) {
+    private fun toggleProgressDialog(show: Boolean) {
         activity.runOnUiThread {
             if (show) {
                 dialog = ProgressDialog.show(activity, "", "Uploading file...", true);
