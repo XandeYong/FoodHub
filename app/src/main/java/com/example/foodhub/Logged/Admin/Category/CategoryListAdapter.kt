@@ -99,7 +99,7 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
                                     updateCategoryInRemoteDB(categoryClass!!.categoryID, updateCategory)
 
                                     //Log
-                                    Log.i("Category", "Category updated at DB")
+                                    Log.i("Category", "Category added to DB")
                                 }.start()
 
                                 //Display category Updated
@@ -149,7 +149,7 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
                                 deleteCategoryInRemoteDB(categoryClass!!.categoryID)
 
                                 //Log
-                                Log.i("Category", "Category deleted from DB")
+                                Log.i("Category", "Category added to DB")
                             }.start()
 
                             //Display Snack bar
