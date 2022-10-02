@@ -29,6 +29,7 @@ class NewsListAdapterForAdmin (private var newsListAdminViewModel: List<News>)
         var newCreatedDate = news.createdAt.toString().subSequence(0,10)
         holder.date.setText(newCreatedDate)
 
+
         holder.itemView.setOnClickListener{
             onItemClick?.invoke(news)
         }

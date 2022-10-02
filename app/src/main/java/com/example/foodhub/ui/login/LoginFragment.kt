@@ -166,7 +166,6 @@ class LoginFragment : Fragment() {
                         }
                     }
                 }
-
             },
             Response.ErrorListener { error ->
                 Toast.makeText(

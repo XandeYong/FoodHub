@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64.encodeToString
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -28,12 +27,16 @@ import com.example.foodhub.R
 import com.example.foodhub.database.Account
 import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentEditProfileBinding
+import com.example.foodhub.util.URIPathHelper
+import com.example.foodhub.util.UploadAccountImage
+import com.example.foodhub.util.UploadImageClass
 import com.example.foodhub.util.Util
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
+import java.net.URLConnection
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -52,6 +55,7 @@ class EditProfileFragment : Fragment() {
     private lateinit var binding: FragmentEditProfileBinding
 
     //Variables for Profile Update
+    private var userId: String = ""
     private var userEmail: String = ""
     private var userPassword: String = ""
     private var pickImage: Int  = 100
@@ -84,9 +88,15 @@ class EditProfileFragment : Fragment() {
             val db = FoodHubDatabase.getInstance(requireContext())
 
             //Get account from DB
-            accountClass = db.accountDao.getLatest()
+            accountClass =
+                Account("A1", "Odyssey", util.getBitmap("http://10.0.2.2/foodhub_server/image/account/A1.jpg", requireContext()),"PV15", "Sabah",
+                Date((Calendar.getInstance().get(Calendar.DATE)).toLong()),"M","adrain2000@live.com", "12345", "Admin", util.generateDate(), util.generateDate())
+            //db.accountDao.getLatest()
 
-            //User's basic credentials
+            //Profile account Id
+            userId = accountClass.accountID
+
+            //Profile password
             userPassword = accountClass.password.toString()
 
             //Profile Image
@@ -114,7 +124,7 @@ class EditProfileFragment : Fragment() {
             binding.stateDropDown.setAdapter(arrayAdapter)
 
             //Set default value
-            userState = "Sabah"//account.stateID.toString()
+            userState = accountClass.state.toString()
             binding.stateDropDown.setText(userState,false)
 
             //Set on click
@@ -205,7 +215,7 @@ class EditProfileFragment : Fragment() {
                             userAddress = binding.addressText.text.toString().trim()
 
                             //Created Account Object for Update
-                            accountClass = Account(accountClass.accountID, userName, userImage, userAddress, "S12", userBirthday, userGender,
+                            accountClass = Account(userId, userName, userImage, userAddress, userState, userBirthday, userGender,
                                 userEmail, userPassword, accountClass.accountType.toString(), accountClass.createdAt, util.generateDate())
 
 
@@ -226,7 +236,7 @@ class EditProfileFragment : Fragment() {
                                 findNavController().navigate(EditProfileFragmentDirections.actionEditProfileFragmentToProfileFragment())
                             }
                         }
-                        .setNegativeButton("Cancel"){ dialog, id->
+                        .setNegativeButton("Cancel"){ dialog, _->
                             //Dismiss dialog
                             dialog.dismiss()
                         }
@@ -317,11 +327,32 @@ class EditProfileFragment : Fragment() {
             //Getting image URI
             imageUri = data?.data
 
-            //Convert URI to Bitmap and store to temporary variable
-            userImage = MediaStore.Images.Media.getBitmap(requireContext().contentResolver,imageUri)
+            //Variable for URI path
+            val pathFromUri = URIPathHelper().getPath(requireContext(),imageUri!!)
 
-            //Load bitmap image via temporary variable
-            binding.profileImage.setImageBitmap(userImage)
+            if(isImageFile(pathFromUri)){
+                //Convert URI to Bitmap and store to temporary variable
+                userImage = MediaStore.Images.Media.getBitmap(requireContext().contentResolver,imageUri)
+
+                //Load bitmap image into via bitmap variable
+                binding.profileImage.setImageBitmap(userImage)
+
+                //Upload to Remote DB
+                UploadAccountImage(requireActivity()).uploadFile(imageUri!!,userId)
+
+                //Log message
+                Log.i("ProfileImage", "Profile image successfully uploaded to Remote DB")
+
+            }else{
+                //Log message
+                Log.i("ProfileImage", "Profile image failed to upload to Remote DB")
+            }
         }
+    }
+
+    //Function check is Image
+    private fun isImageFile(path: String?): Boolean {
+        val mimeType: String = URLConnection.guessContentTypeFromName(path)
+        return mimeType != null && mimeType.startsWith("image")
     }
 }

@@ -96,11 +96,13 @@ class RegisterFragment : Fragment() {
         val request: JsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, getAccountUrl, null,
             { response ->
-
-                val jsonArray = response.getJSONObject("data")
-                val id = jsonArray.getString("account_id")
-                var newID = generateNewAccountID(id)
-                register_generate(newID)
+                Log.i("YES1234" , response.toString())
+//
+//                val jsonArray = response.getJSONObject("data")
+//                val id = jsonArray.getString("account_id")
+//                var newID = generateNewAccountID(id)
+//
+//                register_generate(newID)
 
 
             }, { error ->
