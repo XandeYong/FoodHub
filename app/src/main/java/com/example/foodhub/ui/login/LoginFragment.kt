@@ -2,6 +2,7 @@ package com.example.foodhub.ui.login
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,14 +16,24 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.room.ColumnInfo
+import androidx.room.PrimaryKey
 import com.android.volley.AuthFailureError
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.foodhub.database.Account
+import com.example.foodhub.database.FoodHubDatabase
+import com.example.foodhub.database.generateDate
 import com.example.foodhub.databinding.FragmentLoginBinding
 import com.example.foodhub.ui.main.MainFragmentDirections
+import com.example.foodhub.util.Util
+import kotlinx.coroutines.launch
 import org.json.JSONObject
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
 import kotlin.collections.HashMap
 import kotlin.collections.Map
 import kotlin.collections.MutableMap
@@ -33,6 +44,8 @@ class LoginFragment : Fragment() {
     companion object {
         fun newInstance() = LoginFragment()
     }
+
+    val util = Util()
 
     private val URL: String = "http://10.0.2.2/foodhub_server/account.php"
 
@@ -48,6 +61,7 @@ class LoginFragment : Fragment() {
     var dbPassword: String = ""
     var dbEmail: String = ""
     var dbAccountType: String = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -109,43 +123,50 @@ class LoginFragment : Fragment() {
             Response.Listener { response ->
                 val myobject: JSONObject
                 val jsonResponse = JSONObject(response)
-                val myObjAsString = jsonResponse.getJSONArray("data")
 
-                if (myObjAsString.length() > 0) {
+                if (jsonResponse.getInt("status") == 0) {
+                    val myObjAsString = jsonResponse.getJSONArray("data")
                     myobject = myObjAsString.getJSONObject(0)
                     dbId = myobject.get("account_id").toString()
                     dbName = myobject.get("name").toString()
+                    val dbImage = myobject.get("image").toString()
+                    val dbAddress = myobject.get("address").toString()
+                    val dbState = myobject.get("state").toString()
+                    var dbDob = myobject.get("dob").toString()
+                    val dbGender = myobject.get("gender").toString()
                     dbEmail = myobject.get("email").toString()
                     dbPassword = myobject.get("password").toString()
                     dbAccountType = myobject.get("account_type").toString()
 
-//                    val db = FoodHubDatabase.getInstance(requireContext())
-//                    val account: Account = Account(dbId,dbName, )
-//                    lifecycleScope.launch {
-//                        db.accountDao.insert(account)
-//                    }
+                    var date = SimpleDateFormat("yyyy-mm-dd").parse(dbDob)
 
+                    val db = FoodHubDatabase.getInstance(requireContext())
+                    lifecycleScope.launch {
+                        val account = Account(dbId, dbName, util.getBitmap(dbImage, requireContext()), dbAddress, dbState, date, dbGender, dbEmail, dbPassword, dbAccountType, util.generateDate(), util.generateDate())
+                        db.accountDao.insert(account)
+
+
+                        if (password == dbPassword) {
+                            val preferences =
+                                activity?.getSharedPreferences("login_S", Context.MODE_PRIVATE)
+                            val editor = preferences?.edit()
+
+                            editor?.putString("accountID", dbId)
+                            editor?.putString("name", dbName)
+                            editor?.putString("password", dbPassword)
+                            editor?.putString("accountType", dbAccountType)
+                            editor?.apply()
+                            editor?.commit()
+
+                            Toast.makeText(context, "Welcome back!", Toast.LENGTH_LONG).show()
+                            findNavController().navigate(MainFragmentDirections.actionMainFragmentSelf())
+                        } else {
+                            binding.txtPasswordLogin.error = "Password Not Correct"
+                            Toast.makeText(requireContext(), "Invalid Password.", Toast.LENGTH_LONG).show()
+                        }
+                    }
                 }
-                // need local db 
-                if (password == dbPassword) {
-                    val preferences =
-                        activity?.getSharedPreferences("login_S", Context.MODE_PRIVATE)
-                    val editor = preferences?.edit()
 
-                    editor?.putString("accountID", dbId)
-                    editor?.putString("name", dbName)
-                    editor?.putString("password", dbPassword)
-                    editor?.putString("accountType", dbAccountType)
-                    editor?.apply()
-                    editor?.commit()
-
-
-                    Toast.makeText(context, "Welcome back!", Toast.LENGTH_LONG).show()
-                    findNavController().navigate(MainFragmentDirections.actionMainFragmentSelf())
-                } else {
-                    binding.txtPasswordLogin.error = "Password Not Correct"
-                    Toast.makeText(requireContext(), "Invalid Password.", Toast.LENGTH_LONG).show()
-                }
             },
             Response.ErrorListener { error ->
                 Toast.makeText(

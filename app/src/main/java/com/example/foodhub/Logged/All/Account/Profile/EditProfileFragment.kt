@@ -280,7 +280,7 @@ class EditProfileFragment : Fragment() {
                 data["request"] = "UpdateAccount"
                 data["accountID"] = account.accountID
                 data["accountName"] = account.name.toString()
-                data["accountImage"] = bitmapToString(account.image!!)
+                data["accountImage"] = account.accountID
                 data["accountAddress"] = account.address.toString()
                 data["accountState"] = account.state.toString()
                 data["accountDOB"] = SimpleDateFormat("yyyy-MM-dd").format(account.dob).toString()

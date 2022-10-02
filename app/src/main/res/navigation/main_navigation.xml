@@ -72,6 +72,11 @@
             app:destination="@id/mainFragment"
             app:popUpTo="@id/logoutFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_logoutFragment_self"
+            app:destination="@id/logoutFragment"
+            app:popUpTo="@id/logoutFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
     <!--  Account  -->
