@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -44,9 +45,13 @@ class DonationFormFragment : Fragment() {
         binding = FragmentDonationFormBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(DonationFormViewModel::class.java)
 
+        val sharedPref = requireActivity().getSharedPreferences("login_S", AppCompatActivity.MODE_PRIVATE)
+        val accountID =sharedPref.getString("accountID" , null)
+        var donorID = accountID.toString()
+
         lifecycleScope.launch {
             viewModel.getLatestDonationForm(requireContext())
-            viewModel.generateNewDonationFormID()
+            viewModel.generateNewDonationFormID(donorID)
 
             binding.fieldDonationFormIdDF.text = viewModel.newDonationForm.donationFormID
             binding.fieldStatusDF.text = viewModel.newDonationForm.status
@@ -99,7 +104,7 @@ class DonationFormFragment : Fragment() {
         viewModel.setValueFromEditTextView(binding.editFoodDF.text.toString(), binding.editQuantityDF.text.toString())
         var status: Boolean = true
         if(viewModel.validateFood() != true){
-            binding.editFoodDF.setError("Field must be in alphabet and cannot be left empty!")
+            binding.editFoodDF.setError("Input must be in alphabet and cannot be left empty!")
             binding.editFoodDF.requestFocus()
             status = false
         }else{
@@ -107,7 +112,7 @@ class DonationFormFragment : Fragment() {
         }
 
         if(viewModel.validateQuantity() != true){
-            binding.editQuantityDF.setError("Field must be in digit and cannot be left empty!")
+            binding.editQuantityDF.setError("Input must be in digit, more than 0 and cannot be left empty!")
             binding.editQuantityDF.requestFocus()
             status = false
         }else{

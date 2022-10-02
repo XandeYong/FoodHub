@@ -25,25 +25,25 @@ class DonationFormViewModel : ViewModel() {
     }
 
 
-    suspend fun getLatestDonationForm(context: Context){
+    suspend fun getLatestDonationForm(context: Context) {
         val db = FoodHubDatabase.getInstance(context)
 
         latestDF = db.donationFormDao.getLatest()
     }
 
     //add 1 to ID to make new ID
-    fun generateNewDonationFormID(){
+    fun generateNewDonationFormID(donorID: String) {
         var newID: String = "DF1"
-        if(latestDF != null) {
-            val value: Int=  latestDF.donationFormID.substring(2).toInt() + 1
+        if (latestDF != null) {
+            val value: Int = latestDF.donationFormID.substring(2).toInt() + 1
             newID = "DF" + value.toString()
         }
         newDonationForm.donationFormID = newID
         newDonationForm.status = "Pending"
-        newDonationForm.accountID = latestDF.accountID
+        newDonationForm.accountID = donorID
     }
 
-    fun getCategoryList(context: Context){
+    fun getCategoryList(context: Context) {
         val db = FoodHubDatabase.getInstance(context)
 
         var category = db.categoryDao.getAll()
@@ -52,7 +52,7 @@ class DonationFormViewModel : ViewModel() {
     }
 
 
-    fun setValueFromEditTextView(foodValue: String, qtyValue: String){
+    fun setValueFromEditTextView(foodValue: String, qtyValue: String) {
         food = foodValue.trim()
         qty = qtyValue.trim()
     }
@@ -60,12 +60,12 @@ class DonationFormViewModel : ViewModel() {
     fun validateFood(): Boolean {
         var status = food.isNotEmpty()
 
-        if(status == true){
+        if (status == true) {
             val regex = "^[A-Za-z ]*$".toRegex()
             status = regex.matches(food)
         }
 
-        if (status == true){
+        if (status == true) {
             newDonationForm.food = food
         }
         return status
@@ -74,32 +74,40 @@ class DonationFormViewModel : ViewModel() {
     fun validateQuantity(): Boolean {
         var status = qty.isNotEmpty()
 
-        if(status == true){
-            status = qty.isDigitsOnly()
+        if (status == true) {
+            if (qty.isDigitsOnly()) {
+                if (qty.toInt() <= 0) {
+                    status = false
+                } else {
+                    status = true
+                }
+            } else {
+                status = false
+            }
         }
 
-        if (status == true){
+        if (status == true) {
             newDonationForm.quantity = qty.toInt()
         }
         return status
     }
 
-    fun getSelectedCategoryID(category: Category){
+    fun getSelectedCategoryID(category: Category) {
         newDonationForm.categoryID = category.categoryID
     }
 
-     fun insertDonationFormToDB(context: Context): Int{
+    fun insertDonationFormToDB(context: Context): Int {
         val db = FoodHubDatabase.getInstance(context)
         var value: Long = 0
 
-         try{
+        try {
             value = db.donationFormDao.insertDonationForm(newDonationForm)
 
-        }catch (ex: Exception){
+        } catch (ex: Exception) {
             Log.i("Insert Failed", ex.toString());
         }
 
-    return value.toInt()
+        return value.toInt()
     }
 
 

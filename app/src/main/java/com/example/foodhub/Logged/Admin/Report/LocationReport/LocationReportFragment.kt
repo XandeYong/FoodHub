@@ -21,6 +21,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.foodhub.R
 import com.example.foodhub.database.Account
+import com.example.foodhub.database.AnalysisReport
 import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.database.LocationReport
 import com.example.foodhub.databinding.FragmentLocationReportBinding
@@ -186,9 +187,12 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
 
     //get Data
     private fun getData(type: String?) {
-        val locationReportLiveData = db.locationReportDao.getAll()
+        var locationReports: MutableList<LocationReport> = mutableListOf()
+        lifecycleScope.launch(){
+            locationReports = db.locationReportDao.getAll() as MutableList<LocationReport>
+        }
 
-        val url = "http://10.0.2.2/foodhub_server/account.php?request=locationReport"
+        val url = "http://10.0.2.2/foodhub_server/account.php?request=intializedReport"
         val accounts: MutableList<Account> = mutableListOf()
 
         val request = JsonObjectRequest(
@@ -209,7 +213,6 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
                     accounts.add(account)
                 }
 
-                locationReportLiveData.observe(viewLifecycleOwner) { locationReports ->
 
                     for (i in 0 until locationReports!!.size) {
                         locationReports[i].totalDonor = 0
@@ -258,7 +261,7 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
                         }
                     }
                     updateUI(type)
-                }
+
 
             }, { error ->
                 Log.d("response", error.toString())
@@ -278,7 +281,7 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
                 db.locationReportDao.update(locationReports[i])
             }
 
-            //postData()
+            postData()
         }
     }
 
@@ -333,6 +336,44 @@ class LocationReportFragment : Fragment(), OnMapReadyCallback  {
         val requestQueue = Volley.newRequestQueue(requireContext())
         requestQueue.add(jsonObjReq)
     }
+
+    //Post to server
+//    private fun postData2() {
+//
+//        val url = "http://10.0.2.2/foodhub_server/location_report.php"
+//
+//        val stringRequest: StringRequest = object : StringRequest(
+//            Request.Method.POST, url,
+//            Response.Listener { response ->
+//
+//                val jsonResponse = JSONObject(response)
+//                val status = jsonResponse.getInt("status")
+//
+//                if (status == 0) {
+//                    Log.i("db_location_report_fragment", "Location Report updated successful")
+//                } else if (status > 0) {
+//                    Log.i("db_location_report_fragment", "Location Report failed to update")
+//                } else {
+//                    Log.e("db_location_report_fragment", "Location Report failed to update due to error")
+//                }
+//            }, { error ->
+//                VolleyLog.d("db_location_report_fragment", "Error: " + error.toString())
+//            }) {
+//            @Throws(AuthFailureError::class)
+//            override fun getParams(): Map<String, String>? {
+//
+//                val data: MutableMap<String, MutableList<LocationReport>> = mutableMapOf<String, MutableList<LocationReport>>()
+//
+//                data["request"] = "update"
+//                data["locationReport"] = lLocationReport
+//
+//                return data
+//            }
+//        }
+//        val requestQueue = Volley.newRequestQueue(requireContext())
+//        requestQueue.add(stringRequest)
+//
+//    }
 
 
 }
