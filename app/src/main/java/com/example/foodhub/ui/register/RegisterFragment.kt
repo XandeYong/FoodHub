@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -97,12 +98,12 @@ class RegisterFragment : Fragment() {
             Request.Method.GET, getAccountUrl, null,
             { response ->
                 Log.i("YES1234" , response.toString())
-//
-//                val jsonArray = response.getJSONObject("data")
-//                val id = jsonArray.getString("account_id")
-//                var newID = generateNewAccountID(id)
-//
-//                register_generate(newID)
+
+                val jsonArray = response.getJSONObject("data")
+                val id = jsonArray.getString("account_id")
+                var newID = generateNewAccountID(id)
+
+                register_generate(newID)
 
 
             }, { error ->
@@ -165,11 +166,7 @@ class RegisterFragment : Fragment() {
                 }
             },
             Response.ErrorListener { error ->
-                Toast.makeText(
-                    requireContext(),
-                    error.toString().trim { it <= ' ' },
-                    Toast.LENGTH_SHORT
-                ).show()
+                Log.d("ErrorInExceptiom" ,error.toString())
             }) {
             @Throws(AuthFailureError::class)
             override fun getParams(): Map<String, String>? {

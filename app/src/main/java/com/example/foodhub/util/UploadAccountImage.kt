@@ -50,12 +50,12 @@ class UploadAccountImage(activity: Activity) {
 
                 if (response.isSuccessful) {
                     Log.d("File upload","Success, path: $serverUploadDirectoryPath$fileName")
-                    showToast("Successfully uploaded to $serverUploadDirectoryPath$fileName")
+                    //showToast("Successfully uploaded to $serverUploadDirectoryPath$fileName")
                     returnPath = "$serverUploadDirectoryPath$fileName"
 
                 } else {
                     Log.i("File upload", response.toString())
-                    showToast("File uploading failed")
+                    //showToast("File uploading failed")
                 }
 
             toggleProgressDialog(false)

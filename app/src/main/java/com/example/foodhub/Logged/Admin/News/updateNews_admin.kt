@@ -32,6 +32,9 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.File
 import java.net.URLConnection
+import java.util.*
+import kotlin.collections.HashMap
+import kotlin.concurrent.schedule
 
 class updateNews_admin : Fragment() {
 
@@ -258,6 +261,11 @@ class updateNews_admin : Fragment() {
         alertDialogBuilder.setPositiveButton("Yes", DialogInterface.OnClickListener(function = positiveButtonClick))
         alertDialogBuilder.setNegativeButton("No", DialogInterface.OnClickListener(function = negativeButtonClick))
         alertDialogBuilder.show()
+
+    }
+
+    fun doSomething(){
+        findNavController().navigate(updateNews_adminDirections.actionUpdateNewsAdminToNewsListAdminFragment())
 
     }
 }
