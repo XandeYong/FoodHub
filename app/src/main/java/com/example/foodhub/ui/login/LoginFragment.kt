@@ -103,8 +103,6 @@ class LoginFragment : Fragment() {
     }
 
 
-
-
     fun LoginCheck(): Boolean {
         var status = false;
 
@@ -170,7 +168,6 @@ class LoginFragment : Fragment() {
         }
         val requestQueue = Volley.newRequestQueue(requireContext())
         requestQueue.add(stringRequest)
-        Log.i("BeforeLast", status.toString())
         return status
     }
 
