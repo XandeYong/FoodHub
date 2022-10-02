@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -44,9 +45,13 @@ class RequestFormFragment : Fragment() {
         binding = FragmentRequestFormBinding.inflate(inflater)
         viewModel = ViewModelProvider(this).get(RequestFormViewModel::class.java)
 
+        val sharedPref = requireActivity().getSharedPreferences("login_S", AppCompatActivity.MODE_PRIVATE)
+        val accountID =sharedPref.getString("accountID" , null)
+        var doneeID = accountID.toString()
+
         lifecycleScope.launch {
             viewModel.getLatestReqForm(requireContext())
-            viewModel.generateNewReqFormID()
+            viewModel.generateNewReqFormID(doneeID)
 
             binding.fieldRequestFormIdRF.text = viewModel.newReqForm.requestFormID
             binding.fieldStatusRF.text = viewModel.newReqForm.status
@@ -96,7 +101,7 @@ class RequestFormFragment : Fragment() {
         viewModel.setValueFromEditTextView(binding.editQuantityRF.text.toString())
         var status: Boolean = true
         if(viewModel.validateQuantity() != true){
-            binding.editQuantityRF.setError("Field must be in digit and cannot be left empty!")
+            binding.editQuantityRF.setError("Field must be in digit, more than 0 and cannot be left empty!")
             binding.editQuantityRF.requestFocus()
             status = false
         }else{

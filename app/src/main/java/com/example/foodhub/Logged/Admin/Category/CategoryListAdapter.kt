@@ -58,7 +58,6 @@ class CategoryListAdapter(val c:Context, val categoryList:MutableList<String>): 
             smallMenu.setOnClickListener(){
                 popupMenu(it)
             }
-
         }
 
         private fun popupMenu(v: View) {

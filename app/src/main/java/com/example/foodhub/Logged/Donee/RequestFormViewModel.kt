@@ -29,7 +29,7 @@ class RequestFormViewModel : ViewModel() {
         latestReqForm = db.requestFormDao.getLatest()
     }
 
-    fun generateNewReqFormID(){
+    fun generateNewReqFormID(doneeID: String){
         var newID: String = "RF1"
         if(latestReqForm != null) {
             val value: Int=  latestReqForm.requestFormID.substring(2).toInt() + 1
@@ -37,7 +37,7 @@ class RequestFormViewModel : ViewModel() {
         }
         newReqForm.requestFormID = newID
         newReqForm.status = "Pending"
-        newReqForm.accountID = latestReqForm.accountID
+        newReqForm.accountID = doneeID
     }
 
     fun getCategoryList(context: Context){
@@ -52,10 +52,20 @@ class RequestFormViewModel : ViewModel() {
 
     fun validateQuantity(): Boolean {
         var status = quantity.isNotEmpty()
-        if(status == true){
-            status = quantity.isDigitsOnly()
+
+        if (status == true) {
+            if (quantity.isDigitsOnly()) {
+                if (quantity.toInt() <= 0) {
+                    status = false
+                } else {
+                    status = true
+                }
+            } else {
+                status = false
+            }
         }
-        if (status == true){
+
+        if (status == true) {
             newReqForm.quantity = quantity.toInt()
         }
         return status

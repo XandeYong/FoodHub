@@ -83,6 +83,9 @@ abstract class NewsDao: BaseDao<News> {
 
     @Query("SELECT * FROM news_table WHERE title LIKE :searchTitle ORDER BY createdAt DESC")
     abstract fun searchNews(searchTitle: String): LiveData<List<News>>
+
+    @Query("SELECT COUNT(*) as count_news FROM news_table")
+    abstract suspend fun getNewsFormRow(): Int
 }
 
 
@@ -168,6 +171,9 @@ abstract class DonationFormDao: BaseDao<DonationForm> {
     @Query("SELECT * FROM donation_form_table WHERE accountID = :accountID AND donationFormID LIKE :dfID AND status != :status ORDER BY createdAt DESC")
     abstract fun searchDFAvailable(accountID: String, dfID: String, status: String = "Deleted"): LiveData<List<DonationForm>>
 
+    @Query("SELECT COUNT(*) as count_df FROM donation_form_table")
+    abstract suspend fun getDonationFormRow(): Int
+
 }
 
 
@@ -208,6 +214,9 @@ abstract class RequestFormDao: BaseDao<RequestForm> {
 
     @Insert
     abstract fun insertReqForm(reqForm: RequestForm): Long
+
+    @Query("SELECT COUNT(*) as count_rf FROM request_form_table")
+    abstract suspend fun getRequestFormRow(): Int
 
 }
 
@@ -251,7 +260,7 @@ abstract class LocationReportDao: BaseDao<LocationReport> {
     abstract suspend fun get(id: String): LocationReport
 
     @Query("SELECT * FROM location_report_table ORDER BY createdAt DESC")
-    abstract fun getAll():LiveData<List<LocationReport>>
+    abstract suspend fun getAll():List<LocationReport>
 
     @Query("SELECT * FROM location_report_table ORDER BY createdAt DESC LIMIT 1")
     abstract suspend fun getLatest(): LocationReport
