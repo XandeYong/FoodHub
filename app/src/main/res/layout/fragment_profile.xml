@@ -54,14 +54,14 @@
             android:text="ID:"
             android:paddingRight="2dp"
             android:textAlignment="textStart"
-            android:textSize="9sp" />
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/idText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAlignment="textStart"
-            android:textSize="9sp"/>
+            android:textSize="12sp"/>
 
     </LinearLayout>
 
@@ -84,7 +84,7 @@
         android:id="@+id/profileDetailLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="46dp"
+        android:layout_marginTop="70dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.59"

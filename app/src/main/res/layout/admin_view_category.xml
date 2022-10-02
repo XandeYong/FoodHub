@@ -19,6 +19,7 @@
         android:background="@drawable/border">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -37,14 +38,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/deleteButton"
-                android:layout_width="60dp"
+            <ImageView
+                android:id="@+id/smallMenu"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@android:color/holo_red_light"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/ic_baseline_more"
                 app:iconGravity="textStart"
                 app:iconPadding="0dp"
-                app:icon="@drawable/ic_baseline_delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

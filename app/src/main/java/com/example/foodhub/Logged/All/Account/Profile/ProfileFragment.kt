@@ -1,10 +1,7 @@
 package com.example.foodhub.Logged.All.Account.Profile
 
-import android.content.Context
-import android.graphics.Bitmap
+
 import android.os.Bundle
-import android.text.format.DateFormat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.example.foodhub.database.Account
 import com.example.foodhub.database.FoodHubDatabase
 import com.example.foodhub.databinding.FragmentProfileBinding
 import com.example.foodhub.util.Util
@@ -58,7 +54,7 @@ class ProfileFragment : Fragment() {
 
             //Get Age from DOB
             val ageFormat = SimpleDateFormat("yyyy")
-            binding.textAge.text = (Calendar.getInstance().get(Calendar.YEAR).toInt() - ageFormat.format(account.dob).toInt()).toString()
+            binding.textAge.text = (Calendar.getInstance().get(Calendar.YEAR) - ageFormat.format(account.dob).toInt()).toString()
 
             //Setup Gender
             if(account.gender == "M"){
@@ -69,7 +65,6 @@ class ProfileFragment : Fragment() {
         }
 
         binding.editProfileButton.setOnClickListener {
-            binding.profileImage.setImageDrawable(null)
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
         }
         return binding.root
@@ -81,13 +76,3 @@ class ProfileFragment : Fragment() {
     }
 
 }
-
-//            //Add Account
-//            val dateFormat = SimpleDateFormat("dd-MM-yyyy")
-//            val date = "22-4-2000"
-//
-//            db.accountDao.insert(
-//            Account("A1", "Adrian Fong", util.getBitmap("http://10.0.2.2/foodhub_server/image/account/A1.jpg", requireContext()), "PV15 Platinum Victory",
-//            null, dateFormat.parse(date), "M", "adrain2000@live.com", "12345", "Admin",
-//            util.generateDate(),util.generateDate())
-//            )

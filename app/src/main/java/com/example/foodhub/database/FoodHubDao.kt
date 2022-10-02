@@ -117,6 +117,9 @@ abstract class CategoryDao: BaseDao<Category> {
         category.updatedAt = generateDate()
     }
 
+    @Update
+    abstract fun updateAt(category: Category)
+
     @Transaction
     open suspend fun syncWithServer(category: MutableList<Category>) {
         clear()
@@ -135,9 +138,18 @@ abstract class CategoryDao: BaseDao<Category> {
     @Query("DELETE FROM category_table")
     abstract suspend fun clear()
 
-//add
+//Add
+    @Delete
+    abstract fun deleteAt(category: Category)
+
     @Query("SELECT name FROM category_table ORDER BY createdAt DESC")
     abstract suspend fun getAllCategoryList(): List<String>
+
+    @Query("SELECT * FROM category_table ORDER BY createdAt DESC")
+    abstract fun getAllCategory():List<Category>
+
+    @Query("SELECT name FROM category_table WHERE name LIKE :name ORDER BY createdAt DESC")
+    abstract suspend fun searchCategory(name: String): List<String>
 
 }
 
