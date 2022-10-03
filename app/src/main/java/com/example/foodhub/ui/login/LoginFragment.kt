@@ -150,21 +150,21 @@ class LoginFragment : Fragment() {
                             lifecycleScope.launch {
                                 val account = Account(dbId, dbName, util.getBitmap(dbImage, requireContext()), dbAddress, dbState, date, dbGender, dbEmail, dbPassword, dbAccountType, util.generateDate(), util.generateDate())
                                 db.accountDao.insert(account)
+
+                                val preferences =
+                                    activity?.getSharedPreferences("login_S", Context.MODE_PRIVATE)
+                                val editor = preferences?.edit()
+
+                                editor?.putString("accountID", dbId)
+                                editor?.putString("name", dbName)
+                                editor?.putString("password", dbPassword)
+                                editor?.putString("accountType", dbAccountType)
+                                editor?.apply()
+                                editor?.commit()
+
+                                Toast.makeText(context, "Welcome back!", Toast.LENGTH_LONG).show()
+                                findNavController().navigate(MainFragmentDirections.actionMainFragmentSelf())
                             }
-
-                            val preferences =
-                                activity?.getSharedPreferences("login_S", Context.MODE_PRIVATE)
-                            val editor = preferences?.edit()
-
-                            editor?.putString("accountID", dbId)
-                            editor?.putString("name", dbName)
-                            editor?.putString("password", dbPassword)
-                            editor?.putString("accountType", dbAccountType)
-                            editor?.apply()
-                            editor?.commit()
-
-                            Toast.makeText(context, "Welcome back!", Toast.LENGTH_LONG).show()
-                            findNavController().navigate(MainFragmentDirections.actionMainFragmentSelf())
                         } else {
                             binding.txtPasswordLogin.error = "Password Not Correct"
                             Toast.makeText(requireContext(), "Invalid Password.", Toast.LENGTH_LONG).show()
