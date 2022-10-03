@@ -135,9 +135,9 @@ class ViewCategoryFragment : Fragment() {
                         categoryList = searchedInfo
                         adapter = CategoryListAdapter(requireContext(), categoryList)
                         recycleView.adapter = adapter
-                        Toast.makeText(requireContext(), "Donation List Found!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Category Found!", Toast.LENGTH_SHORT).show()
                     }else{
-                        Toast.makeText(requireContext(), "Donation List Not Found!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Category Not Found!", Toast.LENGTH_SHORT).show()
                     }
 
                 }
