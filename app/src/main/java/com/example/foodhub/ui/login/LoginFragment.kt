@@ -123,6 +123,7 @@ class LoginFragment : Fragment() {
         val stringRequest: StringRequest = object : StringRequest(
             Request.Method.POST, URL,
             Response.Listener { response ->
+                Log.i("Passw" , response)
                 val myobject: JSONObject
                 val jsonResponse = JSONObject(response)
 
@@ -139,17 +140,18 @@ class LoginFragment : Fragment() {
                     dbEmail = myobject.get("email").toString()
                     dbPassword = myobject.get("password").toString()
                     dbAccountType = myobject.get("account_type").toString()
-
-                    var date = SimpleDateFormat("yyyy-mm-dd").parse(dbDob)
-                    Log.i("dateParse", "date: " + date.toString())
-
-                    val db = FoodHubDatabase.getInstance(requireContext())
-                    lifecycleScope.launch {
-                        val account = Account(dbId, dbName, util.getBitmap(dbImage, requireContext()), dbAddress, dbState, date, dbGender, dbEmail, dbPassword, dbAccountType, util.generateDate(), util.generateDate())
-                        db.accountDao.insert(account)
-
-
+                    if(email == dbEmail)
+                    {
                         if (password == dbPassword) {
+                            var date = SimpleDateFormat("yyyy-mm-dd").parse(dbDob)
+                            Log.i("dateParse", "date: " + date.toString())
+
+                            val db = FoodHubDatabase.getInstance(requireContext())
+                            lifecycleScope.launch {
+                                val account = Account(dbId, dbName, util.getBitmap(dbImage, requireContext()), dbAddress, dbState, date, dbGender, dbEmail, dbPassword, dbAccountType, util.generateDate(), util.generateDate())
+                                db.accountDao.insert(account)
+                            }
+
                             val preferences =
                                 activity?.getSharedPreferences("login_S", Context.MODE_PRIVATE)
                             val editor = preferences?.edit()
@@ -167,8 +169,9 @@ class LoginFragment : Fragment() {
                             binding.txtPasswordLogin.error = "Password Not Correct"
                             Toast.makeText(requireContext(), "Invalid Password.", Toast.LENGTH_LONG).show()
                         }
-                    }
-                }else {
+
+
+                    } }else {
                     Toast.makeText(requireContext(), "No Email Found", Toast.LENGTH_LONG).show()
                 }
             },
@@ -182,7 +185,6 @@ class LoginFragment : Fragment() {
                 data["Content-Type"] = "application/x-www-form-urlencoded"
                 data["request"] = "login"
                 data["email"] = email
-                data["password"] = password
                 return data
             }
         }
